@@ -1,14 +1,22 @@
+#begin by importing everything
 from dronekit import *
 from pymavlink import mavutil #for command message definitions 
 import time
 import math 
+import dronekit_sitl
 
-#connect to the vehicle
-vehicle = connect('/dev/serial0', wait_ready= True,baud=57600)
+#connect to simulation
+sitl = dronekit_sitl.start_default()
+connection_string = sitl.connection_string()
 
+#arm the copter
+def arm_and_takeoff_noGPS(aTargetAltitude):
+	#arms vehicle and flies to aTargetAltitude
 
-def set_attitude_initial(roll_angle = 0.0, pitch_angle = 0.0, yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False, thrust = 0.5, duration = 0):
-	
+	###CONSTANTS###
+	DEFAULT_TAKEOFF_THRUST= 0.6
+	SMOOTH_TAKEOFF_THRUST = 0.5
+
 	print("basic pre-arm checks")
 	#prevents user from arming until the autopilot is ready
 	while not vehicle.is_armable:
@@ -25,13 +33,22 @@ def set_attitude_initial(roll_angle = 0.0, pitch_angle = 0.0, yaw_angle = None, 
 		vehicle.arm = True
 		time.sleep(1)
 
-	send_attitude_target(roll_angle, pitch_angle, yaw_angle, yaw_rate, False, thrust)
-	start = time.time()
-	while time.time() - start < duration:
-		send_attitude_target(roll_angle, pitch_angle, yaw_angle, yaw_rate, False, thrust)	
-	time.sleep(0.1)
+	print("Taking off!")
 
-	send_attitude_target(0, 0, 0, 0, True, thrust)
+	thrust = DEFAULT_TAKEOFF_THRUST
+	start_height = vehicle.location.global_relative_frame.alt
+	print("start value: %f" % (start_height)) 
+	while True:
+		current_altitude = vehicle.location.global_relative_frame.alt - start_height
+		print("altitude: %f Desired: %f" %
+			(current_altitude, aTargetAltitude))
+		if current_altitude >= aTargetAltitude*0.95:
+			print("reached target altitude")
+			break
+		elif current_altitude >= aTargetAltitude*0.6:
+			thrust=SMOOTH_TAKEOFF_THRUST
+		set_attitude(thrust = thrust)
+		time.sleep(0.2)
 
 def send_attitude_target(roll_angle = 0.0, pitch_angle = 0.0, yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False, thrust = 0.5):
 	if yaw_angle is None:
@@ -74,12 +91,14 @@ def to_quaternion(roll = 0.0, pitch = 0.0, yaw = 0.0):
 
 	return [w, x, y, z]
 
-#############################
 
-set_attitude_initial(thrust = 0.5, duration = 3)
+arm_and_takeoff_noGPS(0.015)
+
+print("Hold position for 3 seconds")
+set_attitude(duration=3)
 
 print("move forward")
-set_attitude(pitch_angle = -5, thrust = 0.5, duration = 10)
+set_attitude(pitch_angle = -5, thrust = 0.5, duration = 30)
 
 print("setting LAND mode")
 vehicle.mode = VehicleMode("LAND")
@@ -88,6 +107,10 @@ time.sleep(1)
 print("Close vehicle object")
 vehicle.close()
 
+sitl.stop()
+
 print("Completed")
+
+
 
 

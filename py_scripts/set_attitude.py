@@ -4,7 +4,6 @@ from pymavlink import mavutil #for command message definitions
 import time
 import math 
 
-
 #connect to vehicle
 vehicle = connect('/dev/serial0', wait_ready= True,baud=57600)
 
@@ -35,8 +34,10 @@ def arm_and_takeoff_noGPS(aTargetAltitude):
 	print("Taking off!")
 
 	thrust = DEFAULT_TAKEOFF_THRUST
+	start_height = vehicle.location.global_relative_frame.alt
+	print("start value: %f" % (start_height)) 
 	while True:
-		current_altitude = vehicle.location.global_relative_frame.alt
+		current_altitude = vehicle.location.global_relative_frame.alt - start_height
 		print("altitude: %f Desired: %f" %
 			(current_altitude, aTargetAltitude))
 		if current_altitude >= aTargetAltitude*0.95:
@@ -94,8 +95,8 @@ arm_and_takeoff_noGPS(0.015)
 print("Hold position for 3 seconds")
 set_attitude(duration=3)
 
-print("move right")
-set_attitude(roll_angle = 5, thrust = 0.5, duration = 30)
+print("move forward")
+set_attitude(pitch_angle = -5, thrust = 0.5, duration = 30)
 
 print("setting LAND mode")
 vehicle.mode = VehicleMode("LAND")

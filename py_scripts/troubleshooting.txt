@@ -1,0 +1,78 @@
+AGRESSIVE 
+Taking off!
+altitude: -0.013000 Desired: 0.015000
+altitude: -0.016000 Desired: 0.015000
+altitude: -0.022000 Desired: 0.015000
+altitude: -0.033000 Desired: 0.015000
+altitude: -0.041000 Desired: 0.015000
+altitude: -0.046000 Desired: 0.015000
+altitude: -0.053000 Desired: 0.015000
+altitude: -0.065000 Desired: 0.015000
+altitude: -0.083000 Desired: 0.015000
+altitude: -0.095000 Desired: 0.015000
+altitude: -0.102000 Desired: 0.015000
+altitude: -0.106000 Desired: 0.015000
+altitude: -0.108000 Desired: 0.015000
+altitude: -0.112000 Desired: 0.015000
+altitude: -0.117000 Desired: 0.015000
+altitude: -0.117000 Desired: 0.015000
+altitude: -0.116000 Desired: 0.015000
+altitude: -0.111000 Desired: 0.015000
+altitude: -0.113000 Desired: 0.015000
+altitude: -0.118000 Desired: 0.015000
+altitude: -0.116000 Desired: 0.015000
+altitude: -0.123000 Desired: 0.015000
+altitude: -0.128000 Desired: 0.015000
+altitude: -0.134000 Desired: 0.015000
+altitude: -0.158000 Desired: 0.015000
+altitude: -0.161000 Desired: 0.015000
+altitude: -0.165000 Desired: 0.015000
+altitude: -0.167000 Desired: 0.015000
+altitude: -0.184000 Desired: 0.015000
+altitude: -0.201000 Desired: 0.015000
+altitude: -0.218000 Desired: 0.015000
+^C
+
+Taking off!
+altitude: -0.025000 Desired: 0.015000
+altitude: -0.033000 Desired: 0.015000
+altitude: -0.039000 Desired: 0.015000
+altitude: -0.040000 Desired: 0.015000
+altitude: -0.043000 Desired: 0.015000
+altitude: -0.046000 Desired: 0.015000
+altitude: -0.047000 Desired: 0.015000
+altitude: -0.043000 Desired: 0.015000
+altitude: -0.036000 Desired: 0.015000
+altitude: -0.008000 Desired: 0.015000
+altitude: -0.002000 Desired: 0.015000
+altitude: 0.002000 Desired: 0.015000
+altitude: 0.004000 Desired: 0.015000
+altitude: 0.008000 Desired: 0.015000
+altitude: 0.013000 Desired: 0.015000
+altitude: 0.008000 Desired: 0.015000
+altitude: 0.007000 Desired: 0.015000
+^C
+
+
+NOT AGRESSIVE
+Taking off!
+altitude: 0.000000 Desired: 0.015000
+altitude: 0.000000 Desired: 0.015000
+altitude: 0.002000 Desired: 0.015000
+altitude: 0.006000 Desired: 0.015000
+altitude: 0.011000 Desired: 0.015000
+altitude: 0.016000 Desired: 0.015000
+reached target altitude
+
+Taking off!
+altitude: 0.011000 Desired: 0.015000
+altitude: 0.010000 Desired: 0.015000
+altitude: 0.008000 Desired: 0.015000
+altitude: 0.007000 Desired: 0.015000
+altitude: 0.007000 Desired: 0.015000
+altitude: 0.014000 Desired: 0.015000
+altitude: 0.023000 Desired: 0.015000
+reached target altitude
+
+
+
