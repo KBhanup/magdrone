@@ -33,7 +33,7 @@ if not connection_string:
 
 # Connect to the Vehicle
 print('Connecting to vehicle on')
-vehicle = connect('/dev/serial0', wait_ready= True,baud=57600)
+vehicle = connect('/dev/serial0', wait_ready= True, baud=57600)
 
 def arm_and_takeoff_nogps(aTargetAltitude):
     """
@@ -63,6 +63,8 @@ def arm_and_takeoff_nogps(aTargetAltitude):
         vehicle.armed = True
         time.sleep(1)
 
+    print("Armed!")
+'''
     print("Taking off!")
 
     thrust = DEFAULT_TAKEOFF_THRUST
@@ -77,7 +79,7 @@ def arm_and_takeoff_nogps(aTargetAltitude):
             thrust = SMOOTH_TAKEOFF_THRUST
         set_attitude(thrust = thrust)
         time.sleep(0.2)
-
+'''
 def send_attitude_target(roll_angle = 0.0, pitch_angle = 0.0,
                          yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False,
                          thrust = 0.5):
@@ -165,11 +167,10 @@ set_attitude(duration = 3)
 # Move the drone forward and backward.
 # Note that it will be in front of original position due to inertia.
 print("Move right")
-set_attitude(roll_angle = -0.5, thrust = 0.53, duration = 3)
+set_attitude(roll_angle = 0.5, thrust = 0.5, duration = 3)
 
 print("Move left")
-set_attitude(roll_angle = 0.5, thrust = 0.53, duration = 3)
-
+set_attitude(roll_angle = -0.5, thrust = 0.5, duration = 3)
 
 print("Setting LAND mode...")
 vehicle.mode = VehicleMode("LAND")
