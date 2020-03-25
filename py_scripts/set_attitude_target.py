@@ -41,8 +41,8 @@ def arm_and_takeoff_nogps(aTargetAltitude):
     """
 
     ##### CONSTANTS #####
-    DEFAULT_TAKEOFF_THRUST = 0.6
-    SMOOTH_TAKEOFF_THRUST = 0.5
+    DEFAULT_TAKEOFF_THRUST = 0.65
+    SMOOTH_TAKEOFF_THRUST = 0.6
 
     print("Basic pre-arm checks")
     # Don't let the user try to arm until autopilot is ready
@@ -149,7 +149,7 @@ def to_quaternion(roll = 0.0, pitch = 0.0, yaw = 0.0):
 
     return [w, x, y, z]
 
-# Take off 2.5m in GUIDED_NOGPS mode.
+# Take off 0.015m in GUIDED_NOGPS mode.
 arm_and_takeoff_nogps(0.015)
 
 # Hold the position for 3 seconds.
@@ -165,10 +165,10 @@ set_attitude(duration = 3)
 # Move the drone forward and backward.
 # Note that it will be in front of original position due to inertia.
 print("Move right")
-set_attitude(roll_angle = -5, thrust = 0.5, duration = 10)
+set_attitude(roll_angle = -0.5, thrust = 0.53, duration = 3)
 
 print("Move left")
-set_attitude(roll_angle = 5, thrust = 0.5, duration = 10)
+set_attitude(roll_angle = 0.5, thrust = 0.53, duration = 3)
 
 
 print("Setting LAND mode...")

@@ -27,22 +27,24 @@ while not vehicle.armed:
     time.sleep(1)
 vehicle.simple_takeoff(takeoff_alt) # Take off to target altitude
 while True:
-    print('Altitude: %d' %  self.vehicle.location.global_relative_frame.alt)
+    print('Altitude: %d' %  vehicle.location.global_relative_frame.alt) 
     if vehicle.location.global_relative_frame.alt >= takeoff_alt * 0.95:
         print('REACHED TARGET ALTITUDE')
         break
     time.sleep(1)
 
 # This is the command to move the copter 5 m/s forward for 10 sec.
-velocity_x = 0
-velocity_y = 5
+print("move right")
+velocity_x = -5
+velocity_y = 0
 velocity_z = 0
 duration = 10
 send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration)
 
-# backwards at 5 m/s for 10 sec.
-velocity_x = 0
-velocity_y = -5
+# left at 5 m/s for 10 sec.
+print("move left")
+velocity_x = 5
+velocity_y = 0
 velocity_z = 0
 duration = 10
 send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration)
