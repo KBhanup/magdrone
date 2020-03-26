@@ -167,10 +167,10 @@ set_attitude(duration = 3)
 # Move the drone forward and backward.
 # Note that it will be in front of original position due to inertia.
 print("Move right")
-set_attitude(roll_angle = 0.5, thrust = 0.5, duration = 3)
+set_attitude(roll_angle = -0.5, thrust = 0.53, duration = 2)
 
 print("Move left")
-set_attitude(roll_angle = -0.5, thrust = 0.5, duration = 3)
+set_attitude(roll_angle = 0.5, thrust = 0.53, duration = 2)
 
 print("Setting LAND mode...")
 vehicle.mode = VehicleMode("LAND")
