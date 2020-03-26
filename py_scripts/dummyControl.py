@@ -129,21 +129,21 @@ arm_and_takeoff_nogps()
 
 while True:
     print("Give f for forward, b for back, r for right, l for left and q to land")
-    cmd = input()
+    cmd = raw_input()
 
-    if input == 'f':
+    if cmd == 'f':
         print("Going forward")
         set_attitude(pitch_angle = 10, duration = 3)
-    elif input == 'b':
+    elif cmd == 'b':
         print("Going backward")
         set_attitude(pitch_angle = 10, duration = 3)
-    elif input == 'r':
+    elif cmd == 'r':
         print("Going right")
         set_attitude(pitch_angle = 10, duration = 3)
-    elif input == 'l':
+    elif cmd == 'l':
         print("Going left")
         set_attitude(pitch_angle = 10, duration = 3)
-    elif input == 'q':
+    elif cmd == 'q':
         print("Setting LAND mode...")
         vehicle.mode = VehicleMode("LAND")
         time.sleep(1)
