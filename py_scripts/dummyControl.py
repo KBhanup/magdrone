@@ -133,16 +133,16 @@ while True:
 
     if cmd == 'f':
         print("Going forward")
-        set_attitude(pitch_angle = 10, duration = 3)
+        set_attitude(pitch_angle = 10, thrust = 0.53, duration = 3)
     elif cmd == 'b':
         print("Going backward")
-        set_attitude(pitch_angle = 10, duration = 3)
+        set_attitude(pitch_angle = -10, thrust = 0.53, duration = 3)
     elif cmd == 'r':
         print("Going right")
-        set_attitude(pitch_angle = 10, duration = 3)
+        set_attitude(roll_angle = -10, thrust = 0.53, duration = 3)
     elif cmd == 'l':
         print("Going left")
-        set_attitude(pitch_angle = 10, duration = 3)
+        set_attitude(roll_angle = 10, thrust = 0.53, duration = 3)
     elif cmd == 'q':
         print("Setting LAND mode...")
         vehicle.mode = VehicleMode("LAND")
