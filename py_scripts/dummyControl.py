@@ -13,8 +13,8 @@ def arm_and_takeoff_nogps(aTargetAltitude = -1.0):
     """
 
     ##### CONSTANTS #####
-    DEFAULT_TAKEOFF_THRUST = 0.65
-    SMOOTH_TAKEOFF_THRUST = 0.6
+    DEFAULT_TAKEOFF_THRUST = 0.55
+    SMOOTH_TAKEOFF_THRUST = 0.52
 
     print("Basic pre-arm checks")
     # Don't let the user try to arm until autopilot is ready
@@ -131,25 +131,28 @@ while True:
     print("Give f for forward, b for back, r for right, l for left and q to land")
     cmd = raw_input()
 
+
     if cmd == 'f':
         print("Going forward")
-        set_attitude(pitch_angle = 10, thrust = 0.53, duration = 3)
+        set_attitude(pitch_angle = 5, thrust = 0.53, duration = 5)
     elif cmd == 'b':
         print("Going backward")
-        set_attitude(pitch_angle = -10, thrust = 0.53, duration = 3)
+        set_attitude(pitch_angle = -5, thrust = 0.53, duration = 5)
     elif cmd == 'r':
         print("Going right")
-        set_attitude(roll_angle = -10, thrust = 0.53, duration = 3)
+        set_attitude(roll_angle = 5, thrust = 0.53, duration = 5)
     elif cmd == 'l':
         print("Going left")
-        set_attitude(roll_angle = 10, thrust = 0.53, duration = 3)
+        set_attitude(roll_angle = -5, thrust = 0.53, duration = 5)
+	print("Slowing down")
+	set_attitude(thrust = 0.5, duration = 5)
     elif cmd == 'q':
         print("Setting LAND mode...")
         vehicle.mode = VehicleMode("LAND")
         time.sleep(1)
         break
     else:
-        set_attitude(duration = 1)
+        set_attitude(thrust = 0.5, duration = 1)
 
 # Close vehicle object before exiting script
 print("Close vehicle object")
