@@ -1,14 +1,27 @@
 from dronekit import connect, VehicleMode, LocationGlobal, LocationGlobalRelative
 from pymavlink import mavutil # Needed for command message definitions
 from sensor_msgs.msg import Joy # Needed to receive messages from Joy node
+import rospy as rp
 import time
 import math
 
 
-# Receives joystick messages 
-def callback(data):
-	land.var = data.buttons[9]
-	disarm.var = data.buttons[8]
+# Listener for joystick messages 
+class joyListenerNode():
+
+    def __init__(self):
+        rp.init_node("my_joy_listener")
+	self.land = 0
+	self.disarm = 0
+
+        # Set up Subscriber
+        self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
+
+        rp.spin()
+
+    def joy_callback(self, data):
+	self.land = data.buttons[9]
+	self.disarm = data.buttons[8]
 
 
 # Connect to the Vehicle
@@ -132,18 +145,17 @@ def to_quaternion(roll = 0.0, pitch = 0.0, yaw = 0.0):
     return [w, x, y, z]
 
 # Arm motors and take off in GUIDED_NOGPS mode.
+
 arm_and_takeoff_nogps()
 
-callback(joy_node)
 
 while True:
     print("Use Logitech controller to send commands")
-
-
-    if disarm.var == 1:
+    joyListenerNode()
+    if self.disarm == 1:
         print("Disarming for 5 seconds")
         set_attitude(pitch_angle = 5, thrust = 0, duration = 5)
-    elif land.var == 1:
+    elif self.land == 1:
         print("Setting LAND mode...")
         vehicle.mode = VehicleMode("LAND")
         time.sleep(1)
