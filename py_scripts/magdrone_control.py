@@ -46,9 +46,9 @@ class magdroneControlNode():
 
         # Variables
         self.cmds = None
-        self.land = None
-        self.dsrm = None
-	self.arm = None
+        self.land = 0
+        self.dsrm = 0
+        self.arm = 0
         # etc...
 
         # Create thread for publisher
@@ -166,7 +166,10 @@ class magdroneControlNode():
         # Add anything else you need here
         self.dsrm = data.buttons[0]
         self.land = data.buttons[1]
-	self.arm = data.buttons[9]
+        self.arm = data.buttons[9]
+
+        print("arm:")
+        print(self.arm)
 
     def send_commands(self):
         r = rp.Rate(self.rate)
@@ -174,15 +177,15 @@ class magdroneControlNode():
             if self.cmds is not None:
                 # Send the commands to dronekit here
                 self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
-            elif self.dsrm == 1:
+            elif self.dsrm > 0:
                 self.set_attitude(thrust = 0, duration = 5)
-            elif self.land == 1:
+            elif self.land > 0:
                 print("Setting LAND mode...")
                 self.vehicle.mode = VehicleMode("LAND")
                 time.sleep(1)
-	    elif self.arm == 1:
-		print("Arming...")
-		arm_and_takeoff_nogps(self, aTargetAltitude = -1.0)
+            elif self.arm > 0:
+                print("Arming...")
+                arm_and_takeoff_nogps(self, aTargetAltitude = -1.0)
             else:
                 self.set_attitude(thrust = 0.5, duration = 1)
             r.sleep()
