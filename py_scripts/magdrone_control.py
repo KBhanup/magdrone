@@ -177,6 +177,7 @@ class magdroneControlNode():
         while not rp.is_shutdown():
             if self.cmds is not None:
                 # Send the commands to dronekit here
+		print("Still in the loop...")
                 self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
 
                 if self.dsrm > 0:
