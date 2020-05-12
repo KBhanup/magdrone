@@ -2,6 +2,8 @@
 
 import rospy as rp
 import threading
+import math
+import time
 
 from dronekit import connect, VehicleMode, LocationGlobal, LocationGlobalRelative
 
@@ -46,6 +48,7 @@ class magdroneControlNode():
         self.cmds = None
         self.land = None
         self.dsrm = None
+	self.arm = None
         # etc...
 
         # Create thread for publisher
@@ -97,7 +100,7 @@ class magdroneControlNode():
                     break
                 elif current_altitude >= aTargetAltitude*0.6:
                     thrust = SMOOTH_TAKEOFF_THRUST
-                set_attitude(thrust = thrust)
+                self.set_attitude(thrust = thrust)
                 time.sleep(0.2)
 
     def send_attitude_target(self, roll_angle = 0.0, pitch_angle = 0.0,
@@ -144,12 +147,12 @@ class magdroneControlNode():
                              thrust)
         start = time.time()
         while time.time() - start < duration:
-            send_attitude_target(roll_angle, pitch_angle,
+            self.send_attitude_target(roll_angle, pitch_angle,
                                  yaw_angle, yaw_rate, False,
                                  thrust)
             time.sleep(0.1)
         # Reset attitude, or it will persist for 1s more due to the timeout
-        sself.end_attitude_target(0, 0, 0, 0, True, thrust)
+        self.send_attitude_target(0, 0, 0, 0, True, thrust)
 
     def joy_callback(self, data):
         self.cmds = Twist()
@@ -163,21 +166,25 @@ class magdroneControlNode():
         # Add anything else you need here
         self.dsrm = data.buttons[0]
         self.land = data.buttons[1]
+	self.arm = data.buttons[9]
 
     def send_commands(self):
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
                 # Send the commands to dronekit here
-                set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
+                self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
             elif self.dsrm == 1:
-                set_attitude(thrust = 0, duration = 5)
+                self.set_attitude(thrust = 0, duration = 5)
             elif self.land == 1:
                 print("Setting LAND mode...")
-                vehicle.mode = VehicleMode("LAND")
+                self.vehicle.mode = VehicleMode("LAND")
                 time.sleep(1)
+	    elif self.arm == 1:
+		print("Arming...")
+		arm_and_takeoff_nogps(self, aTargetAltitude = -1.0)
             else:
-                set_attitude(thrust = 0.5, duration = 1)
+                self.set_attitude(thrust = 0.5, duration = 1)
             r.sleep()
 
 # Start Node
