@@ -52,7 +52,7 @@ class magdroneControlNode():
         # etc...
 
         # Create thread for publisher
-        self.rate = 10
+        self.rate = 5
         t = threading.Thread(target=self.send_commands)
         t.start()
 
@@ -172,6 +172,7 @@ class magdroneControlNode():
         print(self.arm)
 
     def send_commands(self):
+        print("In the loop...")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
@@ -185,7 +186,7 @@ class magdroneControlNode():
                 time.sleep(1)
             elif self.arm > 0:
                 print("Arming...")
-                arm_and_takeoff_nogps(self, aTargetAltitude = -1.0)
+                self.arm_and_takeoff_nogps(self, aTargetAltitude = -1.0)
             else:
                 self.set_attitude(thrust = 0.5, duration = 1)
             r.sleep()
