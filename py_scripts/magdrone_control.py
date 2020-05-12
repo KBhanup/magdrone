@@ -178,17 +178,16 @@ class magdroneControlNode():
             if self.cmds is not None:
                 # Send the commands to dronekit here
                 self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
-            elif self.dsrm > 0:
-                self.set_attitude(thrust = 0, duration = 5)
-            elif self.land > 0:
-                print("Setting LAND mode...")
-                self.vehicle.mode = VehicleMode("LAND")
-                time.sleep(1)
-            elif self.arm > 0:
-                print("Arming...")
-                self.arm_and_takeoff_nogps(self, aTargetAltitude = -1.0)
-            else:
-                self.set_attitude(thrust = 0.5, duration = 1)
+
+                if self.dsrm > 0:
+                    self.set_attitude(thrust = 0, duration = 5)
+                if self.land > 0:
+                    print("Setting LAND mode...")
+                    self.vehicle.mode = VehicleMode("LAND")
+                    time.sleep(1)
+                if self.arm > 0:
+                    print("Arming...")
+                    self.arm_and_takeoff_nogps(self, aTargetAltitude = -1.0)
             r.sleep()
 
 # Start Node
