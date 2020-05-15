@@ -157,37 +157,34 @@ class magdroneControlNode():
     def joy_callback(self, data):
         self.cmds = Twist()
 
-        # Make sure the order is correct here
+        # Joystick Controls
         self.cmds.linear.x  = data.axes[2]*5 #roll
         self.cmds.linear.y  = data.axes[3]*5 #pitch
         self.cmds.linear.z  = data.axes[1]+0.52 #thrust
         self.cmds.angular.z = data.axes[0]*5 #yaw
 
-        # Add anything else you need here
+        # Button Controls
         self.dsrm = data.buttons[0]
         self.land = data.buttons[1]
         self.arm = data.buttons[9]
 
-        print("arm:")
-        print(self.arm)
+        print("arm:", self.arm, "disarm:", self.dsrm)
 
     def send_commands(self):
-        print("In the loop...")
+        print("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
-                # Send the commands to dronekit here
+                 
                 self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
-
+		print("joy thrust", self.cmds.linear.z, "roll angle", self.cmds.linear.x, "pitch angle", self.cmds.linear.y)
                 if self.dsrm > 0:
-                    self.set_attitude(thrust = 0, duration = 5)
-                if self.land > 0:
-                    print("Setting LAND mode...")
-                    self.vehicle.mode = VehicleMode("LAND")
-                    time.sleep(1)
+		    print("Disarming")
+                    self.set_attitude(thrust = 0, duration = 15)
+		    print("Disarm complete")
                 if self.arm > 0:
                     print("Arming...")
-                    self.arm_and_takeoff_nogps(self, aTargetAltitude = -1.0)
+                    self.arm_and_takeoff_nogps()
             r.sleep()
 
 # Start Node
