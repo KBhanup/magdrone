@@ -177,7 +177,7 @@ class magdroneControlNode():
             if self.cmds is not None:
                  
                 self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
-		print("joy thrust", self.cmds.linear.z, "roll angle", self.cmds.linear.x, "pitch angle", self.cmds.linear.y)
+		print("thrust", self.cmds.linear.z, "roll angle", self.cmds.linear.x, "pitch angle", self.cmds.linear.y)
                 if self.dsrm > 0:
 		    print("Disarming")
                     self.set_attitude(thrust = 0, duration = 15)
