@@ -67,13 +67,13 @@ class magdroneControlNode():
         DEFAULT_TAKEOFF_THRUST = 0.55
         SMOOTH_TAKEOFF_THRUST = 0.52
 
-        print("Basic pre-arm checks")
+        #print("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
-        while not self.vehicle.is_armable:
-            print(" Waiting for vehicle to initialise...")
-            time.sleep(1)
+        #while not self.vehicle.is_armable:
+        #    print(" Waiting for vehicle to initialise...")
+        #    time.sleep(1)
 
         print("Arming motors")
         # Copter should arm in GUIDED_NOGPS mode
@@ -158,8 +158,8 @@ class magdroneControlNode():
         self.cmds = Twist()
 
         # Joystick Controls
-        self.cmds.linear.x  = data.axes[2]+5 #roll
-        self.cmds.linear.y  = data.axes[3]*5 #pitch
+        #self.cmds.linear.x  = data.axes[4] #roll
+        #self.cmds.linear.y  = data.axes[5] #pitch
         self.cmds.linear.z  = data.axes[1]+0.53 #thrust
         self.cmds.angular.z = data.axes[0]*5 #yaw
 
@@ -167,17 +167,30 @@ class magdroneControlNode():
         self.dsrm = data.buttons[0]
         self.land = data.buttons[1]
         self.arm = data.buttons[9]
+	self.roll = data.axes[4]
+	self.pitch = data.axes[5]
 
-        print("arm:", self.arm, "disarm:", self.dsrm)
+        print("arm:", self.arm, "disarm:", self.dsrm, "roll:", self.roll, "pitch:", self.pitch)
 
     def send_commands(self):
         print("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
-                 
-                self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
-		print("thrust", self.cmds.linear.z, "roll angle", self.cmds.linear.x, "pitch angle", self.cmds.linear.y)
+                self.set_attitude(thrust = self.cmds.linear.z)
+		#print("thrust", self.cmds.linear.z)
+                if self.roll < 0:
+		    print("going left")
+		    self.set_attitude(roll_angle = 5, thrust = self.cmds.linear.z, duration = 5)
+		    print("left complete")
+                if self.roll > 0:
+		    print("going right")
+		    self.set_attitude(roll_angle = -5, thrust = self.cmds.linear.z, duration = 5)
+		    print("right complete")
+                if self.pitch > 0:
+		    self.set_attitude(pitch_angle = 5, thrust = self.cmds.linear.z, duration = 5)
+                if self.pitch < 0:
+		    self.set_attitude(pitch_angle = -5, thrust = self.cmds.linear.z, duration = 5)
                 if self.dsrm > 0:
 		    print("Disarming")
                     self.set_attitude(thrust = 0, duration = 15)

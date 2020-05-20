@@ -16,13 +16,13 @@ def arm_and_takeoff_nogps(aTargetAltitude = -1.0):
     DEFAULT_TAKEOFF_THRUST = 0.55
     SMOOTH_TAKEOFF_THRUST = 0.52
 
-    print("Basic pre-arm checks")
+    #print("Basic pre-arm checks")
     # Don't let the user try to arm until autopilot is ready
     # If you need to disable the arming check,
     # just comment it with your own responsibility.
-    while not vehicle.is_armable:
-        print(" Waiting for vehicle to initialise...")
-        time.sleep(1)
+    #while not vehicle.is_armable:
+    #   print(" Waiting for vehicle to initialise...")
+    #    time.sleep(1)
 
 
     print("Arming motors")
@@ -145,7 +145,7 @@ while True:
         print("Going left")
         set_attitude(roll_angle = -5, thrust = 0.53, duration = 5)
 	print("Slowing down")
-	set_attitude(thrust = 0.5, duration = 5)
+	set_attitude(roll_angle= 0, thrust = 0.5, duration = 5)
     elif cmd == 'q':
         print("Setting LAND mode...")
         vehicle.mode = VehicleMode("LAND")
