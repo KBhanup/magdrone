@@ -166,14 +166,69 @@ class magdroneControlNode():
         self.dsrm = data.buttons[0]
         self.land = data.buttons[1]
         self.arm = data.buttons[9]
+	self.mag = data.axes[5]
 
-        print("arm:", self.arm, "disarm:", self.dsrm)
+        print("arm:", self.arm, "disarm:", self.dsrm, "magnet", self.mag)
+
+    def engage_magnet(self):
+	msg_hi = self.vehicle.message_factory.command_long_encode(
+        	0, 0,   # target_system, target_command
+        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+		0,
+        	8,    # servo number
+        	2006, # servo position
+        	0, 0, 0, 0, 0)
+
+    	msg_neut = self.vehicle.message_factory.command_long_encode(
+        	0, 0,   # target_system, target_command
+        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+		0,
+        	8,    # servo number
+        	1500, # servo position
+        	0, 0, 0, 0, 0)
+
+    	#send command
+	self.vehicle.send_mavlink(msg_hi)
+    	print("Magnet Engaged")
+    	time.sleep(5)
+    	self.vehicle.send_mavlink(msg_neut)
+    	print("Magnet in Neutral")
+    	print("complete")
+
+
+    def disengage_magnet(self):
+	msg_lo = self.vehicle.message_factory.command_long_encode(
+        	0, 0,   # target_system, target_command
+        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+		0,
+        	8,    # servo number
+        	982, # servo position
+        	0, 0, 0, 0, 0)
+
+    	msg_neut = self.vehicle.message_factory.command_long_encode(
+        	0, 0,   # target_system, target_command
+        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+		0,
+        	8,    # servo number
+        	1500, # servo position
+        	0, 0, 0, 0, 0)
+
+    	#send command
+	self.vehicle.send_mavlink(msg_lo)
+    	print("Magnet Disengaged")git
+    	time.sleep(5)
+    	self.vehicle.send_mavlink(msg_neut)
+    	print("Magnet in Neutral")
+    	print("complete")
+
+
 
     def send_commands(self):
         print("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
+
                  
                 self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
 		print("thrust", self.cmds.linear.z, "roll angle", self.cmds.linear.x, "pitch angle", self.cmds.linear.y)
@@ -184,6 +239,12 @@ class magdroneControlNode():
                 if self.arm > 0:
                     print("Arming...")
                     self.arm_and_takeoff_nogps()
+		if self.mag > 0:
+		    print("Engaging Magnet")
+		    self.engage_magnet()
+		if self.mag < 0:
+		    print("Disengaging Magnet")
+		    self.disengage_magnet()
             r.sleep()
 
 # Start Node
