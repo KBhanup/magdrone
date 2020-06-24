@@ -181,12 +181,14 @@ class magdroneControlNode():
 		#print("thrust", self.cmds.linear.z)
                 if self.roll < 0:
 		    print("going left")
-		    self.set_attitude(roll_angle = 5, thrust = self.cmds.linear.z, duration = 5)
+		    self.set_attitude(roll_angle = 7.5, thrust = self.cmds.linear.z, duration = 5)
 		    print("left complete")
+		    self.set_attitude(roll_angle = 0, thrust = self.cmds.linear.z, duration = 5)
                 if self.roll > 0:
 		    print("going right")
-		    self.set_attitude(roll_angle = -5, thrust = self.cmds.linear.z, duration = 5)
+		    self.set_attitude(roll_angle = -5.5, thrust = self.cmds.linear.z, duration = 5)
 		    print("right complete")
+		    self.set_attitude(roll_angle = 0, thrust = self.cmds.linear.z, duration = 5)
                 if self.pitch > 0:
 		    self.set_attitude(pitch_angle = 5, thrust = self.cmds.linear.z, duration = 5)
                 if self.pitch < 0:

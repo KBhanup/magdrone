@@ -49,7 +49,6 @@ class magdroneControlNode():
         self.land = 0
         self.dsrm = 0
         self.arm = 0
-        # etc...
 
         # Create thread for publisher
         self.rate = 5
@@ -64,8 +63,8 @@ class magdroneControlNode():
         """
 
         ##### CONSTANTS #####
-        DEFAULT_TAKEOFF_THRUST = 0.55
-        SMOOTH_TAKEOFF_THRUST = 0.52
+        DEFAULT_TAKEOFF_THRUST = 0.53
+        SMOOTH_TAKEOFF_THRUST = 0.530
 
         print("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
@@ -76,8 +75,8 @@ class magdroneControlNode():
             time.sleep(1)
 
         print("Arming motors")
-        # Copter should arm in GUIDED_NOGPS mode
-        self.vehicle.mode = VehicleMode("GUIDED_NOGPS")
+        #  GUIDED_NOGPS mode is recommended by DroneKit
+        self.vehicle.mode = VehicleMode("GUIDED_NOGPS") 
         self.vehicle.armed = True
 
         while not self.vehicle.armed:
@@ -105,7 +104,7 @@ class magdroneControlNode():
 
     def send_attitude_target(self, roll_angle = 0.0, pitch_angle = 0.0,
                              yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False,
-                             thrust = 0.5):
+                             thrust = 0.530):
         """
         use_yaw_rate: the yaw can be controlled using yaw_angle OR yaw_rate.
                       When one is used, the other is ignored by Ardupilot.
@@ -134,7 +133,7 @@ class magdroneControlNode():
 
     def set_attitude(self, roll_angle = 0.0, pitch_angle = 0.0,
                      yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False,
-                     thrust = 0.5, duration = 0):
+                     thrust = 0.530, duration = 0):
         """
         Note that from AC3.3 the message should be re-sent more often than every
         second, as an ATTITUDE_TARGET order has a timeout of 1s.
@@ -158,10 +157,10 @@ class magdroneControlNode():
         self.cmds = Twist()
 
         # Joystick Controls
-        self.cmds.linear.x  = data.axes[2]+5 #roll
+        self.cmds.linear.x  = data.axes[2]*5 #roll
         self.cmds.linear.y  = data.axes[3]*5 #pitch
-        self.cmds.linear.z  = data.axes[1]+0.53 #thrust
-        self.cmds.angular.z = data.axes[0]*5 #yaw
+        self.cmds.linear.z  = ((data.axes[1]+1)/2) #1000 #thrust
+        self.cmds.angular.z = data.axes[4]*5 #yaw
 
         # Button Controls
         self.dsrm = data.buttons[0]
@@ -180,7 +179,7 @@ class magdroneControlNode():
 		print("thrust", self.cmds.linear.z, "roll angle", self.cmds.linear.x, "pitch angle", self.cmds.linear.y)
                 if self.dsrm > 0:
 		    print("Disarming")
-                    self.set_attitude(thrust = 0, duration = 15)
+                    self.set_attitude(thrust = 0, duration = 5)
 		    print("Disarm complete")
                 if self.arm > 0:
                     print("Arming...")

@@ -143,7 +143,7 @@ while True:
         set_attitude(roll_angle = 5, thrust = 0.53, duration = 5)
     elif cmd == 'l':
         print("Going left")
-        set_attitude(roll_angle = -5, thrust = 0.53, duration = 5)
+        set_attitude(roll_angle = -5, thrust = 0.52, duration = 3)
 	print("Slowing down")
 	set_attitude(roll_angle= 0, thrust = 0.5, duration = 5)
     elif cmd == 'q':
