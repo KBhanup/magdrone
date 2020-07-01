@@ -215,7 +215,7 @@ class magdroneControlNode():
 
     	#send command
 	self.vehicle.send_mavlink(msg_lo)
-    	print("Magnet Disengaged")git
+    	print("Magnet Disengaged")
     	time.sleep(5)
     	self.vehicle.send_mavlink(msg_neut)
     	print("Magnet in Neutral")
