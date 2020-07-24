@@ -63,16 +63,16 @@ class magdroneControlNode():
         """
 
         ##### CONSTANTS #####
-        DEFAULT_TAKEOFF_THRUST = 0.53
-        SMOOTH_TAKEOFF_THRUST = 0.530
+        DEFAULT_TAKEOFF_THRUST = 0.55
+        SMOOTH_TAKEOFF_THRUST = 0.52
 
         print("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
-        while not self.vehicle.is_armable:
-            print(" Waiting for vehicle to initialise...")
-            time.sleep(1)
+        #while not self.vehicle.is_armable:
+         #   print(" Waiting for vehicle to initialise...")
+          #  time.sleep(1)
 
         print("Arming motors")
         #  GUIDED_NOGPS mode is recommended by DroneKit
@@ -104,7 +104,7 @@ class magdroneControlNode():
 
     def send_attitude_target(self, roll_angle = 0.0, pitch_angle = 0.0,
                              yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False,
-                             thrust = 0.530):
+                             thrust = 0.5):
         """
         use_yaw_rate: the yaw can be controlled using yaw_angle OR yaw_rate.
                       When one is used, the other is ignored by Ardupilot.
@@ -133,7 +133,7 @@ class magdroneControlNode():
 
     def set_attitude(self, roll_angle = 0.0, pitch_angle = 0.0,
                      yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False,
-                     thrust = 0.530, duration = 0):
+                     thrust = 0, duration = 0.001):
         """
         Note that from AC3.3 the message should be re-sent more often than every
         second, as an ATTITUDE_TARGET order has a timeout of 1s.
@@ -152,14 +152,15 @@ class magdroneControlNode():
             time.sleep(0.1)
         # Reset attitude, or it will persist for 1s more due to the timeout
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
+	print("            actual roll: ", roll_angle, "actual pitch: ", pitch_angle)
 
     def joy_callback(self, data):
         self.cmds = Twist()
 
         # Joystick Controls
-        self.cmds.linear.x  = data.axes[2]*5 #roll
-        self.cmds.linear.y  = data.axes[3]*5 #pitch
-        self.cmds.linear.z  = ((data.axes[1]+1)/2) #1000 #thrust
+        self.cmds.linear.x  = data.axes[2]*15 #roll
+        self.cmds.linear.y  = data.axes[3]*15 #pitch
+        self.cmds.linear.z  = ((data.axes[1]+1.06)/2) #thrust
         self.cmds.angular.z = data.axes[4]*5 #yaw
 
         # Button Controls
@@ -230,11 +231,11 @@ class magdroneControlNode():
             if self.cmds is not None:
 
                  
-                self.set_attitude(roll_angle = self.cmds.linear.x, pitch_angle = self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
+                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
 		print("thrust", self.cmds.linear.z, "roll angle", self.cmds.linear.x, "pitch angle", self.cmds.linear.y)
                 if self.dsrm > 0:
 		    print("Disarming")
-                    self.set_attitude(thrust = 0, duration = 5)
+                    self.set_attitude(thrust = 0, duration = 8)
 		    print("Disarm complete")
                 if self.arm > 0:
                     print("Arming...")

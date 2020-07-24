@@ -84,9 +84,15 @@ def send_ned_velocity(velocity_x, velocity_y, velocity_z, duration):
 # velocity_y < 0 => fly West
 # velocity_z < 0 => ascend
 # velocity_z > 0 => descend
-SOUTH=-2
-UP=-0.5   #NOTE: up is negative!
+EAST=-2
+UP=-0.6   #NOTE: up is negative!
+DURATION=8
 
 #Arm, then fly south and up.
+print("arming")
 arm_and_takeoff_nogps()
-send_ned_velocity(SOUTH,0,UP,DURATION)
+time.sleep(2)
+print("sending east command")
+send_ned_velocity(EAST,0,UP,DURATION)
+print("sending stop command")
+send_ned_velocity(0,0,0,DURATION)
