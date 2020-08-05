@@ -158,9 +158,9 @@ class magdroneControlNode():
         self.cmds = Twist()
 
         # Joystick Controls
-        self.cmds.linear.x  = data.axes[2]*15 #roll
-        self.cmds.linear.y  = data.axes[3]*15 #pitch
-        self.cmds.linear.z  = ((data.axes[1]+1.06)/2) #thrust
+        self.cmds.linear.x  = data.axes[2]*10 #roll
+        self.cmds.linear.y  = data.axes[3]*10 #pitch
+        self.cmds.linear.z  = ((data.axes[1]+1.02)/2) #thrust
         self.cmds.angular.z = data.axes[4]*5 #yaw
 
         # Button Controls
