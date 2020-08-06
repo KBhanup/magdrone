@@ -54,7 +54,7 @@ class magdroneControlNode():
         self.arm = 0
 
         # Create thread for publisher
-        self.rate = 5
+        self.rate = 20
         t = threading.Thread(target=self.send_commands)
         t.start()
 
@@ -92,7 +92,7 @@ class magdroneControlNode():
             self.vehicle.armed = True
             time.sleep(1)
 
-        self.printAndLog("Armed!")
+        self.printAndLog("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Armed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
         if aTargetAltitude > 0:
             print("Taking off!")
@@ -141,7 +141,7 @@ class magdroneControlNode():
 
     def set_attitude(self, roll_angle = 0.0, pitch_angle = 0.0,
                      yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False,
-                     thrust = 0, duration = 0.001):
+                     thrust = 0, duration = 0.05):
         """
         Note that from AC3.3 the message should be re-sent more often than every
         second, as an ATTITUDE_TARGET order has a timeout of 1s.
@@ -179,8 +179,8 @@ class magdroneControlNode():
 	self.mag = data.axes[5]
 	self.exit = data.buttons[2]
 
-	msg = "arm: " + str(self.arm) + " disarm: " + str(self.dsrm) + " magnet: " + str(self.mag)
-        self.printAndLog(msg)
+	#msg = "arm: " + str(self.arm) + " disarm: " + str(self.dsrm) + " magnet: " + str(self.mag)
+        #self.printAndLog(msg)
 
     def engage_magnet(self):
 	msg_hi = self.vehicle.message_factory.command_long_encode(

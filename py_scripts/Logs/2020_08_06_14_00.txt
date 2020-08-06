@@ -1,12 +1,57 @@
 Connecting to Vehicle
 Accepting Commands
+arm: 1 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 1 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
 Arming...
 Basic pre-arm checks
 Arming motors
  Waiting for arming...
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Armed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+arm: 0 disarm: 0 magnet: 0.0
+ Waiting for arming...
+Armed!
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
@@ -53,98 +98,22 @@ thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.506674397737 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.509931847453 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.509931847453 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.509931847453 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.511017663777 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.511017663777 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.511017663777 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.50450597778 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
@@ -157,54 +126,263 @@ thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
 thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.511017663777 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.509931847453 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.506674397737 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.506674397737 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -0.559179410338 actual pitch: 0.0
+thrust: 0.5 roll angle: 1.42719000578 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
@@ -219,86 +397,309 @@ thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.50124852825 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.50124852825 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: -0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -0.233434475958 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: 0.233434475958 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: -0.233434475958 actual pitch: 0.0
 thrust: 0.5 roll angle: 0.993184745312 pitch angle: -0.0
-            actual roll: -0.993184745312 actual pitch: 0.0
-thrust: 0.5 roll angle: 0.993184745312 pitch angle: -0.0
-            actual roll: -0.993184745312 actual pitch: 0.0
-thrust: 0.5 roll angle: 0.993184745312 pitch angle: -0.0
-            actual roll: -0.993184745312 actual pitch: 0.0
-thrust: 0.5 roll angle: 0.993184745312 pitch angle: -0.0
-            actual roll: -0.993184745312 actual pitch: 0.0
-thrust: 0.5 roll angle: 1.21034801006 pitch angle: -0.0
-            actual roll: -1.21034801006 actual pitch: 0.0
-thrust: 0.5 roll angle: 1.21034801006 pitch angle: -0.0
-            actual roll: -1.21034801006 actual pitch: 0.0
-thrust: 0.5 roll angle: 1.75293505192 pitch angle: -0.0
-            actual roll: -1.75293505192 actual pitch: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -2.07835868001 actual pitch: 0.0
 thrust: 0.5 roll angle: 2.4037823081 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -0.667439773679 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Switched to manual controls
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -0.342016108334 actual pitch: 0.0
+thrust: 0.5 roll angle: 2.07835868001 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: -2.4037823081 actual pitch: 0.0
-thrust: 0.5 roll angle: 3.05495113134 pitch angle: -0.0
-            actual roll: -3.05495113134 actual pitch: 0.0
-thrust: 0.5 roll angle: 3.05495113134 pitch angle: -0.0
-            actual roll: -3.05495113134 actual pitch: 0.0
-thrust: 0.5 roll angle: 3.05495113134 pitch angle: -0.0
-            actual roll: -3.05495113134 actual pitch: 0.0
-thrust: 0.5 roll angle: 3.05495113134 pitch angle: -0.0
-            actual roll: -3.05495113134 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0162711844314 pitch angle: -0.0
-            actual roll: 0.0162711844314 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.450276508927 pitch angle: -0.0
-            actual roll: 0.450276508927 actual pitch: 0.0
-thrust: 0.5 roll angle: -1.53545051813 pitch angle: -0.0
-            actual roll: 1.53545051813 actual pitch: 0.0
-thrust: 0.5 roll angle: -1.53545051813 pitch angle: -0.0
-            actual roll: 1.53545051813 actual pitch: 0.0
-thrust: 0.5 roll angle: -1.86087414622 pitch angle: -0.0
-            actual roll: 1.86087414622 actual pitch: 0.0
-thrust: 0.5 roll angle: -2.07803741097 pitch angle: -0.0
-            actual roll: 2.07803741097 actual pitch: 0.0
-thrust: 0.5 roll angle: -2.18661904335 pitch angle: -0.0
-            actual roll: 2.18661904335 actual pitch: 0.0
-thrust: 0.5 roll angle: -2.51204282045 pitch angle: -0.0
-            actual roll: 2.51204282045 actual pitch: 0.0
-thrust: 0.5 roll angle: -5.55072247982 pitch angle: -0.0
-            actual roll: 5.55072247982 actual pitch: 0.0
-thrust: 0.5 roll angle: -5.55072247982 pitch angle: -0.0
-            actual roll: 5.55072247982 actual pitch: 0.0
-thrust: 0.5 roll angle: -4.79097217321 pitch angle: -0.0
-            actual roll: 4.79097217321 actual pitch: 0.0
-thrust: 0.5 roll angle: -3.81437987089 pitch angle: -0.0
-            actual roll: 3.81437987089 actual pitch: 0.0
-thrust: 0.5 roll angle: -2.83778756857 pitch angle: -0.0
-            actual roll: 2.83778756857 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.5 roll angle: 2.4037823081 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
@@ -315,6 +716,185 @@ thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -0.667439773679 actual pitch: 0.0
+thrust: 0.5 roll angle: 7.72139191628 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -6.74479961395 actual pitch: 0.0
+thrust: 0.5 roll angle: 0.233434475958 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -5.98504900932 actual pitch: 0.0
+thrust: 0.5 roll angle: 6.41937553883 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -3.59753787518 actual pitch: 0.0
+thrust: 0.5 roll angle: 2.94669061899 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.423871898651 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 1 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Arming...
+Basic pre-arm checks
+Arming motors
+ Waiting for arming...
+arm: 0 disarm: 0 magnet: 0.0
+Armed!
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
@@ -344,789 +924,264 @@ thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.50124852825 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.50450597778 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.57938554883 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.542487066984 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.570705443621 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.542487066984 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.527295273542 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: 1.42719000578 pitch angle: -0.0
-            actual roll: -1.42719000578 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.4037823081 pitch angle: -0.0
-            actual roll: -2.4037823081 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.4037823081 pitch angle: -0.0
-            actual roll: -2.4037823081 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.62094557285 pitch angle: -0.0
-            actual roll: -2.62094557285 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.62094557285 pitch angle: -0.0
-            actual roll: -2.62094557285 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.50124852825 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
+thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.509931847453 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.509931847453 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.509931847453 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
 thrust: 0.511017663777 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.511017663777 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.516443534195 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.517529350519 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
+thrust: 0.517529350519 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.517529350519 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.517529350519 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.517529350519 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.519697770476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.519697770476 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
 thrust: 0.519697770476 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.519697770476 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.519697770476 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.519697770476 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.50233434476 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.511017663777 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.507760214806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: 0.342016108334 pitch angle: -0.0
+thrust: 0.519697770476 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: -0.342016108334 actual pitch: 0.0
-thrust: 0.5 roll angle: 1.75293505192 pitch angle: -0.0
+thrust: 0.519697770476 roll angle: 0.993184745312 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: -1.75293505192 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.72952735424 pitch angle: -0.0
-            actual roll: -2.72952735424 actual pitch: 0.0
-thrust: 0.5 roll angle: 4.14044618607 pitch angle: -0.0
-            actual roll: -4.14044618607 actual pitch: 0.0
-thrust: 0.5 roll angle: 4.35728818178 pitch angle: -0.0
-            actual roll: -4.35728818178 actual pitch: 0.0
-thrust: 0.5 roll angle: 4.35728818178 pitch angle: -0.0
-            actual roll: -4.35728818178 actual pitch: 0.0
-thrust: 0.5 roll angle: 4.35728818178 pitch angle: -0.0
-            actual roll: -4.35728818178 actual pitch: 0.0
-thrust: 0.5 roll angle: 4.35728818178 pitch angle: -0.0
-            actual roll: -4.35728818178 actual pitch: 0.0
-thrust: 0.5 roll angle: 4.35728818178 pitch angle: -0.0
-            actual roll: -4.35728818178 actual pitch: 0.0
-thrust: 0.5 roll angle: 1.64435341954 pitch angle: -0.0
-            actual roll: -1.64435341954 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.519697770476 roll angle: 1.75293505192 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -1.96977704763 actual pitch: 0.0
+thrust: 0.519697770476 roll angle: 1.96977704763 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -1.96977704763 actual pitch: 0.0
+thrust: 0.519697770476 roll angle: 2.62094557285 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -3.59753787518 actual pitch: 0.0
+thrust: 0.519697770476 roll angle: 4.68303322792 pitch angle: -0.0
+            actual roll: -4.68303322792 actual pitch: 0.0
+thrust: 0.519697770476 roll angle: 4.68303322792 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -4.68303322792 actual pitch: 0.0
+thrust: 0.514271900058 roll angle: 3.38069587946 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0162711844314
-thrust: 0.5 roll angle: -0.0 pitch angle: -3.92296165228
-            actual roll: 0.0 actual pitch: 3.92296165228
-thrust: 0.5 roll angle: -0.0 pitch angle: -4.03154343367
-            actual roll: 0.0 actual pitch: 4.03154343367
-thrust: 0.5 roll angle: -0.0 pitch angle: -4.35696691275
-            actual roll: 0.0 actual pitch: 4.35696691275
-thrust: 0.5 roll angle: -0.0 pitch angle: -4.35696691275
-            actual roll: 0.0 actual pitch: 4.35696691275
-thrust: 0.5 roll angle: -0.0 pitch angle: -4.35696691275
-            actual roll: 0.0 actual pitch: 4.35696691275
-thrust: 0.5 roll angle: -0.0 pitch angle: -4.35696691275
-            actual roll: 0.0 actual pitch: 4.35696691275
-thrust: 0.5 roll angle: -0.0 pitch angle: -4.35696691275
-            actual roll: 0.0 actual pitch: 4.35696691275
-thrust: 0.5 roll angle: -0.0 pitch angle: -4.35696691275
-            actual roll: 0.0 actual pitch: 4.35696691275
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.50124852825 roll angle: -0.0 pitch angle: -0.0
+thrust: 0.514271900058 roll angle: 1.64435341954 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -3.38069587946 actual pitch: 0.0
+thrust: 0.514271900058 roll angle: 5.11703848839 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -5.65962553024 actual pitch: 0.0
+thrust: 0.514271900058 roll angle: 5.65962553024 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -5.65962553024 actual pitch: 0.0
+thrust: 0.514271900058 roll angle: 5.76820731163 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -5.98504900932 actual pitch: 0.0
+thrust: 0.514271900058 roll angle: 5.98504900932 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+            actual roll: -5.008456707 actual pitch: 0.0
+thrust: 0.514271900058 roll angle: 0.559179410338 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.50450597778 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.506674397737 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.514271900058 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5207835868 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.541404461861 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.541404461861 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.534892776608 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.534892776608 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.526209455729 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 0.559179410338
-            actual roll: 0.0 actual pitch: -0.559179410338
-thrust: 0.5 roll angle: -0.0 pitch angle: 4.03186440468
-            actual roll: 0.0 actual pitch: -4.03186440468
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 5.11703848839
-            actual roll: -0.233434475958 actual pitch: -5.11703848839
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 5.11703848839
-            actual roll: -0.233434475958 actual pitch: -5.11703848839
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 4.14044618607
-            actual roll: -0.233434475958 actual pitch: -4.14044618607
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 3.48927766085
-            actual roll: -0.233434475958 actual pitch: -3.48927766085
-thrust: 0.5 roll angle: -0.0 pitch angle: 2.8381088376
-            actual roll: 0.0 actual pitch: -2.8381088376
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.513186083734 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.526209455729 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.532721143961 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.534892776608 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.538147011399 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.542487066984 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.542487066984 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.542487066984 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.538147011399 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -5.87646722794 pitch angle: -0.0
-            actual roll: 5.87646722794 actual pitch: 0.0
-thrust: 0.5 roll angle: -9.24057126045 pitch angle: -0.0
-            actual roll: 9.24057126045 actual pitch: 0.0
-thrust: 0.5 roll angle: -8.58940243721 pitch angle: -0.0
-            actual roll: 8.58940243721 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: 0.559179410338 pitch angle: -0.0
-            actual roll: -0.559179410338 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.62094557285 pitch angle: -0.0
-            actual roll: -2.62094557285 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.72952735424 pitch angle: -0.0
-            actual roll: -2.72952735424 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.72952735424 pitch angle: -0.0
-            actual roll: -2.72952735424 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 2.72952735424
-            actual roll: 0.0 actual pitch: -2.8381088376
-thrust: 0.5 roll angle: -0.0 pitch angle: 4.68303322792
-            actual roll: 0.0 actual pitch: -4.68303322792
-thrust: 0.5 roll angle: 0.0165924313478 pitch angle: 6.09363079071
-            actual roll: -0.0165924313478 actual pitch: -6.09363079071
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 6.41937553883
-            actual roll: -0.233434475958 actual pitch: -6.41937553883
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 5.98504900932
-            actual roll: -0.233434475958 actual pitch: -5.98504900932
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 5.33388078213
-            actual roll: -0.233434475958 actual pitch: -5.33388078213
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 4.03186440468
-            actual roll: -0.233434475958 actual pitch: -4.03186440468
-thrust: 0.5 roll angle: -0.0 pitch angle: 0.884603112936
-            actual roll: 0.0 actual pitch: -0.884603112936
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -5.22529900074
-            actual roll: 0.0 actual pitch: 5.22529900074
-thrust: 0.5 roll angle: -0.0 pitch angle: -5.44214069843
-            actual roll: 0.0 actual pitch: 5.44214069843
-thrust: 0.5 roll angle: -0.0 pitch angle: -5.44214069843
-            actual roll: 0.0 actual pitch: 5.44214069843
-thrust: 0.5 roll angle: -0.0 pitch angle: -5.44214069843
-            actual roll: 0.0 actual pitch: 5.44214069843
-thrust: 0.5 roll angle: -0.0 pitch angle: -2.40346118808
-            actual roll: 0.0 actual pitch: 2.40346118808
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 1.75293505192
-            actual roll: 0.0 actual pitch: -1.75293505192
-thrust: 0.5 roll angle: 0.342016108334 pitch angle: 3.81470113993
-            actual roll: -0.342016108334 actual pitch: -3.81470113993
-thrust: 0.5 roll angle: 0.342016108334 pitch angle: 4.03186440468
-            actual roll: -0.342016108334 actual pitch: -4.03186440468
-thrust: 0.5 roll angle: 0.342016108334 pitch angle: 4.03186440468
-            actual roll: -0.342016108334 actual pitch: -4.03186440468
-thrust: 0.5 roll angle: 0.342016108334 pitch angle: 4.03186440468
-            actual roll: -0.342016108334 actual pitch: -4.03186440468
-thrust: 0.5 roll angle: -0.0 pitch angle: 1.86119541526
-            actual roll: 0.0 actual pitch: -1.86119541526
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.475965388119 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.448832827806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.437981086969 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.437981086969 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.432555216551 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.430383586884 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.424957716465 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.424957716465 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.424957716465 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.424957716465 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.483559678495 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.488985548913 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.453172880411 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.443406957388 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.443406957388 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.448832827806 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.443406957388 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.431469404697 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.431469404697 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.464027833939 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.478133809566 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.443406957388 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.423871898651 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.414105975628 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.414105975628 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.413020157814 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.413020157814 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.411934345961 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.411934345961 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.434726852179 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.499837288156 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 4.68303322792
-            actual roll: 0.0 actual pitch: -4.68303322792
-thrust: 0.5 roll angle: -0.0 pitch angle: 8.37256014347
-            actual roll: 0.0 actual pitch: -8.37256014347
-thrust: 0.5 roll angle: -0.0 pitch angle: 10.0
-            actual roll: 0.0 actual pitch: -10.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 10.0
-            actual roll: 0.0 actual pitch: -10.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 10.0
-            actual roll: 0.0 actual pitch: -10.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 9.34947371483
-            actual roll: 0.0 actual pitch: -9.34947371483
-thrust: 0.5 roll angle: -0.0 pitch angle: 1.42719000578
-            actual roll: 0.0 actual pitch: -0.124852824956
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -4.5741301775
-            actual roll: 0.0 actual pitch: 4.5741301775
-thrust: 0.5 roll angle: -1.53545051813 pitch angle: -10.0
-            actual roll: 1.10144510865 actual pitch: 10.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -9.89173948765
-            actual roll: 0.0 actual pitch: 9.89173948765
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.499837288156 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.445578593016 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.443406957388 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 3.70611965656
-            actual roll: 0.0 actual pitch: -3.70611965656
-thrust: 0.5 roll angle: -0.0 pitch angle: 4.03186440468
-            actual roll: 0.0 actual pitch: -4.03186440468
-thrust: 0.5 roll angle: -0.0 pitch angle: 2.18694031239
-            actual roll: 0.0 actual pitch: -2.18694031239
-thrust: 0.5 roll angle: -0.0 pitch angle: 2.18694031239
-            actual roll: 0.0 actual pitch: -2.18694031239
-thrust: 0.5 roll angle: -0.0 pitch angle: 0.77602148056
-            actual roll: 0.0 actual pitch: -0.77602148056
-thrust: 0.5 roll angle: -3.81437987089 pitch angle: 0.77602148056
-            actual roll: 3.81437987089 actual pitch: -0.77602148056
-thrust: 0.5 roll angle: -8.15539717674 pitch angle: 0.77602148056
-            actual roll: 8.15539717674 actual pitch: -0.77602148056
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.72952735424 pitch angle: 2.8381088376
-            actual roll: -2.72952735424 actual pitch: -2.8381088376
-thrust: 0.5 roll angle: 0.559179410338 pitch angle: 0.77602148056
-            actual roll: -0.233434475958 actual pitch: -0.450597777963
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: 1.42719000578 pitch angle: -0.0
-            actual roll: -1.42719000578 actual pitch: 0.0
-thrust: 0.5 roll angle: 4.35728818178 pitch angle: -0.0
-            actual roll: -4.35728818178 actual pitch: 0.0
-thrust: 0.5 roll angle: 4.68303322792 pitch angle: -0.0
-            actual roll: -4.68303322792 actual pitch: 0.0
-thrust: 0.5 roll angle: 2.72952735424 pitch angle: -0.0
-            actual roll: -2.72952735424 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.456430330873 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.456430330873 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.439066904783 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.471622124314 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.493328814209 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.424957716465 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.424957716465 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.431469404697 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.445578593016 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -2.51204282045 pitch angle: -0.0
-            actual roll: 2.83778756857 actual pitch: 0.0
-thrust: 0.5 roll angle: -3.92296165228 pitch angle: -0.0
-            actual roll: 4.24838542938 actual pitch: 0.0
-thrust: 0.5 roll angle: -5.11671721935 pitch angle: -0.0
-            actual roll: 5.11671721935 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: 3.81470113993
-            actual roll: 0.0 actual pitch: -3.81470113993
-thrust: 0.5 roll angle: 0.233434475958 pitch angle: 6.09363079071
-            actual roll: -0.342016108334 actual pitch: -6.31079435349
-thrust: 0.5 roll angle: 0.559179410338 pitch angle: 6.31079435349
-            actual roll: -0.559179410338 actual pitch: -6.31079435349
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: 0.559179410338 pitch angle: -0.0
-            actual roll: -0.559179410338 actual pitch: 0.0
-thrust: 0.5 roll angle: 3.2721143961 pitch angle: -0.0
-            actual roll: -3.2721143961 actual pitch: 0.0
-thrust: 0.5 roll angle: 0.0165924313478 pitch angle: -0.0
-            actual roll: -0.0165924313478 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.471622124314 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.432555216551 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.432555216551 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: 3.2721143961 pitch angle: -0.0
-            actual roll: -3.2721143961 actual pitch: 0.0
-thrust: 0.5 roll angle: 6.85338079929 pitch angle: -0.0
-            actual roll: -6.85338079929 actual pitch: 0.0
-thrust: 0.5 roll angle: 7.07054436207 pitch angle: -0.0
-            actual roll: -7.07054436207 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.44991864562 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.424957716465 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.409765923023 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.4 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.442321139574 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 actual pitch: 0.0
-thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
+arm: 0 disarm: 0 magnet: 0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
