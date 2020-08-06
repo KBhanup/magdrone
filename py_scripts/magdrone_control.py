@@ -35,13 +35,16 @@ class magdroneControlNode():
     def __init__(self):
         rp.init_node("magdrone_node")
 
+	# Create log file
+	self.log_file = open("log.txt", 'a');
+
         # Set up Subscribers
         self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
 
         # Set up Publishers
 
         # Connect to the Vehicle
-        print('Connecting to vehicle')
+        self.printAndLog('Connecting to Vehicle')
         self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
 
         # Variables
@@ -57,6 +60,11 @@ class magdroneControlNode():
 
         rp.spin()
 
+    def printAndLog(self, msg):
+	print(msg)
+	self.log_file.write(msg)
+	self.log_file.write("\n")
+
     def arm_and_takeoff_nogps(self, aTargetAltitude = -1.0):
         """
         Arms vehicle and fly to aTargetAltitude without GPS data.
@@ -66,7 +74,7 @@ class magdroneControlNode():
         DEFAULT_TAKEOFF_THRUST = 0.55
         SMOOTH_TAKEOFF_THRUST = 0.52
 
-        print("Basic pre-arm checks")
+        self.printAndLog("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
@@ -74,17 +82,17 @@ class magdroneControlNode():
          #   print(" Waiting for vehicle to initialise...")
           #  time.sleep(1)
 
-        print("Arming motors")
+        self.printAndLog("Arming motors")
         #  GUIDED_NOGPS mode is recommended by DroneKit
         self.vehicle.mode = VehicleMode("GUIDED_NOGPS") 
         self.vehicle.armed = True
 
         while not self.vehicle.armed:
-            print(" Waiting for arming...")
+            self.printAndLog(" Waiting for arming...")
             self.vehicle.armed = True
             time.sleep(1)
 
-        print("Armed!")
+        self.printAndLog("Armed!")
 
         if aTargetAltitude > 0:
             print("Taking off!")
@@ -152,7 +160,8 @@ class magdroneControlNode():
             time.sleep(0.1)
         # Reset attitude, or it will persist for 1s more due to the timeout
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
-	print("            actual roll: ", roll_angle, "actual pitch: ", pitch_angle)
+	msg = "            actual roll: " + str(roll_angle) + " actual pitch: " + str(pitch_angle)
+	self.printAndLog(msg)
 
     def joy_callback(self, data):
         self.cmds = Twist()
@@ -160,7 +169,7 @@ class magdroneControlNode():
         # Joystick Controls
         self.cmds.linear.x  = data.axes[2]*10 #roll
         self.cmds.linear.y  = data.axes[3]*10 #pitch
-        self.cmds.linear.z  = ((data.axes[1]+1.02)/2) #thrust
+        self.cmds.linear.z  = 0.1 * data.axes[1] + 0.5 #thrust
         self.cmds.angular.z = data.axes[4]*5 #yaw
 
         # Button Controls
@@ -169,7 +178,8 @@ class magdroneControlNode():
         self.arm = data.buttons[9]
 	self.mag = data.axes[5]
 
-        print("arm:", self.arm, "disarm:", self.dsrm, "magnet", self.mag)
+	msg = "arm: " + str(self.arm) + " disarm: " + str(self.dsrm) + " magnet: " + str(self.mag)
+        self.printAndLog(msg)
 
     def engage_magnet(self):
 	msg_hi = self.vehicle.message_factory.command_long_encode(
@@ -190,11 +200,11 @@ class magdroneControlNode():
 
     	#send command
 	self.vehicle.send_mavlink(msg_hi)
-    	print("Magnet Engaged")
+    	self.printAndLog("Magnet Engaged")
     	time.sleep(5)
     	self.vehicle.send_mavlink(msg_neut)
-    	print("Magnet in Neutral")
-    	print("complete")
+    	self.printAndLog("Magnet in Neutral")
+    	self.printAndLog("complete")
 
 
     def disengage_magnet(self):
@@ -216,35 +226,37 @@ class magdroneControlNode():
 
     	#send command
 	self.vehicle.send_mavlink(msg_lo)
-    	print("Magnet Disengaged")
+    	self.printAndLog("Magnet Disengaged")
     	time.sleep(5)
     	self.vehicle.send_mavlink(msg_neut)
-    	print("Magnet in Neutral")
-    	print("complete")
+    	self.printAndLog("Magnet in Neutral")
+    	self.printAndLog("complete")
 
 
 
     def send_commands(self):
-        print("Accepting Commands")
+        self.printAndLog("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
 
                  
                 self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
-		print("thrust", self.cmds.linear.z, "roll angle", self.cmds.linear.x, "pitch angle", self.cmds.linear.y)
+
+		msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
+		self.printAndLog(msg)
                 if self.dsrm > 0:
-		    print("Disarming")
+		    self.printAndLog("Disarming")
                     self.set_attitude(thrust = 0, duration = 8)
-		    print("Disarm complete")
+		    self.printAndLog("Disarm complete")
                 if self.arm > 0:
-                    print("Arming...")
+                    self.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
 		if self.mag > 0:
-		    print("Engaging Magnet")
+		    self.printAndLog("Engaging Magnet")
 		    self.engage_magnet()
 		if self.mag < 0:
-		    print("Disengaging Magnet")
+		    self.printAndLog("Disengaging Magnet")
 		    self.disengage_magnet()
             r.sleep()
 
