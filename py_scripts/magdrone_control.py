@@ -177,6 +177,7 @@ class magdroneControlNode():
         self.land = data.buttons[1]
         self.arm = data.buttons[9]
 	self.mag = data.axes[5]
+	self.exit = data.buttons[2]
 
 	msg = "arm: " + str(self.arm) + " disarm: " + str(self.dsrm) + " magnet: " + str(self.mag)
         self.printAndLog(msg)
@@ -258,7 +259,9 @@ class magdroneControlNode():
 		if self.mag < 0:
 		    self.printAndLog("Disengaging Magnet")
 		    self.disengage_magnet()
+		if self.exit > 0:
+		    self.printAndLog("Switched to manual controls")
             r.sleep()
 
 # Start Node
-magdroneC = magdroneControlNode()
+magdrone = magdroneControlNode()
