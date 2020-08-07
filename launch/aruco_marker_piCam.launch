@@ -1,14 +1,23 @@
 <launch>
+    <!-- Start piCam -->
+	<include file="$(find raspicam_node)/camerav2_410x308_30fps.launch"/>
+
     <!-- Launch image transport node to uncompress image -->
     <node pkg="image_transport" type="republish" name="publish_raw" args="compressed in:=/raspicam_node/image raw out:=/raspicam_node/image_raw"/>
 
-    <arg name="marker_size" default="14.6"/>
-    <arg name="max_new_marker_error" default="0.1"/>
-    <arg name="max_track_error" default="0.2"/>
-    <arg name="cam_image_topic" default="/raspicam_node/image_raw"/>
-    <arg name="cam_info_topic" default="/raspicam_node/camera_info"/>
-    <arg name="output_frame" default="raspicam"/>
+    <!-- Adding marker stuff -->
+    <arg name="markerSize" default="0.146"/>
+    <arg name="markerId" default="7"/>
+    <arg name="marker_frame" default="marker_frame"/>
+    <arg name="corner_refinement" default="LINES"/>
 
-    <node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)"/>
-
+    <node pkg="aruco_ros" type="single" name="aruco_single">
+        <remap from="/camera_info" to="/raspicam_node/camera_info"/>
+        <remap from="/image" to="/raspicam_node/image_raw"/>
+        <param name="marker_id" value="$(arg markerId)"/>
+        <param name="image_is_rectified" value="False"/>
+        <param name="marker_size" value="$(arg markerSize)"/>
+        <param name="camera_frame" value="raspicam"/>
+        <param name="marker_frame" value="$(arg marker_frame)"/>
+        <param name="corner_refinement" value="$(arg corner_refinement)"/>
 </launch>
