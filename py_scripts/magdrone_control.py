@@ -92,7 +92,7 @@ class magdroneControlNode():
             self.vehicle.armed = True
             time.sleep(1)
 
-        self.printAndLog("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Armed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        self.printAndLog("Armed!")
 
         if aTargetAltitude > 0:
             print("Taking off!")
@@ -150,12 +150,12 @@ class magdroneControlNode():
         Sending the message multiple times is the recommended way.
         """
         self.send_attitude_target(roll_angle, pitch_angle,
-                             yaw_angle, yaw_rate, False,
+                             yaw_angle, yaw_rate, use_yaw_rate,
                              thrust)
         start = time.time()
         while time.time() - start < duration:
             self.send_attitude_target(roll_angle, pitch_angle,
-                                 yaw_angle, yaw_rate, False,
+                                 yaw_angle, yaw_rate, use_yaw_rate,
                                  thrust)
             time.sleep(0.1)
         # Reset attitude, or it will persist for 1s more due to the timeout
@@ -169,8 +169,8 @@ class magdroneControlNode():
         # Joystick Controls
         self.cmds.linear.x  = data.axes[2]*10 #roll
         self.cmds.linear.y  = data.axes[3]*10 #pitch
-        self.cmds.linear.z  = 0.1 * data.axes[1] + 0.5 #thrust
-        self.cmds.angular.z = data.axes[4]*5 #yaw
+        self.cmds.linear.z  = 0.2 * data.axes[1] + 0.5 #thrust
+        self.cmds.angular.z = data.axes[0]*10 #yaw
 
         # Button Controls
         self.dsrm = data.buttons[0]
@@ -239,10 +239,11 @@ class magdroneControlNode():
         self.printAndLog("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
+            #print(self.vehicle.attitude.yaw)
             if self.cmds is not None:
 
                  
-                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = self.cmds.angular.z, thrust = self.cmds.linear.z)
+                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.cmds.linear.z)
 
 		msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
 		self.printAndLog(msg)
