@@ -19163,3 +19163,574 @@ Connecting to Vehicle
 Accepting Commands
 Connecting to Vehicle
 Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182581916451
+z error: -0.182581916451
+thrust: -0.0182581916451
+tag position: 0.182496055961
+z error: -0.182496055961
+thrust: -0.0182496055961
+tag position: 0.182517543435
+z error: -0.182517543435
+thrust: -0.0182517543435
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182487502694
+z error: -0.182487502694
+thrust: -0.0182487502694
+tag position: 0.182545945048
+z error: -0.182545945048
+thrust: -0.0182545945048
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182592004538
+z error: -0.182592004538
+thrust: -0.0182592004538
+tag position: 0.182545945048
+z error: -0.182545945048
+thrust: -0.0182545945048
+tag position: 0.182560607791
+z error: -0.182560607791
+thrust: -0.0182560607791
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+tag position: 0.182479590178
+z error: -0.182479590178
+thrust: -0.0182479590178
+tag position: 0.182479590178
+z error: -0.182479590178
+thrust: -0.0182479590178
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+tag position: 0.182511389256
+z error: -0.182511389256
+thrust: -0.0182511389256
+tag position: 0.182560607791
+z error: -0.182560607791
+thrust: -0.0182560607791
+tag position: 0.182591795921
+z error: -0.182591795921
+thrust: -0.0182591795921
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182560607791
+z error: -0.182560607791
+thrust: -0.0182560607791
+tag position: 0.182560607791
+z error: -0.182560607791
+thrust: -0.0182560607791
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.18256033957
+z error: -0.18256033957
+thrust: -0.018256033957
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182607635856
+z error: -0.182607635856
+thrust: -0.0182607635856
+tag position: 0.182649925351
+z error: -0.182649925351
+thrust: -0.0182649925351
+tag position: 0.182526469231
+z error: -0.182526469231
+thrust: -0.0182526469231
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.18261410296
+z error: -0.18261410296
+thrust: -0.018261410296
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182479590178
+z error: -0.182479590178
+thrust: -0.0182479590178
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182663738728
+z error: -0.182663738728
+thrust: -0.0182663738728
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182607635856
+z error: -0.182607635856
+thrust: -0.0182607635856
+tag position: 0.182526469231
+z error: -0.182526469231
+thrust: -0.0182526469231
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182584926486
+z error: -0.182584926486
+thrust: -0.0182584926486
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182487502694
+z error: -0.182487502694
+thrust: -0.0182487502694
+tag position: 0.182487502694
+z error: -0.182487502694
+thrust: -0.0182487502694
+tag position: 0.182569980621
+z error: -0.182569980621
+thrust: -0.0182569980621
+tag position: 0.182568237185
+z error: -0.182568237185
+thrust: -0.0182568237185
+tag position: 0.182479590178
+z error: -0.182479590178
+thrust: -0.0182479590178
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182581916451
+z error: -0.182581916451
+thrust: -0.0182581916451
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182568237185
+z error: -0.182568237185
+thrust: -0.0182568237185
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182616785169
+z error: -0.182616785169
+thrust: -0.0182616785169
+tag position: 0.182568237185
+z error: -0.182568237185
+thrust: -0.0182568237185
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182568237185
+z error: -0.182568237185
+thrust: -0.0182568237185
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182568237185
+z error: -0.182568237185
+thrust: -0.0182568237185
+tag position: 0.182599484921
+z error: -0.182599484921
+thrust: -0.0182599484921
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182675078511
+z error: -0.182675078511
+thrust: -0.0182675078511
+tag position: 0.182496055961
+z error: -0.182496055961
+thrust: -0.0182496055961
+tag position: 0.182496055961
+z error: -0.182496055961
+thrust: -0.0182496055961
+tag position: 0.182496055961
+z error: -0.182496055961
+thrust: -0.0182496055961
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182607635856
+z error: -0.182607635856
+thrust: -0.0182607635856
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182510763407
+z error: -0.182510763407
+thrust: -0.0182510763407
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182412415743
+z error: -0.182412415743
+thrust: -0.0182412415743
+tag position: 0.1824785918
+z error: -0.1824785918
+thrust: -0.01824785918
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182581916451
+z error: -0.182581916451
+thrust: -0.0182581916451
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182495459914
+z error: -0.182495459914
+thrust: -0.0182495459914
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182574778795
+z error: -0.182574778795
+thrust: -0.0182574778795
+tag position: 0.182511389256
+z error: -0.182511389256
+thrust: -0.0182511389256
+tag position: 0.182607159019
+z error: -0.182607159019
+thrust: -0.0182607159019
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182560607791
+z error: -0.182560607791
+thrust: -0.0182560607791
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182510510087
+z error: -0.182510510087
+thrust: -0.0182510510087
+tag position: 0.182599484921
+z error: -0.182599484921
+thrust: -0.0182599484921
+tag position: 0.182465180755
+z error: -0.182465180755
+thrust: -0.0182465180755
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182504236698
+z error: -0.182504236698
+thrust: -0.0182504236698
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182545959949
+z error: -0.182545959949
+thrust: -0.0182545959949
+tag position: 0.182569980621
+z error: -0.182569980621
+thrust: -0.0182569980621
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.182465061545
+z error: -0.182465061545
+thrust: -0.0182465061545
+tag position: 0.182489231229
+z error: -0.182489231229
+thrust: -0.0182489231229
+tag position: 0.18252672255
+z error: -0.18252672255
+thrust: -0.018252672255
+tag position: 0.182673320174
+z error: -0.182673320174
+thrust: -0.0182673320174
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+tag position: 0.182534620166
+z error: -0.182534620166
+thrust: -0.0182534620166
+tag position: 0.182593464851
+z error: -0.182593464851
+thrust: -0.0182593464851
+Accepting Commands

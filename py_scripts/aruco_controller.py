@@ -11,8 +11,8 @@ from pymavlink import mavutil
 
 from pid import PIDcontroller
 
-from sensor_msgs.msg import Range
-from geometry_msgs.msg import Twist
+#from sensor_msgs.msg import Range
+from geometry_msgs.msg import Twist, PoseStamped
 
 
 def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
@@ -46,7 +46,7 @@ class magdroneControlNode():
         self.log_file = open("log.txt", 'a')
 
         # Set up Subscribers
-        self.pose_sub = rp.Subscriber("/aruco_single/pose", Range, self.pose_callback, queue_size=1)
+        self.pose_sub = rp.Subscriber("/aruco_single/pose", PoseStamped, self.pose_callback, queue_size=1)
 
         # Set up Publishers
 
@@ -181,25 +181,34 @@ class magdroneControlNode():
         self.cmds.linear.z = 0   # thrust
         self.cmds.angular.z = 0  # yaw
 
-        # Define Tag Pose
-        tag_pose_z = data.pose.position.y[0]  # actual z
-        msg = "tag position: " + str(tag_pose_z)
-        self.printAndLog(msg)
+	# Defining the desired positions
+	self.z_des = 0 #thrust
+	self.y_des = 0 #roll
+	self.x_des = 1 #pitch
 
-        # Define desired position
-        des_z = 0
+"""
++ z error = + thrust
+- z error = - thrust
++ y error = - roll
+- y error = + roll
++ x error = + pitch
+- x error = - pitch 		
+"""
 
-        # Calculate Error
-        error_z = des_z - tag_pose_z
-        msg = "z error: " + str(error_z)
-        self.printAndLog(msg)
+        # Position conversions where the reported position is in terms of the camera frame
+	# z-error = x-tag - z_des = y-camera
+	# y-error = y-tag - y_des = x-camera
+	# x-error = z-tag - x_des = z-camera
+        self.z_error = data.pose.position.y + self.z_des
+	self.y_error = data.pose.position.x + self.y_des
+	self.x_error = data.pose.position.z + self.x_des
 
         # PID update error
-        self.pid_z.updateError(error_z)
+        self.pid_z.updateError(self.z_error)
 
         # generate thrust command
         self.cmds.linear.z = self.pid_z.getCommand()
-        msg = "thrust: " + str(self.cmds.linear.z)
+        msg = "error" + str(self.z_error) + "read position" + str(data.pose.position.y) + "thrust: " + str(self.cmds.linear.z)
         self.printAndLog(msg)
 
     def send_commands(self):
