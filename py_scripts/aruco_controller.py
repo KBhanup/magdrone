@@ -9,7 +9,9 @@ from dronekit import connect, VehicleMode, LocationGlobal, LocationGlobalRelativ
 
 from pymavlink import mavutil
 
-from sensor_msgs.msg import Joy
+from pid import PIDcontroller
+
+from sensor_msgs.msg import Range
 from geometry_msgs.msg import Twist
 
 def to_quaternion(roll = 0.0, pitch = 0.0, yaw = 0.0):
@@ -35,11 +37,14 @@ class magdroneControlNode():
     def __init__(self):
         rp.init_node("magdrone_node")
 
+	# Create PID Controller
+	self.pid_z = PIDcontroller(0.1, 0.0, 0.0, 1)
+
 	# Create log file
 	self.log_file = open("log.txt", 'a');
 
         # Set up Subscribers
-        self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
+        self.pose_sub = rp.Subscriber("/aruco_single/pose", Range, self.pose_callback, queue_size=1)
 
         # Set up Publishers
 
@@ -163,89 +168,50 @@ class magdroneControlNode():
 	msg = "            actual roll: " + str(roll_angle) + " actual pitch: " + str(pitch_angle)
 	self.printAndLog(msg)
 
-    def joy_callback(self, data):
+    def pose_callback(self, data):
         self.cmds = Twist()
+	
+	#Create Empty Commands
+        self.cmds.linear.x  = 0 #roll
+        self.cmds.linear.y  = 0 #pitch
+        self.cmds.linear.z  = 0 #thrust
+        self.cmds.angular.z = 0 #yaw
 
-        # Joystick Controls
-        self.cmds.linear.x  = data.axes[2]*10 #roll
-        self.cmds.linear.y  = data.axes[3]*10 #pitch
-        self.cmds.linear.z  = 0.2 * data.axes[1] + 0.5 #thrust
-        self.cmds.angular.z = data.axes[0]*10 #yaw
+	#Define Tag Pose
+	tag_pose_z = data.pose.position.y[0] #actual z 
+	msg = "tag position: " + str(tag_pose_z)
+	self.printAndLog(msg)
 
-        # Button Controls
-        self.dsrm = data.buttons[0]
-        self.land = data.buttons[1]
-        self.arm = data.buttons[9]
-	self.mag = data.axes[5]
-	self.exit = data.buttons[2]
+    def PID(self):
 
-	#msg = "arm: " + str(self.arm) + " disarm: " + str(self.dsrm) + " magnet: " + str(self.mag)
-        #self.printAndLog(msg)
+	#Define desired position
+	des_z = 0 
 
-    def engage_magnet(self):
-	msg_hi = self.vehicle.message_factory.command_long_encode(
-        	0, 0,   # target_system, target_command
-        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-		0,
-        	8,    # servo number
-        	2006, # servo position
-        	0, 0, 0, 0, 0)
+	#Calculate Error
+	error_z = des_z - tag_pose_z
+	msg = "z error: " + str(error_z)
+	self.printAndLog(msg)	
 
-    	msg_neut = self.vehicle.message_factory.command_long_encode(
-        	0, 0,   # target_system, target_command
-        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-		0,
-        	8,    # servo number
-        	1500, # servo position
-        	0, 0, 0, 0, 0)
+	#PID update error
+	pid_z.updateError(error_z)
 
-    	#send command
-	self.vehicle.send_mavlink(msg_hi)
-    	self.printAndLog("Magnet Engaged")
-    	time.sleep(5)
-    	self.vehicle.send_mavlink(msg_neut)
-    	self.printAndLog("Magnet in Neutral")
-    	self.printAndLog("complete")
-
-
-    def disengage_magnet(self):
-	msg_lo = self.vehicle.message_factory.command_long_encode(
-        	0, 0,   # target_system, target_command
-        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-		0,
-        	8,    # servo number
-        	982, # servo position
-        	0, 0, 0, 0, 0)
-
-    	msg_neut = self.vehicle.message_factory.command_long_encode(
-        	0, 0,   # target_system, target_command
-        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-		0,
-        	8,    # servo number
-        	1500, # servo position
-        	0, 0, 0, 0, 0)
-
-    	#send command
-	self.vehicle.send_mavlink(msg_lo)
-    	self.printAndLog("Magnet Disengaged")
-    	time.sleep(5)
-    	self.vehicle.send_mavlink(msg_neut)
-    	self.printAndLog("Magnet in Neutral")
-    	self.printAndLog("complete")
-
-
+	#generate thrust command
+	self.cmds.linear.z = pid_z.getCommand()
+	msg = "thrust: " + str(self.cmds.linear.z)
+	self.printAndLog(msg)
 
     def send_commands(self):
         self.printAndLog("Accepting Commands")
+	self.PID() 
+	msg = "tag position: " + str(tag_pose_z) + "z error: " + str(error_z) + "thrust: " + str(self.cmds.linear.z)
+	self.printAndLog(msg)
+
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             #print(self.vehicle.attitude.yaw)
-            if self.cmds is not None:
-
-                 
-                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.cmds.linear.z)
-
-		msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
+            if self.cmds is not None:               
+                self.set_attitude(thrust = self.cmds.linear.z)
+		msg = "thrust: " + str(self.cmds.linear.z)
 		self.printAndLog(msg)
                 if self.dsrm > 0:
 		    self.printAndLog("Disarming")
@@ -254,12 +220,6 @@ class magdroneControlNode():
                 if self.arm > 0:
                     self.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
-		if self.mag > 0:
-		    self.printAndLog("Engaging Magnet")
-		    self.engage_magnet()
-		if self.mag < 0:
-		    self.printAndLog("Disengaging Magnet")
-		    self.disengage_magnet()
 		if self.exit > 0:
 		    self.printAndLog("Switched to manual controls")
             r.sleep()

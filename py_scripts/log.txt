@@ -19050,4 +19050,116 @@ thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
             actual roll: 0.0 actual pitch: 0.0
 thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
-            actual roll: 0.0 a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            actual roll: 0.0 a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Connecting to Vehicle
+Accepting Commands
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.434564137459 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.591489028931 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.486657628417 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.3 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.471462622285 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.539395540953 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.535058701038 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.451930776238 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.423712402582 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.0 roll angle: 0.0 pitch angle: 0.0
+            actual roll: -0.0 actual pitch: -0.0
+thrust: 0.7 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.532887068391 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.323868691921 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.434564137459 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.628387510777 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.65877109766 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.554590547085 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+            actual roll: 0.0 actual pitch: 0.0
+thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+Connecting to Vehicle
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Connecting to Vehicle
+Accepting Commands
+Connecting to Vehicle
+Accepting Commands
