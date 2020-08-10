@@ -169,8 +169,6 @@ class magdroneControlNode():
             time.sleep(0.1)
         # Reset attitude, or it will persist for 1s more due to the timeout
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
-        msg = "            actual roll: " + str(roll_angle) + " actual pitch: " + str(pitch_angle)
-        self.printAndLog(msg)
 
     def pose_callback(self, data):
         self.cmds = Twist()
@@ -186,20 +184,20 @@ class magdroneControlNode():
 	self.y_des = 0 #roll
 	self.x_des = 1 #pitch
 
-"""
-+ z error = + thrust
-- z error = - thrust
-+ y error = - roll
-- y error = + roll
-+ x error = + pitch
-- x error = - pitch 		
-"""
+	"""
+	+ z error = + thrust
+	- z error = - thrust
+	+ y error = - roll
+	- y error = + roll
+	+ x error = + pitch
+	- x error = - pitch 		
+	"""
 
         # Position conversions where the reported position is in terms of the camera frame
 	# z-error = x-tag - z_des = y-camera
 	# y-error = y-tag - y_des = x-camera
 	# x-error = z-tag - x_des = z-camera
-        self.z_error = data.pose.position.y + self.z_des
+	self.z_error = data.pose.position.y + self.z_des
 	self.y_error = data.pose.position.x + self.y_des
 	self.x_error = data.pose.position.z + self.x_des
 
@@ -207,8 +205,8 @@ class magdroneControlNode():
         self.pid_z.updateError(self.z_error)
 
         # generate thrust command
-        self.cmds.linear.z = self.pid_z.getCommand()
-        msg = "error" + str(self.z_error) + "read position" + str(data.pose.position.y) + "thrust: " + str(self.cmds.linear.z)
+        self.cmds.linear.z = self.pid_z.getCommand() + 0.5 
+        msg = "error: " + str(self.z_error) + " read position: " + str(data.pose.position.y) + " thrust: " + str(self.cmds.linear.z)
         self.printAndLog(msg)
 
     def send_commands(self):
