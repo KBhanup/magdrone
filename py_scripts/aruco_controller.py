@@ -11,7 +11,7 @@ from pymavlink import mavutil
 
 from pid import PIDcontroller
 
-from sensor_msgs.msg import Joy
+#from sensor_msgs.msg import Range
 from geometry_msgs.msg import Twist, PoseStamped
 
 
@@ -213,36 +213,18 @@ class magdroneControlNode():
         msg = "error: " + str(self.z_error) + " read position: " + str(data.pose.position.y) + " thrust: " + str(self.cmds.linear.z)
         self.printAndLog(msg)
 
-
-    def joy_callback(self, data):
-        self.cmds = Twist()
-
-        # Joystick Controls
-        self.cmds.linear.x  = data.axes[2]*10 #roll
-        self.cmds.linear.y  = data.axes[3]*10 #pitch
-        #self.cmds.linear.z  = 0.2 * data.axes[1] + 0.5 #thrust
-        self.cmds.angular.z = data.axes[0]*10 #yaw
-
-        # Button Controls
-        self.dsrm = data.buttons[0]
-        self.land = data.buttons[1]
-        self.arm = data.buttons[9]
-	self.mag = data.axes[5]
-	self.exit = data.buttons[2]
-
-
-
     def send_commands(self):
         self.printAndLog("Accepting Commands")
+	self.printAndLog("Initiating Arming")
+	self.arm_and_takeoff_nogps()
+
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
+            # print(self.vehicle.attitude.yaw)
             if self.cmds is not None and self.vehicle.armed:
-                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.cmds.linear.z)
-		msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
-		self.printAndLog(msg)
-                if self.arm > 0:
-                    self.printAndLog("Arming...")
-                    self.arm_and_takeoff_nogps()
+                self.set_attitude(roll_angle = 0, pitch_angle = 0, yaw_angle = None, yaw_rate = 0, use_yaw_rate = True, thrust = self.cmds.linear.z)
+                msg = "thrust: " + str(self.cmds.linear.z)
+                self.printAndLog(msg)
                 if self.dsrm > 0:
                     self.printAndLog("Disarming")
                     self.set_attitude(thrust=0, duration=8)
@@ -256,4 +238,3 @@ class magdroneControlNode():
 
 # Start Node
 magdrone = magdroneControlNode()
-
