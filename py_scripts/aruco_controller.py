@@ -206,6 +206,10 @@ class magdroneControlNode():
 
         # generate thrust command
         self.cmds.linear.z = self.pid_z.getCommand() + 0.5 
+        if self.cmds.linear.z > 0.6:
+            self.cmds.linear.z = 0.58
+        if self.cmds.linear.z < 0.4:
+            self.cmds.linear.z = 0.42
         msg = "error: " + str(self.z_error) + " read position: " + str(data.pose.position.y) + " thrust: " + str(self.cmds.linear.z)
         self.printAndLog(msg)
 
