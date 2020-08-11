@@ -206,21 +206,23 @@ class magdroneControlNode():
 
         # generate thrust command
         self.cmds.linear.z = self.pid_z.getCommand() + 0.5 
-        if self.cmds.linear.z > 0.6:
-            self.cmds.linear.z = 0.58
-        if self.cmds.linear.z < 0.4:
-            self.cmds.linear.z = 0.42
+        if self.cmds.linear.z > 0.55:
+            self.cmds.linear.z = 0.55
+        if self.cmds.linear.z < 0.45:
+            self.cmds.linear.z = 0.45
         msg = "error: " + str(self.z_error) + " read position: " + str(data.pose.position.y) + " thrust: " + str(self.cmds.linear.z)
         self.printAndLog(msg)
 
     def send_commands(self):
         self.printAndLog("Accepting Commands")
+	self.printAndLog("Initiating Arming")
+	self.arm_and_takeoff_nogps()
 
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             # print(self.vehicle.attitude.yaw)
-            if self.cmds is not None:
-                self.set_attitude(thrust=self.cmds.linear.z)
+            if self.cmds is not None and self.vehicle.armed:
+                self.set_attitude(roll_angle = 0, pitch_angle = 0, yaw_angle = None, yaw_rate = 0, use_yaw_rate = True, thrust = self.cmds.linear.z)
                 msg = "thrust: " + str(self.cmds.linear.z)
                 self.printAndLog(msg)
                 if self.dsrm > 0:
@@ -236,3 +238,4 @@ class magdroneControlNode():
 
 # Start Node
 magdrone = magdroneControlNode()
+
