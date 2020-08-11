@@ -47,6 +47,7 @@ class magdroneControlNode():
 
         # Set up Subscribers
         self.pose_sub = rp.Subscriber("/aruco_single/pose", PoseStamped, self.pose_callback, queue_size=1)
+        self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
 
         # Set up Publishers
 
@@ -174,10 +175,10 @@ class magdroneControlNode():
         self.cmds = Twist()
 
         # Create Empty Commands
-        self.cmds.linear.x = 0   # roll
-        self.cmds.linear.y = 0   # pitch
+        #self.cmds.linear.x = 0   # roll
+        #self.cmds.linear.y = 0   # pitch
         self.cmds.linear.z = 0   # thrust
-        self.cmds.angular.z = 0  # yaw
+        #self.cmds.angular.z = 0  # yaw
 
 	# Defining the desired positions
 	self.z_des = 0 #thrust
@@ -236,7 +237,7 @@ class magdroneControlNode():
         self.printAndLog("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
-            if self.cmds is not None and self.vehicle.armed:
+            if self.cmds is not None:
                 self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.cmds.linear.z)
 		msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
 		self.printAndLog(msg)
