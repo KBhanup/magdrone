@@ -57,6 +57,7 @@ class magdroneControlNode():
 
         # Variables
         self.cmds = None
+        self.linear_z_cmd = 0.0
         self.land = 0
         self.dsrm = 0
         self.arm = 0
@@ -172,12 +173,11 @@ class magdroneControlNode():
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
 
     def pose_callback(self, data):
-        self.cmds = Twist()
 
         # Create Empty Commands
         #self.cmds.linear.x = 0   # roll
         #self.cmds.linear.y = 0   # pitch
-        self.cmds.linear.z = 0   # thrust
+        # self.cmds.linear.z = 0   # thrust
         #self.cmds.angular.z = 0  # yaw
 
 	# Defining the desired positions
@@ -206,17 +206,18 @@ class magdroneControlNode():
         self.pid_z.updateError(self.z_error)
 
         # generate thrust command
-        self.cmds.linear.z = self.pid_z.getCommand() + 0.5 
-        if self.cmds.linear.z > 0.55:
-            self.cmds.linear.z = 0.55
-        if self.cmds.linear.z < 0.45:
-            self.cmds.linear.z = 0.45
-        msg = "error: " + str(self.z_error) + " read position: " + str(data.pose.position.y) + " thrust: " + str(self.cmds.linear.z)
-        self.printAndLog(msg)
-
+        #self.cmds.linear.z = self.pid_z.getCommand() + 0.5
+        self.linear_z_cmd =  self.pid_z.getCommand() + 0.5
+        if self.linear_z_cmd > 0.55:
+            self.linear_z_cmd = 0.55
+        if self.linear_z_cmd < 0.45:
+            self.linear_z_cmd = 0.45
+        #msg = "error: " + str(self.z_error) + " read position: " + str(data.pose.position.y) + " thrust: " + str(self.cmds.linear.z)
+        #self.printAndLog(msg)
 
     def joy_callback(self, data):
-        self.cmds = Twist()
+
+	self.cmds = Twist()
 
         # Joystick Controls
         self.cmds.linear.x  = data.axes[2]*10 #roll
@@ -232,14 +233,13 @@ class magdroneControlNode():
 	self.exit = data.buttons[2]
 
 
-
     def send_commands(self):
         self.printAndLog("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
-                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.cmds.linear.z)
-		msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
+                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.linear_z_cmd)
+		msg = "thrust: " + str(self.linear_z_cmd) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
 		self.printAndLog(msg)
                 if self.arm > 0:
                     self.printAndLog("Arming...")
