@@ -6,14 +6,13 @@ import math
 import time
 
 from dronekit import connect, VehicleMode, LocationGlobal, LocationGlobalRelative
-
 from pymavlink import mavutil
 
 from pid import PIDcontroller
+from logbook import LogBook
 
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, PoseStamped
-
 
 def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
     """
@@ -33,7 +32,6 @@ def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
 
     return [w, x, y, z]
 
-
 class magdroneControlNode():
 
     def __init__(self):
@@ -43,16 +41,14 @@ class magdroneControlNode():
         self.pid_z = PIDcontroller(0.1, 0.0, 0.0, 1)
 
         # Create log file
-        self.log_file = open("log.txt", 'a')
+        self.log_book = LogBook("test_flight")
 
         # Set up Subscribers
         self.pose_sub = rp.Subscriber("/aruco_single/pose", PoseStamped, self.pose_callback, queue_size=1)
         self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
 
-        # Set up Publishers
-
         # Connect to the Vehicle
-        self.printAndLog('Connecting to Vehicle')
+        self.log_book.printAndLog('Connecting to Vehicle')
         self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
 
         # Variables
@@ -63,6 +59,11 @@ class magdroneControlNode():
         self.arm = 0
         self.exit = 0
 
+        # Define the desired position
+        self.z_des = 0  # thrust
+        self.y_des = 0  # roll
+        self.x_des = 1  # pitch
+
         # Create thread for publisher
         self.rate = 20
         t = threading.Thread(target=self.send_commands)
@@ -70,10 +71,13 @@ class magdroneControlNode():
 
         rp.spin()
 
-    def printAndLog(self, msg):
-        print(msg)
-        self.log_file.write(msg)
-        self.log_file.write("\n")
+    def clipCommand(self, cmd, upperBound, lowerBound):
+        if cmd < lowerBound:
+            cmd = lowerBound
+        elif cmd > upperBound:
+            cmd = upperBound
+
+        return cmd
 
     def arm_and_takeoff_nogps(self, aTargetAltitude=-1.0):
         """
@@ -84,7 +88,7 @@ class magdroneControlNode():
         DEFAULT_TAKEOFF_THRUST = 0.55
         SMOOTH_TAKEOFF_THRUST = 0.52
 
-        self.printAndLog("Basic pre-arm checks")
+        self.log_book.printAndLog("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
@@ -92,17 +96,17 @@ class magdroneControlNode():
         #   print(" Waiting for vehicle to initialise...")
         #  time.sleep(1)
 
-        self.printAndLog("Arming motors")
+        self.log_book.printAndLog("Arming motors")
         #  GUIDED_NOGPS mode is recommended by DroneKit
         self.vehicle.mode = VehicleMode("GUIDED_NOGPS")
         self.vehicle.armed = True
 
         while not self.vehicle.armed:
-            self.printAndLog(" Waiting for arming...")
+            self.log_book.printAndLog(" Waiting for arming...")
             self.vehicle.armed = True
             time.sleep(1)
 
-        self.printAndLog("Armed!")
+        self.log_book.printAndLog("Armed!")
 
         if aTargetAltitude > 0:
             print("Taking off!")
@@ -134,6 +138,7 @@ class magdroneControlNode():
         if yaw_angle is None:
             # this value may be unused by the vehicle, depending on use_yaw_rate
             yaw_angle = self.vehicle.attitude.yaw
+
         # Thrust >  0.5: Ascend
         # Thrust == 0.5: Hold the altitude
         # Thrust <  0.5: Descend
@@ -173,88 +178,76 @@ class magdroneControlNode():
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
 
     def pose_callback(self, data):
+        # Empty Commands
+        # self.cmds.linear.x = 0   # roll
+        # self.cmds.linear.y = 0   # pitch
+        # self.cmds.angular.z = 0  # yaw
+        self.linear_z_cmd = 0   # thrust
 
-        # Create Empty Commands
-        #self.cmds.linear.x = 0   # roll
-        #self.cmds.linear.y = 0   # pitch
-        # self.cmds.linear.z = 0   # thrust
-        #self.cmds.angular.z = 0  # yaw
-
-	# Defining the desired positions
-	self.z_des = 0 #thrust
-	self.y_des = 0 #roll
-	self.x_des = 1 #pitch
-
-	"""
-	+ z error = + thrust
-	- z error = - thrust
-	+ y error = - roll
-	- y error = + roll
-	+ x error = + pitch
-	- x error = - pitch 		
-	"""
+        """
+        + z error = + thrust
+        - z error = - thrust
+        + y error = - roll
+        - y error = + roll
+        + x error = + pitch
+        - x error = - pitch
+        """
 
         # Position conversions where the reported position is in terms of the camera frame
-	# z-error = x-tag - z_des = y-camera
-	# y-error = y-tag - y_des = x-camera
-	# x-error = z-tag - x_des = z-camera
-	self.z_error = data.pose.position.y + self.z_des
-	self.y_error = data.pose.position.x + self.y_des
-	self.x_error = data.pose.position.z + self.x_des
+        # z-error = x-tag - z_des = y-camera
+        # y-error = y-tag - y_des = x-camera
+        # x-error = z-tag - x_des = z-camera
+        self.z_error = data.pose.position.y + self.z_des
+        self.y_error = data.pose.position.x + self.y_des
+        self.x_error = data.pose.position.z + self.x_des
 
         # PID update error
         self.pid_z.updateError(self.z_error)
 
-        # generate thrust command
-        #self.cmds.linear.z = self.pid_z.getCommand() + 0.5
-        self.linear_z_cmd =  self.pid_z.getCommand() + 0.5
-        if self.linear_z_cmd > 0.55:
-            self.linear_z_cmd = 0.55
-        if self.linear_z_cmd < 0.45:
-            self.linear_z_cmd = 0.45
-        #msg = "error: " + str(self.z_error) + " read position: " + str(data.pose.position.y) + " thrust: " + str(self.cmds.linear.z)
-        #self.printAndLog(msg)
+        # Generate thrust command
+        self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.55, 0.45)
 
     def joy_callback(self, data):
-
-	self.cmds = Twist()
+        # Empty Command
+        self.cmds = Twist()
 
         # Joystick Controls
-        self.cmds.linear.x  = data.axes[2]*10 #roll
-        self.cmds.linear.y  = data.axes[3]*10 #pitch
-        #self.cmds.linear.z  = 0.2 * data.axes[1] + 0.5 #thrust
-        self.cmds.angular.z = data.axes[0]*10 #yaw
+        self.cmds.linear.x = data.axes[2]*10  # roll
+        self.cmds.linear.y = data.axes[3]*10  # pitch
+        self.cmds.angular.z = data.axes[0]*10  # yaw
 
         # Button Controls
         self.dsrm = data.buttons[0]
         self.land = data.buttons[1]
         self.arm = data.buttons[9]
-	self.mag = data.axes[5]
-	self.exit = data.buttons[2]
-
+        self.mag = data.axes[5]
+        self.exit = data.buttons[2]
 
     def send_commands(self):
-        self.printAndLog("Accepting Commands")
+        self.log_book.printAndLog("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
-                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.linear_z_cmd)
-		msg = "thrust: " + str(self.linear_z_cmd) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
-		self.printAndLog(msg)
+                self.set_attitude(roll_angle=-self.cmds.linear.x, pitch_angle=-self.cmds.linear.y,
+                                  yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.linear_z_cmd)
+
+                msg = "thrust: " + str(self.linear_z_cmd) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
+                self.log_book.justLog(msg)
+
                 if self.arm > 0:
-                    self.printAndLog("Arming...")
+                    self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
                 if self.dsrm > 0:
-                    self.printAndLog("Disarming")
+                    self.log_book.printAndLog("Disarming")
                     self.set_attitude(thrust=0, duration=8)
-                    self.printAndLog("Disarm complete")
+                    self.log_book.printAndLog("Disarm complete")
                 if self.arm > 0:
-                    self.printAndLog("Arming...")
+                    self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
                 if self.exit > 0:
-                    self.printAndLog("Switched to manual controls")
+                    self.log_book.printAndLog("Switched to manual controls")
             r.sleep()
+
 
 # Start Node
 magdrone = magdroneControlNode()
-
