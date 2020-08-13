@@ -37,7 +37,7 @@ class magdroneControlNode():
     def __init__(self):
         rp.init_node("magdrone_node")
 
-        self.log_book.printAndLog('Running magrdone_control.py')
+        #self.log_book.printAndLog('Running magrdone_control.py')
 
 	# Create log file
 	#self.log_file = open("log.txt", 'a');
@@ -61,7 +61,7 @@ class magdroneControlNode():
         self.arm = 0
 
         # Create thread for publisher
-        self.rate = 30
+        self.rate = 20
         t = threading.Thread(target=self.send_commands)
         t.start()
 

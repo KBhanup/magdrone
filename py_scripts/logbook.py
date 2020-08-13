@@ -17,7 +17,7 @@ class LogBook():
     def justLog(self, msg):
         t = datetime.datetime.now()
         current_time = t.strftime("%H:%M:%S.%f")
-        time_stamped_msg = current_time + " -> " + msg
+        time_stamped_msg = current_time + "\t" + msg
         self.log_file.write(time_stamped_msg)
         self.log_file.write("\n")
 
