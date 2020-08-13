@@ -38,7 +38,7 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_z = PIDcontroller(0.1, 0.0, 0.0, 1)
+        self.pid_z = PIDcontroller(0.1, 0.0, 0.1, 1)
 
         # Create log file
         self.log_book = LogBook("test_flight")
@@ -46,6 +46,9 @@ class magdroneControlNode():
         # Set up Subscribers
         self.pose_sub = rp.Subscriber("/aruco_single/pose", PoseStamped, self.pose_callback, queue_size=1)
         self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
+
+	# Labeling the log file by controller
+        self.log_book.printAndLog('Running aruco_joy_controller.py')
 
         # Connect to the Vehicle
         self.log_book.printAndLog('Connecting to Vehicle')
@@ -59,13 +62,8 @@ class magdroneControlNode():
         self.arm = 0
         self.exit = 0
 
-        # Define the desired position
-        self.z_des = 0  # thrust
-        self.y_des = 0  # roll
-        self.x_des = 1  # pitch
-
         # Create thread for publisher
-        self.rate = 20
+        self.rate = 30
         t = threading.Thread(target=self.send_commands)
         t.start()
 
@@ -173,7 +171,7 @@ class magdroneControlNode():
             self.send_attitude_target(roll_angle, pitch_angle,
                                       yaw_angle, yaw_rate, use_yaw_rate,
                                       thrust)
-            time.sleep(0.1)
+            time.sleep(duration)
         # Reset attitude, or it will persist for 1s more due to the timeout
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
 
@@ -192,6 +190,10 @@ class magdroneControlNode():
         + x error = + pitch
         - x error = - pitch
         """
+        # Define the desired position
+        self.z_des = 0.0  # thrust
+        self.y_des = 0.0  # roll
+        self.x_des = 1.0  # pitch
 
         # Position conversions where the reported position is in terms of the camera frame
         # z-error = x-tag - z_des = y-camera
@@ -206,6 +208,9 @@ class magdroneControlNode():
 
         # Generate thrust command
         self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.55, 0.45)
+
+        msg = "estimated position: " + str(data.pose.position.y) + " thrust: " + str(self.linear_z_cmd) 
+        self.log_book.justLog(msg)
 
     def joy_callback(self, data):
         # Empty Command
@@ -229,10 +234,10 @@ class magdroneControlNode():
         while not rp.is_shutdown():
             if self.cmds is not None:
                 self.set_attitude(roll_angle=-self.cmds.linear.x, pitch_angle=-self.cmds.linear.y,
-                                  yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.linear_z_cmd)
+                                  yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.linear_z_cmd, duration=1.0/self.rate)
 
-                msg = "thrust: " + str(self.linear_z_cmd) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
-                self.log_book.justLog(msg)
+                #msg = "thrust: " + str(self.linear_z_cmd) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
+                #self.log_book.justLog(msg)
 
                 if self.arm > 0:
                     self.log_book.printAndLog("Arming...")

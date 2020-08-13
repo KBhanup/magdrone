@@ -40,7 +40,7 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_y = PIDcontroller(0.1, 0.0, 0.0, 1)
+        self.pid_y = PIDcontroller(10, 0.0, 0.0, 1)
 
         # Create log file
         self.log_file = open("log.txt", 'a')
@@ -207,13 +207,13 @@ class magdroneControlNode():
 
         # generate thrust command
         #self.cmds.linear.z = self.pid_z.getCommand() + 0.5
-        self.linear_y_cmd =  self.pid_y.getCommand() 
-        if self.linear_y_cmd > 3:
-            self.linear_y_cmd = 3
-        if self.linear_y_cmd < -3
-            self.linear_y_cmd = -3
-        #msg = "error: " + str(self.z_error) + " read position: " + str(data.pose.position.y) + " roll: " + str(self.cmds.linear.z)
-        #self.printAndLog(msg)
+        self.linear_y_cmd =  -(self.pid_y.getCommand()) 
+        if self.linear_y_cmd > 5.0:
+            self.linear_y_cmd = 5.0
+        if self.linear_y_cmd < (-5.0):
+            self.linear_y_cmd = (-5.0)
+        msg = "error: " + str(self.y_error) + " read position: " + str(data.pose.position.x) + " roll: " + str(self.linear_y_cmd)
+        self.printAndLog(msg)
 
     def joy_callback(self, data):
 
@@ -238,7 +238,7 @@ class magdroneControlNode():
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
-                self.set_attitude(roll_angle = -self.linear_y_cmd, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.cmds.linear.z)
+                self.set_attitude(roll_angle = self.linear_y_cmd, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.cmds.linear.z)
 		#msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.linear_y_cmd) + " pitch angle: " + str(self.cmds.linear.y)
 		#self.printAndLog(msg)
                 if self.arm > 0:

@@ -19,7 +19,7 @@ class LogBook():
         current_time = t.strftime("%H:%M:%S.%f")
         time_stamped_msg = current_time + " -> " + msg
         self.log_file.write(time_stamped_msg)
-        self.log_file("\n")
+        self.log_file.write("\n")
 
     def printAndLog(self, msg):
         t = datetime.datetime.now()
@@ -27,4 +27,4 @@ class LogBook():
         time_stamped_msg = current_time + " -> " + msg
         print(time_stamped_msg)
         self.log_file.write(time_stamped_msg)
-        self.log_file("\n")
+        self.log_file.write("\n")

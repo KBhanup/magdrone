@@ -1,0 +1,281 @@
+13:10:40.232140 -> Connecting to Vehicle
+13:10:57.547287 -> Accepting Commands
+13:10:58.800576 ->             actual roll: 0.0 actual pitch: 0.0
+13:10:58.801288 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:10:58.801845 -> Arming...
+13:10:58.802944 -> Basic pre-arm checks
+13:10:58.803121 -> Arming motors
+13:10:58.805132 ->  Waiting for arming...
+13:10:59.807168 ->  Waiting for arming...
+13:11:00.809035 ->  Waiting for arming...
+13:11:01.811393 -> Armed!
+13:11:01.841566 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:01.841883 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:01.869719 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:01.871037 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:01.905364 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:01.906639 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:01.940381 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:01.941157 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:01.971170 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:01.971938 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.003299 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.004181 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.034007 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.034587 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.063690 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.064319 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.100525 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.102206 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.134788 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.135939 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.172942 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.173936 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.202364 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.202858 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.234211 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.235057 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.264546 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.265495 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.297036 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.298686 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.336409 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.341549 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.381171 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.381732 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.415598 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.417037 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.455398 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.465519 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.498853 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.500172 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.528965 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.529640 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.558688 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.559519 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.590760 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.591753 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.620206 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.621156 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.650672 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.651777 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.701520 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.702658 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.743665 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.743924 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.771642 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.772392 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.804758 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.806639 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.840153 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.840469 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.871137 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.872007 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.911778 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.912850 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:02.946937 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:02.982542 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.011565 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.015800 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.044923 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.045822 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.079603 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.080297 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.109698 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.110267 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.138590 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.139092 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.168185 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.168803 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.203785 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.204286 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.244170 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.244820 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.273830 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.274409 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.303047 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.303535 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.334586 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.335409 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.365722 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.367224 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.399757 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.401310 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.434249 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.435052 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.476702 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.479173 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.517262 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.517722 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.547052 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.548454 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.582756 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.583843 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.623641 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.624489 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.656827 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.657687 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.698333 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.698793 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.727627 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.728740 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.761866 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.762479 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.792992 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.794239 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.827722 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.829390 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.881364 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.882198 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.911495 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.912168 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.943519 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.945174 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:03.983505 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:03.984501 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.014311 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.015163 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.044953 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.046892 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.092155 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.093055 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.130725 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.131226 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.159603 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.159880 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.191098 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.191542 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.221331 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.221924 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.251003 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.251278 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.278511 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.280069 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.312951 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.325928 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.370496 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.371371 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.401111 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.402182 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.434577 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.435701 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.475694 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.476327 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.505262 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.505598 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.536324 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.538108 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.573296 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.574362 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.607775 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.610456 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.639640 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.639925 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.669739 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.670652 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.707284 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.707965 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.743978 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.744882 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.774730 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.775085 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.804090 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.804835 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.843267 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.844317 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.874255 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.874668 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.903268 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.904018 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.934837 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.935619 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:04.990951 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:04.991950 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.026087 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.027493 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.059124 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.064775 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.095197 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.095633 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.126256 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.127047 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.157570 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.157990 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.186553 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.187382 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.224491 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.225149 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.258113 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.258672 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.289576 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.291280 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.327766 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.329098 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.361564 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.362268 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.392800 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.394075 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.423620 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.424370 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.452791 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.453221 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.483925 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.486288 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.515833 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.516577 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.546134 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.547112 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.583570 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.595361 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.638186 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.638788 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.677250 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.678081 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.714401 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.714882 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.759119 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.759740 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.796634 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.803799 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.878762 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.881581 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.918562 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.919208 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:05.972865 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:05.973604 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.015352 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.015828 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.048871 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.049183 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.080070 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.080772 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.111994 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.112743 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.142325 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.143033 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.177076 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.178042 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.212162 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.212684 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.242357 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.242742 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.272712 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.273716 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.334884 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.337692 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.367263 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.368596 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.399645 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.400171 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.438573 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.440166 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.477629 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.478977 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.509127 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.510508 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.539840 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.540400 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.572295 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.575807 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
+13:11:06.605793 ->             actual roll: 0.0 actual pitch: 0.0
+13:11:06.606246 -> thrust: 0.5 roll angle: -0.0 pitch angle: -0.0
