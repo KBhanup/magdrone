@@ -44,7 +44,7 @@ class magdroneControlNode():
         self.log_book = LogBook("test_flight")
 
         # Set up Subscribers
-        self.pose_sub = rp.Subscriber("/aruco_single/pose", PoseStamped, self.pose_callback, queue_size=1)
+        self.pose_sub = rp.Subscriber("/vrpn_client_node/UAV/pose", PoseStamped, self.pose_callback, queue_size=1)
         self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
 
 	# Labeling the log file by controller
@@ -193,7 +193,7 @@ class magdroneControlNode():
         - x error = - pitch
         """
         # Define the desired position
-        self.z_des = -0.1  # thrust
+        self.z_des = 1.0  # thrust
         self.y_des = 0.0  # roll
         self.x_des = 1.0  # pitch
 
@@ -201,9 +201,9 @@ class magdroneControlNode():
         # z-error = x-tag - z_des = y-camera
         # y-error = y-tag - y_des = x-camera
         # x-error = z-tag - x_des = z-camera
-        self.z_error = data.pose.position.y + self.z_des
-        self.y_error = data.pose.position.x + self.y_des
-        self.x_error = data.pose.position.z + self.x_des
+        self.z_error = data.pose.position.z + self.z_des
+        #self.y_error = data.pose.position.x + self.y_des
+        #self.x_error = data.pose.position.z + self.x_des
 
         # PID update error
         self.pid_z.updateError(self.z_error)
