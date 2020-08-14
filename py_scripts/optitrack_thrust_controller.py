@@ -38,7 +38,7 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_z = PIDcontroller(0.25, 0.0, 0.0, 1)
+        self.pid_z = PIDcontroller(0.5, 0.0, 0.25, 1)
 
         # Create log file
         self.log_book = LogBook("test_flight")
@@ -62,6 +62,8 @@ class magdroneControlNode():
         self.dsrm = 0
         self.arm = 0
         self.exit = 0
+        self.z_error = 0.0
+
 
         # Create thread for publisher
         self.rate = 30
@@ -182,7 +184,7 @@ class magdroneControlNode():
         # self.cmds.linear.x = 0   # roll
         # self.cmds.linear.y = 0   # pitch
         # self.cmds.angular.z = 0  # yaw
-        self.linear_z_cmd = 0   # thrust
+        # self.linear_z_cmd = 0   # thrust
 
         """
         + z error = + thrust
@@ -209,7 +211,7 @@ class magdroneControlNode():
         self.pid_z.updateError(self.z_error)
 
         # Generate thrust command
-        self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.505, 0.55, 0.45)
+        self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.6, 0.4)
 
     def joy_callback(self, data):
         # Empty Command
@@ -228,7 +230,7 @@ class magdroneControlNode():
         self.exit = data.buttons[2]
 
     def send_commands(self):
-        self.log_book.printAndLog("Accepting Commands")
+        print("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
@@ -248,11 +250,8 @@ class magdroneControlNode():
                 if self.arm > 0:
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
-                if self.exit =< 0:
-                    msg = str(data.pose.position.z) + "\t" + str(self.linear_z_cmd)
-                    self.log_book.justLog(msg)
-                if self.exit > 0:
-                    msg = str(0) + "\t" + str(0)
+                if self.exit == 0:
+                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd)
                     self.log_book.justLog(msg)
             r.sleep()
 
