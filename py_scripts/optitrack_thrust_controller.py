@@ -38,7 +38,7 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_z = PIDcontroller(0.1, 0.0, 0.01, 1)
+        self.pid_z = PIDcontroller(0.25, 0.0, 0.0, 1)
 
         # Create log file
         self.log_book = LogBook("test_flight")
@@ -209,11 +209,7 @@ class magdroneControlNode():
         self.pid_z.updateError(self.z_error)
 
         # Generate thrust command
-        self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.55, 0.45)
-
-        #msg = "estimated position: " + str(data.pose.position.y) + " thrust: " + str(self.linear_z_cmd) 
-        msg = str(data.pose.position.z) + "\t" + str(self.linear_z_cmd)
-        self.log_book.justLog(msg)
+        self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.505, 0.55, 0.45)
 
     def joy_callback(self, data):
         # Empty Command
@@ -252,8 +248,12 @@ class magdroneControlNode():
                 if self.arm > 0:
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
+                if self.exit =< 0:
+                    msg = str(data.pose.position.z) + "\t" + str(self.linear_z_cmd)
+                    self.log_book.justLog(msg)
                 if self.exit > 0:
-                    self.log_book.printAndLog("Switched to manual controls")
+                    msg = str(0) + "\t" + str(0)
+                    self.log_book.justLog(msg)
             r.sleep()
 
 
