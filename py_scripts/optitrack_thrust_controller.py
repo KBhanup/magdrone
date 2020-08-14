@@ -201,7 +201,7 @@ class magdroneControlNode():
         # z-error = x-tag - z_des = y-camera
         # y-error = y-tag - y_des = x-camera
         # x-error = z-tag - x_des = z-camera
-        self.z_error = data.pose.position.z + self.z_des
+        self.z_error = self.z_des - data.pose.position.z
         #self.y_error = data.pose.position.x + self.y_des
         #self.x_error = data.pose.position.z + self.x_des
 
@@ -212,7 +212,7 @@ class magdroneControlNode():
         self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.55, 0.45)
 
         #msg = "estimated position: " + str(data.pose.position.y) + " thrust: " + str(self.linear_z_cmd) 
-        msg = str(data.pose.position.y) + "\t" + str(self.linear_z_cmd)
+        msg = str(data.pose.position.z) + "\t" + str(self.linear_z_cmd)
         self.log_book.justLog(msg)
 
     def joy_callback(self, data):
