@@ -38,8 +38,8 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_z = PIDcontroller(0.5, 0.0, 0.25, 1)
-        self.pid_y = PIDcontroller(5, 0.0, 0.0, 1)
+        self.pid_z = PIDcontroller(0.5, 0.0, 0.25, 2)
+        self.pid_y = PIDcontroller(5.0, 0.0, 2.0, 2)
 
         # Create log file
         self.log_book = LogBook("test_flight")
@@ -206,7 +206,7 @@ class magdroneControlNode():
         # y-error = y-tag - y_des = x-camera
         # x-error = z-tag - x_des = z-camera
         self.z_error = self.z_des - data.pose.position.z
-        self.y_error = data.pose.position.x + self.y_des
+        self.y_error = self.y_des - data.pose.position.y
         #self.x_error = data.pose.position.z + self.x_des
 
         # PID update error

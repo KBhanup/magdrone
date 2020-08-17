@@ -38,7 +38,7 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_z = PIDcontroller(0.5, 0.0, 0.25, 1)
+        self.pid_z = PIDcontroller(0.5, 0.0, 0.25, 2)
 
         # Create log file
         self.log_book = LogBook("test_flight")
