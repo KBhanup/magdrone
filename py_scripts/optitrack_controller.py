@@ -38,8 +38,8 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_z = PIDcontroller(0.5, 0.0, 0.25, 2)
-        self.pid_y = PIDcontroller(5.0, 0.0, 2.0, 2)
+        self.pid_z = PIDcontroller(0.5, 0.0, 0.4, 3)
+        self.pid_y = PIDcontroller(5.0, 0.0, 4.0, 3)
 
         # Create log file
         self.log_book = LogBook("test_flight")
@@ -209,15 +209,6 @@ class magdroneControlNode():
         self.y_error = self.y_des - data.pose.position.y
         #self.x_error = data.pose.position.z + self.x_des
 
-        # PID update error
-        self.pid_z.updateError(self.z_error)
-        self.pid_y.updateError(self.y_error)
-
-        # Generate commands
-        self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.6, 0.4)
-        self.linear_y_cmd = self.clipCommand(self.pid_y.getCommand(), 5.0, -5.0) 
-
-
     def joy_callback(self, data):
         # Empty Command
         self.cmds = Twist()
@@ -239,6 +230,13 @@ class magdroneControlNode():
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             if self.cmds is not None:
+                # PID update error
+                self.pid_z.updateError(self.z_error)
+                self.pid_y.updateError(self.y_error)
+
+                # Generate commands
+                self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.6, 0.4)
+                self.linear_y_cmd = self.clipCommand(self.pid_y.getCommand(), 5.0, -5.0) 
                 self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.cmds.linear.y,
                                   yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.linear_z_cmd, duration=1.0/self.rate)
 
