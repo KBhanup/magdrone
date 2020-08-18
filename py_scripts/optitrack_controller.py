@@ -38,7 +38,7 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_z = PIDcontroller(0.75, 0.0, 7.5, 3)
+        self.pid_z = PIDcontroller(1.0, 0.0, 17.5, 3)
         self.pid_y = PIDcontroller(5.0, 0.0, 50.0, 3)
 
         # Create log file
@@ -235,7 +235,7 @@ class magdroneControlNode():
                 self.pid_y.updateError(self.y_error)
 
                 # Generate commands
-                self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.6, 0.4)
+                self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.65, 0.35)
                 self.linear_y_cmd = self.clipCommand(self.pid_y.getCommand(), 5.0, -5.0) 
                 self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.cmds.linear.y,
                                   yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.linear_z_cmd, duration=1.0/self.rate)
