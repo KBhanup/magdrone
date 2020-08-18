@@ -38,7 +38,7 @@ class PIDcontroller():
             # Proportional
             cmd = self.kp * (self.errors[-1])
 
-            if len(self.errors) >= 2:
+            if len(self.errors) > 1:
                 # Derivative
                 cmd += self.kd * (self.errors[-1] - self.errors[-2])
                 # Integral
