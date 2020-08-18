@@ -40,6 +40,7 @@ class magdroneControlNode():
         # Create PID Controller
         self.pid_z = PIDcontroller(1.0, 0.0, 17.5, 3)
         self.pid_y = PIDcontroller(7.5, 0.0, 200.0, 3)
+        self.pid_x = PIDcontroller(7.5, 0.0, 200.0, 3)
 
         # Create log file
         self.log_book = LogBook("test_flight")
@@ -65,7 +66,8 @@ class magdroneControlNode():
         self.arm = 0
         self.exit = 0
         self.z_error = 0.0
-
+        self.y_error = 0.0
+        self.x_error = 0.0
 
         # Create thread for publisher
         self.rate = 30
@@ -207,7 +209,7 @@ class magdroneControlNode():
         # x-error = z-tag - x_des = z-camera
         self.z_error = self.z_des - data.pose.position.z
         self.y_error = self.y_des - data.pose.position.y
-        #self.x_error = data.pose.position.z + self.x_des
+        self.x_error = data.pose.position.x - self.x_des
 
     def joy_callback(self, data):
         # Empty Command
@@ -233,11 +235,13 @@ class magdroneControlNode():
                 # PID update error
                 self.pid_z.updateError(self.z_error)
                 self.pid_y.updateError(self.y_error)
+                self.pid_x.updateError(self.x_error)
 
                 # Generate commands
                 self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.65, 0.35)
-                self.linear_y_cmd = self.clipCommand(self.pid_y.getCommand(), 7.5, -7.5) 
-                self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.cmds.linear.y,
+                self.linear_y_cmd = self.clipCommand(self.pid_y.getCommand(), 7.5, -7.5)
+                self.linear_x_cmd = self.clipCommand(self.pid_x.getCommand(), 7.5, -7.5) 
+                self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.linear_x_cmd,
                                   yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.linear_z_cmd, duration=1.0/self.rate)
 
                 #msg = "thrust: " + str(self.linear_z_cmd) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
@@ -254,7 +258,7 @@ class magdroneControlNode():
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
                 if self.exit == 0:
-                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd)
+                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd)
                     self.log_book.justLog(msg)
             r.sleep()
 
