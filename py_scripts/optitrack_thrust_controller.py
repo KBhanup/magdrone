@@ -38,7 +38,7 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create PID Controller
-        self.pid_z = PIDcontroller(0.5, 0.0, 0.25, 3)
+        self.pid_z = PIDcontroller(1.0, 0, 17.5, 3)
 
         # Create log file
         self.log_book = LogBook("test_flight")
@@ -211,7 +211,7 @@ class magdroneControlNode():
         self.pid_z.updateError(self.z_error)
 
         # Generate thrust command
-        self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.6, 0.4)
+        self.linear_z_cmd = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.65, 0.35)
 
     def joy_callback(self, data):
         # Empty Command
@@ -243,6 +243,7 @@ class magdroneControlNode():
                 if self.arm > 0:
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
+                    self.pid_z.resetCtr()
                 if self.dsrm > 0:
                     self.log_book.printAndLog("Disarming")
                     self.set_attitude(thrust=0, duration=8)
