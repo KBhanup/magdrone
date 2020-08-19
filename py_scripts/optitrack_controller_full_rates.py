@@ -40,11 +40,11 @@ class magdroneControlNode():
 
         # Create Controllers
         self.kp_z = 0.55
-        self.kd_z = 0.3
+        self.kd_z = 0.325
         self.kp_y = 7.5
-        self.kd_y = 6.67
+        self.kd_y = 6.75
         self.kp_x = 7.5
-        self.kd_x = 6.67
+        self.kd_x = 7.0
 
         self.z_error = 0.0
         self.y_error = 0.0
