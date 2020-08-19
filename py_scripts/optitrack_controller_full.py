@@ -39,8 +39,8 @@ class magdroneControlNode():
 
         # Create PID Controller
         self.pid_z = PIDcontroller(1.0, 0.0, 17.5, 3)
-        self.pid_y = PIDcontroller(7.5, 0.0, 200.0, 3)
-        self.pid_x = PIDcontroller(7.5, 0.0, 200.0, 3)
+        self.pid_y = PIDcontroller(9.5, 0.0, 200.0, 30)
+        self.pid_x = PIDcontroller(9.5, 0.0, 200.0, 30)
 
         # Create log file
         self.log_book = LogBook("test_flight")
