@@ -40,7 +40,7 @@ class magdroneControlNode():
 
         # Create Controllers
         self.kp_z = 0.55
-        self.kd_z = 0.33
+        self.kd_z = 0.3
         self.kp_y = 8.5
         self.kd_y = 6.5
         self.kp_x = 8.5
@@ -267,9 +267,7 @@ class magdroneControlNode():
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
                 if self.exit == 0:
-                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + \
-                        "\t" + str(self.linear_y_cmd) + "\t" + \
-                        str(self.x_error) + "\t" + str(self.linear_x_cmd)
+                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd)
                     self.log_book.justLog(msg)
             r.sleep()
 
