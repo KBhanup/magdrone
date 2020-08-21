@@ -62,7 +62,7 @@ class magdroneControlNode():
         self.linear_z_cmd = 0.0
         self.linear_y_cmd = 0.0
         self.land = 0
-        self.dsrm = 0
+        self.change_PIDs = 0
         self.arm = 0
         self.exit = 0
         self.z_error = 0.0
@@ -221,7 +221,7 @@ class magdroneControlNode():
         self.cmds.angular.z = data.axes[0]*10  # yaw
 
         # Button Controls
-        self.dsrm = data.buttons[0]
+        self.change_PIDs = data.buttons[0]
         self.land = data.buttons[1]
         self.arm = data.buttons[9]
         self.mag = data.axes[5]
@@ -250,16 +250,17 @@ class magdroneControlNode():
                 if self.arm > 0:
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
-                if self.dsrm > 0:
-                    self.log_book.printAndLog("Disarming")
-                    self.set_attitude(thrust=0, duration=8)
-                    self.log_book.printAndLog("Disarm complete")
                 if self.arm > 0:
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
                 if self.exit == 0:
                     msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd)
                     self.log_book.justLog(msg)
+                if self.change_PIDs > 0:
+                    print("Changing PIDs")
+                    self.pid_z = PIDcontroller(1.0, 0.0, 17.5, 3)
+                    self.pid_y = PIDcontroller(9.5, 0.03, 200.0, 30)
+                    self.pid_x = PIDcontroller(9.5, 0.03, 200.0, 30)
             r.sleep()
 
 
