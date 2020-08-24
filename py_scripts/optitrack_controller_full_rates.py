@@ -280,10 +280,10 @@ class magdroneControlNode():
                 self.linear_z_cmd = self.clipCommand(uZ + 0.5, 0.65, 0.35)
                 self.linear_y_cmd = self.clipCommand(uY - 0.3, 7.5, -7.5)
                 self.linear_x_cmd = self.clipCommand(uX + 0.6, 7.5, -7.5)
-                self.cmds.angular.z = self.clipCommand(yaw, -5, 5)
+                self.angular_z_cmd = self.clipCommand(yaw, -5, 5)
 
                 self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.linear_x_cmd,
-                                  yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, 
+                                  yaw_angle=None, yaw_rate=-self.angular_z_cmd, use_yaw_rate=True, 
                                   thrust=self.linear_z_cmd, duration=1.0/self.rate)
 
                 if self.arm > 0:
@@ -293,7 +293,9 @@ class magdroneControlNode():
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
                 if self.exit == 0:
-                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd)
+                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + 
+                    "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd)
+                    + "\t" + str(self.yaw_error) + "\t" + str(self.angular_z_cmd)
                     self.log_book.justLog(msg)
             r.sleep()
 
