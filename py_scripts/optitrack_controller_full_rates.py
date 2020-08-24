@@ -96,6 +96,10 @@ class magdroneControlNode():
         self.dsrm = 0
         self.arm = 0
         self.exit = 0
+        r = 0.0
+        p = 0.0
+        y = 0.0
+        orientation = [r, p, y]
 
         # Create thread for publisher
         self.rate = 30
@@ -233,9 +237,9 @@ class magdroneControlNode():
         qy = data.pose.orientation.y
         qz = data.pose.orientation.z
 
-        orientation() = to_rpy(qw, qx, qy, qz)
+        orientation = to_rpy(qw, qx, qy, qz)
 
-        yaw_position = orientation.y 
+        yaw_position = orientation[2] 
 
         # Position conversions where the reported position is in terms of the camera frame
         # z-error = x-tag - z_des = y-camera
