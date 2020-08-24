@@ -25,7 +25,7 @@ def to_rpy(qw, qx, qy, qz):
 
     y = np.arctan2(2 * (qw*qz + qx*qy), 1 - 2*(qy*qy + qz*qz))
 
-    return [r, p, y]
+    return np.rad2deg([r, p, y])
 
 def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
     """
@@ -58,7 +58,7 @@ class magdroneControlNode():
         self.kd_y = 8.5
         self.kp_x = 10.5
         self.kd_x = 8.5
-        self.kp_yaw = 0.1
+        self.kp_yaw = 0.01
 
         self.z_error = 0.0
         self.y_error = 0.0
@@ -224,7 +224,7 @@ class magdroneControlNode():
         self.z_des = 1.0  # thrust
         self.y_des = 0.0  # roll
         self.x_des = 0.0  # pitch
-        self.yaw_des = 0.0 #yaw
+        self.yaw_des = -90.0 #yaw in degrees
 
         #Get orientation data 
         qw = data.pose.orientation.w
@@ -243,7 +243,7 @@ class magdroneControlNode():
         self.z_error = self.z_des - data.pose.position.z
         self.y_error = self.y_des - data.pose.position.y
         self.x_error = data.pose.position.x - self.x_des
-        self.yaw_error = self.yaw_des - yaw_position
+        self.yaw_error = self.yaw_des -  yaw_position
 
     def rate_callback(self, data):
         self.z_error_d = -data.twist.linear.z
@@ -295,7 +295,7 @@ class magdroneControlNode():
                 if self.exit == 0:
                     msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd) + "\t" + str(self.yaw_error) + "\t" + str(self.angular_z_cmd) 
                     self.log_book.justLog(msg)
-                    print("error: " + self.yaw_error + " command: " + self.angular_z_cmd) 
+                    print("error: " + str(self.yaw_error) +  " command: " +  str(self.angular_z_cmd)) 
             r.sleep()
 
 # Start Node
