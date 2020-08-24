@@ -14,7 +14,6 @@ from logbook import LogBook
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, PoseStamped, TwistStamped
 
-
 def to_rpy(qw, qx, qy, qz):
     r = np.arctan2(2 * (qw*qx + qy*qz), 1 - 2*(qx*qx + qy*qy))
 
@@ -23,7 +22,7 @@ def to_rpy(qw, qx, qy, qz):
         p = np.sign(sinP) * np.pi / 2
     else:
         p = np.arcsin(sinP)
-    
+
     y = np.arctan2(2 * (qw*qz + qx*qy), 1 - 2*(qy*qy + qz*qz))
 
     return [r, p, y]
@@ -96,10 +95,6 @@ class magdroneControlNode():
         self.dsrm = 0
         self.arm = 0
         self.exit = 0
-        r = 0.0
-        p = 0.0
-        y = 0.0
-        orientation = [r, p, y]
 
         # Create thread for publisher
         self.rate = 30
@@ -280,12 +275,12 @@ class magdroneControlNode():
                 uZ = self.kp_z * self.z_error + self.kd_z * self.z_error_d
                 uY = self.kp_y * self.y_error + self.kd_y * self.y_error_d
                 uX = self.kp_x * self.x_error + self.kd_x * self.x_error_d
-                yaw = self.kp_yaw * self.yaw_error
+                uW = self.kp_yaw * self.yaw_error
 
                 self.linear_z_cmd = self.clipCommand(uZ + 0.5, 0.65, 0.35)
                 self.linear_y_cmd = self.clipCommand(uY - 0.3, 7.5, -7.5)
                 self.linear_x_cmd = self.clipCommand(uX + 0.6, 7.5, -7.5)
-                self.angular_z_cmd = self.clipCommand(yaw, -5, 5)
+                self.angular_z_cmd = self.clipCommand(uW, 5, -5)
 
                 self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.linear_x_cmd,
                                   yaw_angle=None, yaw_rate=-self.angular_z_cmd, use_yaw_rate=True, 
@@ -302,7 +297,6 @@ class magdroneControlNode():
                     self.log_book.justLog(msg)
                     print("error: " + self.yaw_error + " command: " + self.angular_z_cmd) 
             r.sleep()
-
 
 # Start Node
 magdrone = magdroneControlNode()
