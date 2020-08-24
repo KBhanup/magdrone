@@ -14,6 +14,19 @@ from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, PoseStamped, TwistStamped
 
 
+​def to_rpy(qw, qx, qy, qz):
+    r = np.arctan2(2 * (qw*qx + qy*qz), 1 - 2*(qx*qx + qy*qy))
+​
+    sinP = 2 * (qw*qy - qz*qx)
+    if np.abs(sinP) > 1:
+        p = np.sign(sinP) * np.pi / 2
+    else:
+        p = np.arcsin(sinP)
+    
+    y = np.arctan2(2 * (qw*qz + qx*qy), 1 - 2*(qy*qy + qz*qz))
+​
+    return np.array([r, p, y])
+
 def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
     """
     Convert degrees to quaternions
@@ -45,6 +58,7 @@ class magdroneControlNode():
         self.kd_y = 8.5
         self.kp_x = 10.5
         self.kd_x = 8.5
+        self.kp_yaw = 0.1
 
         self.z_error = 0.0
         self.y_error = 0.0
@@ -52,6 +66,7 @@ class magdroneControlNode():
         self.z_error_d = 0.0
         self.y_error_d = 0.0
         self.x_error_d = 0.0
+        self.yaw_error = 0.0
 
         # Create log file
         self.log_book = LogBook("test_flight")
@@ -196,11 +211,7 @@ class magdroneControlNode():
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
 
     def pose_callback(self, data):
-        # Empty Commands
-        # self.cmds.linear.x = 0   # roll
-        # self.cmds.linear.y = 0   # pitch
-        # self.cmds.angular.z = 0  # yaw
-        # self.linear_z_cmd = 0   # thrust
+
         """
         + z error = + thrust
         - z error = - thrust
@@ -213,6 +224,17 @@ class magdroneControlNode():
         self.z_des = 1.0  # thrust
         self.y_des = 0.0  # roll
         self.x_des = 0.0  # pitch
+        self.yaw_des = 0.0 #yaw
+
+        #Get orientation data 
+        qw = data.pose.orientation.w
+        qx = data.pose.orientation.x
+        qy = data.pose.orientation.y
+        qz = data.pose.orientation.z
+
+        orientation = to_rpy(qw, qx, qy, qz)
+
+        yaw_position = orientation.y 
 
         # Position conversions where the reported position is in terms of the camera frame
         # z-error = x-tag - z_des = y-camera
@@ -221,6 +243,7 @@ class magdroneControlNode():
         self.z_error = self.z_des - data.pose.position.z
         self.y_error = self.y_des - data.pose.position.y
         self.x_error = data.pose.position.x - self.x_des
+        self.yaw_error = self.yaw_des - yaw_position
 
     def rate_callback(self, data):
         self.z_error_d = -data.twist.linear.z
@@ -252,13 +275,16 @@ class magdroneControlNode():
                 uZ = self.kp_z * self.z_error + self.kd_z * self.z_error_d
                 uY = self.kp_y * self.y_error + self.kd_y * self.y_error_d
                 uX = self.kp_x * self.x_error + self.kd_x * self.x_error_d
+                yaw = self.kp_yaw * self.yaw_error
 
                 self.linear_z_cmd = self.clipCommand(uZ + 0.5, 0.65, 0.35)
                 self.linear_y_cmd = self.clipCommand(uY - 0.3, 7.5, -7.5)
                 self.linear_x_cmd = self.clipCommand(uX + 0.6, 7.5, -7.5)
+                self.cmds.angular.z = self.clipCommand(yaw, -5, 5)
 
                 self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.linear_x_cmd,
-                                  yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.linear_z_cmd, duration=1.0/self.rate)
+                                  yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, 
+                                  thrust=self.linear_z_cmd, duration=1.0/self.rate)
 
                 if self.arm > 0:
                     self.log_book.printAndLog("Arming...")
