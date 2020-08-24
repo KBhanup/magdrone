@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import rospy as rp
+import numpy as np
 import threading
 import math
 import time
@@ -14,9 +15,9 @@ from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, PoseStamped, TwistStamped
 
 
-​def to_rpy(qw, qx, qy, qz):
+def to_rpy(qw, qx, qy, qz):
     r = np.arctan2(2 * (qw*qx + qy*qz), 1 - 2*(qx*qx + qy*qy))
-​
+
     sinP = 2 * (qw*qy - qz*qx)
     if np.abs(sinP) > 1:
         p = np.sign(sinP) * np.pi / 2
@@ -24,8 +25,8 @@ from geometry_msgs.msg import Twist, PoseStamped, TwistStamped
         p = np.arcsin(sinP)
     
     y = np.arctan2(2 * (qw*qz + qx*qy), 1 - 2*(qy*qy + qz*qz))
-​
-    return np.array([r, p, y])
+
+    return [r, p, y]
 
 def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
     """
@@ -232,7 +233,7 @@ class magdroneControlNode():
         qy = data.pose.orientation.y
         qz = data.pose.orientation.z
 
-        orientation = to_rpy(qw, qx, qy, qz)
+        orientation() = to_rpy(qw, qx, qy, qz)
 
         yaw_position = orientation.y 
 
@@ -293,10 +294,9 @@ class magdroneControlNode():
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
                 if self.exit == 0:
-                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + 
-                    "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd)
-                    + "\t" + str(self.yaw_error) + "\t" + str(self.angular_z_cmd)
+                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd) + "\t" + str(self.yaw_error) + "\t" + str(self.angular_z_cmd) 
                     self.log_book.justLog(msg)
+                    print("error: " + self.yaw_error + " command: " + self.angular_z_cmd) 
             r.sleep()
 
 
