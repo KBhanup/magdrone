@@ -256,13 +256,13 @@ class magdroneControlNode():
                 if self.exit == 0:
                     msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd)
                     self.log_book.justLog(msg)
-                if self.z_error == 0:
+                if self.z_error == 0.0:
                     print("Changing thrust PID")
                     self.pid_z = PIDcontroller(1.0, 0.0, 17.5, 3)
-                if self.y_error == 0:
+                if self.y_error == 0.0:
                     print("Changing roll PID")
                     self.pid_y = PIDcontroller(9.5, 0.03, 200.0, 30)
-                if self.x_error == 0:
+                if self.x_error == 0.0:
                     print("Changing pitch PID")
                     self.pid_x = PIDcontroller(9.5, 0.03, 200.0, 30)
             r.sleep()

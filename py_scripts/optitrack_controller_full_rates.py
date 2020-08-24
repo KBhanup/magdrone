@@ -254,8 +254,8 @@ class magdroneControlNode():
                 uX = self.kp_x * self.x_error + self.kd_x * self.x_error_d
 
                 self.linear_z_cmd = self.clipCommand(uZ + 0.5, 0.65, 0.35)
-                self.linear_y_cmd = self.clipCommand(uY, 7.5, -7.5)
-                self.linear_x_cmd = self.clipCommand(uX - 0.5, 7.5, -7.5)
+                self.linear_y_cmd = self.clipCommand(uY - 0.3, 7.5, -7.5)
+                self.linear_x_cmd = self.clipCommand(uX + 0.6, 7.5, -7.5)
 
                 self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.linear_x_cmd,
                                   yaw_angle=None, yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.linear_z_cmd, duration=1.0/self.rate)
