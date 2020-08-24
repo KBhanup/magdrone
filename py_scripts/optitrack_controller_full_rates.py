@@ -58,7 +58,7 @@ class magdroneControlNode():
         self.kd_y = 8.5
         self.kp_x = 10.5
         self.kd_x = 8.5
-        self.kp_yaw = 0.01
+        self.kp_yaw = 0.1
 
         self.z_error = 0.0
         self.y_error = 0.0
@@ -224,7 +224,7 @@ class magdroneControlNode():
         self.z_des = 1.0  # thrust
         self.y_des = 0.0  # roll
         self.x_des = 0.0  # pitch
-        self.yaw_des = -90.0 #yaw in degrees
+        self.yaw_des = 180.0 #yaw in degrees
 
         #Get orientation data 
         qw = data.pose.orientation.w
@@ -243,7 +243,12 @@ class magdroneControlNode():
         self.z_error = self.z_des - data.pose.position.z
         self.y_error = self.y_des - data.pose.position.y
         self.x_error = data.pose.position.x - self.x_des
-        self.yaw_error = self.yaw_des -  yaw_position
+        yaw_diff = self.yaw_des -  yaw_position
+
+        if yaw_diff > 180.0:
+            self.yaw_error = yaw_diff - 360.0
+        else:
+            self.yaw_error = yaw_diff
 
     def rate_callback(self, data):
         self.z_error_d = -data.twist.linear.z
