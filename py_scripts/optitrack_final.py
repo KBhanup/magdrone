@@ -46,9 +46,9 @@ def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
     return [w, x, y, z]
 
 def opti_to_drone(x_error,y_error,yaw_angle):
-    x_error = (x_error * math.cos(yaw_angle)) - (y_error * math.sin(yaw_angle))
-    y_error = (x_error * math.sin(yaw_angle)) + (y_error * math.cos(yaw_angle))
-    return [x_error, y_error]
+    x_error_d = (x_error * math.cos(math.radians(yaw_angle))) - (y_error * math.sin(math.radians(yaw_angle)))
+    y_error_d = (x_error * math.sin(math.radians(yaw_angle))) + (y_error * math.cos(math.radians(yaw_angle)))
+    return [x_error_d, y_error_d]
 
 class magdroneControlNode():
 
@@ -241,7 +241,7 @@ class magdroneControlNode():
 
         orientation = to_rpy(qw, qx, qy, qz)
 
-        self.yaw_position = orientation[2] 
+        self.yaw_position = -orientation[2] 
 
         # Position conversions where the reported position is in terms of the camera frame
         # z-error = x-tag - z_des = y-camera
@@ -249,7 +249,7 @@ class magdroneControlNode():
         # x-error = z-tag - x_des = z-camera
         self.z_error = self.z_des - data.pose.position.z
         self.y_error = self.y_des - data.pose.position.y
-        self.x_error = data.pose.position.x - self.x_des
+        self.x_error = self.x_des - data.pose.position.x
         yaw_diff = self.yaw_des -  self.yaw_position
 
         # Translate error from optitrack frame to drone body frame
@@ -267,7 +267,7 @@ class magdroneControlNode():
     def rate_callback(self, data):
         self.z_error_d = -data.twist.linear.z
         self.y_error_d = -data.twist.linear.y
-        self.x_error_d = data.twist.linear.x
+        self.x_error_d = -data.twist.linear.x
 
         # Translate error rate from optitrack frame to drone body frame
         drone_error_rate = opti_to_drone(self.x_error_d,self.y_error_d,self.yaw_position)
@@ -304,12 +304,12 @@ class magdroneControlNode():
                 uW = self.kp_yaw * self.yaw_error
 
                 self.linear_z_cmd = self.clipCommand(uZ + 0.5, 0.65, 0.35)
-                self.linear_y_cmd = self.clipCommand(uY - 0.3, 7.5, -7.5)
-                self.linear_x_cmd = self.clipCommand(uX + 0.6, 7.5, -7.5)
+                self.linear_y_cmd = self.clipCommand(uY, 7.5, -7.5)
+                self.linear_x_cmd = self.clipCommand(uX, 7.5, -7.5)
                 self.angular_z_cmd = self.clipCommand(uW, 5, -5)
 
-                self.set_attitude(roll_angle=self.linear_y_cmd, pitch_angle=-self.linear_x_cmd,
-                                  yaw_angle=None, yaw_rate=-self.angular_z_cmd, use_yaw_rate=True, 
+                self.set_attitude(roll_angle=-self.linear_y_cmd, pitch_angle=-self.linear_x_cmd,
+                                  yaw_angle=None, yaw_rate=self.angular_z_cmd, use_yaw_rate=True, 
                                   thrust=self.linear_z_cmd, duration=1.0/self.rate)
 
                 if self.arm > 0:
@@ -319,10 +319,10 @@ class magdroneControlNode():
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
                 if self.exit == 0:
-                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd) + "\t" + str(self.yaw_error) + "\t" + str(self.angular_z_cmd) 
+                    msg = str(self.z_error) + "\t" + str(self.linear_z_cmd) + "\t" + str(self.y_error) + "\t" + str(self.linear_y_cmd) + "\t" + str(self.x_error) + "\t" + str(self.linear_x_cmd) + "\t" + str(self.yaw_error) + "\t" + str(self.angular_z_cmd) + "\t" + str(self.x_error_d) + "\t" + str(self.y_error_d)
                     self.log_book.justLog(msg)
-                    print("x position error: " + str(self.x_error) + " y position error: " + str(self.y_error) +
-                    "yaw position error: " + str(self.yaw_position)) 
+                    #print("x position error: " + str(self.x_error) + " y position error: " + str(self.y_error) + "yaw position error: " + str(self.yaw_error))
+                    #print("pitch cmd: " + str(self.linear_x_cmd) + " roll cmd: " + str(-self.linear_y_cmd) + " yaw cmd: " + str(self.angular_z_cmd))
             r.sleep()
 
 # Start Node
