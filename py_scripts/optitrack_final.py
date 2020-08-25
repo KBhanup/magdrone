@@ -56,13 +56,13 @@ class magdroneControlNode():
         rp.init_node("magdrone_node")
 
         # Create Controllers
-        self.kp_z = 0.55
+        self.kp_z = 0.45
         self.kd_z = 0.3
         self.kp_y = 10.5
         self.kd_y = 8.5
         self.kp_x = 10.5
         self.kd_x = 8.5
-        self.kp_yaw = 0.1
+        self.kp_yaw = 0.15
 
         self.z_error = 0.0
         self.y_error = 0.0
@@ -231,7 +231,7 @@ class magdroneControlNode():
         self.z_des = 1.0  # thrust
         self.y_des = 0.0  # roll
         self.x_des = 0.0  # pitch
-        self.yaw_des = 180.0 #yaw in degrees
+        self.yaw_des = 180.0 # yaw in degrees
 
         #Get orientation data 
         qw = data.pose.orientation.w
@@ -305,7 +305,7 @@ class magdroneControlNode():
 
                 self.linear_z_cmd = self.clipCommand(uZ + 0.5, 0.65, 0.35)
                 self.linear_y_cmd = self.clipCommand(uY, 7.5, -7.5)
-                self.linear_x_cmd = self.clipCommand(uX, 7.5, -7.5)
+                self.linear_x_cmd = self.clipCommand(uX + 0.45, 7.5, -7.5)
                 self.angular_z_cmd = self.clipCommand(uW, 5, -5)
 
                 self.set_attitude(roll_angle=-self.linear_y_cmd, pitch_angle=-self.linear_x_cmd,
