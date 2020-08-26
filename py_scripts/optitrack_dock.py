@@ -94,7 +94,7 @@ class magdroneControlNode():
         self.magnet_engaged = False
         # Incremental altitudes to reach the structure
         # The last one should be unreachable
-        self.desired_positions = [-1.5, -1.4, -1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
+        self.desired_positions = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
 
         # Make a global variable for the current yaw position to be used for pose and rate transormations
         self.yaw_position = 0.0
@@ -129,25 +129,24 @@ class magdroneControlNode():
         DEFAULT_TAKEOFF_THRUST = 0.55
         SMOOTH_TAKEOFF_THRUST = 0.52
 
-        #self.log_book.printAndLog("Basic pre-arm checks")
+        print("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
-        # while not self.vehicle.is_armable:
-        #   print(" Waiting for vehicle to initialise...")
-        #  time.sleep(1)
+        while not self.vehicle.is_armable:
+            print(" Waiting for vehicle to initialise...")
+            time.sleep(1)
 
-        #self.log_book.printAndLog("Arming motors")
+        print("Arming motors")
         #  GUIDED_NOGPS mode is recommended by DroneKit
         self.vehicle.mode = VehicleMode("GUIDED_NOGPS")
         self.vehicle.armed = True
 
         while not self.vehicle.armed:
-            #self.log_book.printAndLog(" Waiting for arming...")
+            print(" Waiting for arming...")
             self.vehicle.armed = True
             time.sleep(1)
 
-        # self.log_book.printAndLog("Armed!")
         print('Armed')
 
         if aTargetAltitude > 0:
@@ -289,13 +288,18 @@ class magdroneControlNode():
         self.mag = data.axes[5]
 
         if data.buttons[0] == 1.0:
+            print("Mission set to 1")
             self.mission_id = 1
             self.state_id = 0
         if data.buttons[1] == 1.0:
+            print("Mission set to 2")
             self.mission_id = 2
             self.state_id = 0
         if data.buttons[2] == 1.0:
-            print("Starting Mission " + str(self.mission_id))
+            if not self.on_mission:
+                print("Starting Mission " + str(self.mission_id))
+            else:
+                print("Quitting mission")
             self.on_mission = not self.on_mission
 
     def stateMachine(self, x_drone, y_drone, z_drone):
@@ -324,7 +328,7 @@ class magdroneControlNode():
         dy = abs(current_p[1] - desired_p[1])
         dz = abs(current_p[2] - desired_p[2])
 
-        if dx < 0.05 & dy < 0.05 & dz < 0.05:
+        if (dx < 0.075) & (dy < 0.075) & (dz < 0.05):
             self.state_id += 1
             print("New target altitude is: " + str(self.desired_positions[self.state_id] + 2.08))
 
@@ -371,7 +375,7 @@ class magdroneControlNode():
 
         # Send command
         self.vehicle.send_mavlink(msg_low)
-        self.log_book.printAndLog("Magnet Engaged")
+        self.log_book.printAndLog("Magnet Disengaged")
         time.sleep(5)
         self.vehicle.send_mavlink(msg_neut)
         self.log_book.printAndLog("Magnet in Neutral")
@@ -406,13 +410,13 @@ class magdroneControlNode():
                                   duration=1.0/self.rate)
 
                 # Log everything
-                msg = (str(self.z_error) + "\t" + str(self.z_error_d) + "\t" + str(linear_z_cmd) +
-                       str(self.y_error) + "\t" + str(self.y_error_d) + "\t" + str(linear_x_cmd) +
-                       str(self.x_error) + "\t" + str(self.x_error_d) + "\t" + str(linear_y_cmd) +
+                msg = (str(self.z_error) + "\t" + str(self.z_error_d) + "\t" + str(linear_z_cmd) + "\t" +
+                       str(self.y_error) + "\t" + str(self.y_error_d) + "\t" + str(linear_x_cmd) + "\t" +
+                       str(self.x_error) + "\t" + str(self.x_error_d) + "\t" + str(linear_y_cmd) + "\t" +
                        str(self.w_error) + "\t" + str(angular_z_cmd))
                 self.log_book.justLog(msg)
 
-                if self.state_id == len(self.desired_positions) & (not self.magnet_engaged):
+                if (self.state_id == len(self.desired_positions) - 1) & (not self.magnet_engaged):
                     self.magnet_engaged = True
                     t = threading.Thread(target=self.engage_magnet)
                     t.start()
