@@ -61,7 +61,7 @@ def mission_one(x_error,y_error,thrust_error):
     self.y_des = struct_y
     self.z_des = desired_positions[x] + struct_z
     
-    if -0.05 < self.z_des < 0.05 && -0.05 < self.x_des < 0.05 && -0.05 < self.y_des < 0.05 == True:
+    if -0.05 < self.z_des < 0.05 & -0.05 < self.x_des < 0.05 & -0.05 < self.y_des < 0.05 == True:
             self.z_des = desired_positions[x+1] + struct_z
 
     if self.z_des = 0.0:
