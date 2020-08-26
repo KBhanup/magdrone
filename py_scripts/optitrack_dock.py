@@ -398,7 +398,7 @@ class magdroneControlNode():
                 uW = self.kp_w * self.w_error
 
                 linear_z_cmd  = self.clipCommand(uZ + 0.5, 0.65, 0.35)
-                linear_y_cmd  = self.clipCommand(uY, 7.5, -7.5)
+                linear_y_cmd  = self.clipCommand(uY - 1.3, 7.5, -7.5)
                 linear_x_cmd  = self.clipCommand(uX + 0.45, 7.5, -7.5)
                 angular_z_cmd = self.clipCommand(uW, 5, -5)
 
