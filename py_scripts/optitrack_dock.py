@@ -79,16 +79,19 @@ class magdroneControlNode():
         self.z_error = 0.0
         self.y_error = 0.0
         self.x_error = 0.0
+        self.w_error = 0.0
         self.z_error_d = 0.0
         self.y_error_d = 0.0
         self.x_error_d = 0.0
-        self.w_error = 0.0
 
         # Variables
         self.cmds = None
         self.on_mission = False
+        self.mission_id = 1
+        self.state_id = 0
         self.arm = 0
         self.mag = 0
+        self.desired_positions = [-1.5, -1.4, -1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, 0.0]
 
         # Make a global variable for the current yaw position to be used for pose and rate transormations
         self.yaw_position = 0.0
@@ -222,7 +225,8 @@ class magdroneControlNode():
         + x error = + pitch
         - x error = - pitch
         """
-        # Get current pose wrt structure
+
+        # Get current pose wrt Optitrack
         qw = data.pose.orientation.w
         qx = data.pose.orientation.x
         qy = data.pose.orientation.y
@@ -231,15 +235,15 @@ class magdroneControlNode():
 
         # Drone body system is Front-Left-Down
         w_drone = -orientation[2]
-        x_drone = data.pose.position.x - dock_x
-        y_drone = data.pose.position.y - dock_y
-        z_drone = data.pose.position.z - dock_z
+        x_drone = data.pose.position.x
+        y_drone = data.pose.position.y
+        z_drone = data.pose.position.z
 
         # Update yaw
         self.yaw_position = w_drone
 
         # Get desired position from State Machine
-        des_position = StateMachine(x_drone, y_drone, z_drone)
+        des_position = self.stateMachine(x_drone, y_drone, z_drone)
 
         # Calculate error
         dx = des_position[0] - x_drone
@@ -280,9 +284,70 @@ class magdroneControlNode():
         # Button Controls
         self.arm = data.buttons[9]
         self.mag = data.axes[5]
-        
+
+        if data.buttons[0] == 1.0:
+            self.mission_id = 1
+            self.state_id = 0
+        if data.buttons[1] == 1.0:
+            self.mission_id = 2
+            self.state_id = 0
         if data.buttons[2] == 1.0:
+            print("Starting Mission " + str(self.mission_id))
             self.on_mission = not self.on_mission
+
+    def stateMachine(self, x_drone, y_drone, z_drone):
+        if self.mission_id == 1:
+            struct_x = 0.04
+            struct_y = 0.02
+            struct_z = 2.08
+
+            x_des = struct_x
+            y_des = struct_y
+            z_des = self.desired_positions[self.state_id] + struct_z
+
+            self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
+
+            z_des = self.desired_positions[self.state_id] + struct_z
+
+        elif self.mission_id == 2:
+            x_des = 0.0
+            y_des = -1.8
+            z_des = 1.0
+
+        return [x_des, y_des, z_des]
+
+    def checkState(self, current_p, desired_p):
+        dx = np.abs(current_p[0] - desired_p[0])
+        dy = np.abs(current_p[1] - desired_p[1])
+        dz = np.abs(current_p[2] - desired_p[2])
+
+        if dx < 0.05 & dy < 0.05 & dz < 0.05:
+            self.state_id += 1
+            print("New target Altitude is: " + str(self.desired_positions[self.state_id] + 2.08))
+
+    def engage_magnet(self):
+        msg_hi = self.vehicle.message_factory.command_long_encode(
+                0, 0,   # target_system, target_command
+                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+                0,
+                8,    # servo number
+                2006, # servo position
+                0, 0, 0, 0, 0)
+
+        msg_neut = self.vehicle.message_factory.command_long_encode(
+                0, 0,   # target_system, target_command
+                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+                0,
+                8,    # servo number
+                1500, # servo position
+                0, 0, 0, 0, 0)
+
+        # Send command
+        self.vehicle.send_mavlink(msg_hi)
+        self.log_book.printAndLog("Magnet Engaged")
+        time.sleep(5)
+        self.vehicle.send_mavlink(msg_neut)
+        self.log_book.printAndLog("Magnet in Neutral")
 
     def send_commands(self):
         print("Accepting Commands")
