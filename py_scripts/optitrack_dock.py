@@ -91,7 +91,10 @@ class magdroneControlNode():
         self.state_id = 0
         self.arm = 0
         self.mag = 0
-        self.desired_positions = [-1.5, -1.4, -1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, 0.0]
+        self.magnet_engaged = False
+        # Incremental altitudes to reach the structure
+        # The last one should be unreachable
+        self.desired_positions = [-1.5, -1.4, -1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
 
         # Make a global variable for the current yaw position to be used for pose and rate transormations
         self.yaw_position = 0.0
@@ -317,13 +320,13 @@ class magdroneControlNode():
         return [x_des, y_des, z_des]
 
     def checkState(self, current_p, desired_p):
-        dx = np.abs(current_p[0] - desired_p[0])
-        dy = np.abs(current_p[1] - desired_p[1])
-        dz = np.abs(current_p[2] - desired_p[2])
+        dx = abs(current_p[0] - desired_p[0])
+        dy = abs(current_p[1] - desired_p[1])
+        dz = abs(current_p[2] - desired_p[2])
 
         if dx < 0.05 & dy < 0.05 & dz < 0.05:
             self.state_id += 1
-            print("New target Altitude is: " + str(self.desired_positions[self.state_id] + 2.08))
+            print("New target altitude is: " + str(self.desired_positions[self.state_id] + 2.08))
 
     def engage_magnet(self):
         msg_hi = self.vehicle.message_factory.command_long_encode(
@@ -344,6 +347,30 @@ class magdroneControlNode():
 
         # Send command
         self.vehicle.send_mavlink(msg_hi)
+        self.log_book.printAndLog("Magnet Engaged")
+        time.sleep(5)
+        self.vehicle.send_mavlink(msg_neut)
+        self.log_book.printAndLog("Magnet in Neutral")
+
+    def disengage_magnet(self):
+        msg_low = self.vehicle.message_factory.command_long_encode(
+                0, 0,   # target_system, target_command
+                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+                0,
+                8,    # servo number
+                982,  # servo position
+                0, 0, 0, 0, 0)
+
+        msg_neut = self.vehicle.message_factory.command_long_encode(
+                0, 0,   # target_system, target_command
+                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+                0,
+                8,    # servo number
+                1500, # servo position
+                0, 0, 0, 0, 0)
+
+        # Send command
+        self.vehicle.send_mavlink(msg_low)
         self.log_book.printAndLog("Magnet Engaged")
         time.sleep(5)
         self.vehicle.send_mavlink(msg_neut)
@@ -384,6 +411,11 @@ class magdroneControlNode():
                        str(self.x_error) + "\t" + str(self.x_error_d) + "\t" + str(linear_y_cmd) +
                        str(self.w_error) + "\t" + str(angular_z_cmd))
                 self.log_book.justLog(msg)
+
+                if self.state_id == len(self.desired_positions) & (not self.magnet_engaged):
+                    self.magnet_engaged = True
+                    t = threading.Thread(target=self.engage_magnet)
+                    t.start()
 
             r.sleep()
 
