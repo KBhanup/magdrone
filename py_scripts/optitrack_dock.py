@@ -91,6 +91,7 @@ class magdroneControlNode():
         self.state_id = 0
         self.arm = 0
         self.magnet_engaged = False
+        self.docked = False
 
         # Desired positions for misions 1 and 3
         self.struct_x = 0.04
@@ -100,7 +101,7 @@ class magdroneControlNode():
         # The last one should be unreachable
         self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
         # Mission 3
-        self.desired_positions_m3 = [[self.struct_x, self.struct_y, self.struct_z - 0.3], [self.struct_x, self.struct_y, self.struct_z - 0.5], [0.0, -1.8, 1.0]]
+        self.desired_positions_m3 = [[self.struct_x, self.struct_y, self.struct_z - 0.3], [self.struct_x, self.struct_y, self.struct_z - 0.5], [0.0, -1.8, 1.0],[0.0,-1.8,0.25]]
 
         # Make a global variable for the current yaw position to be used for pose and rate transormations
         self.yaw_position = 0.0
@@ -301,15 +302,15 @@ class magdroneControlNode():
             print("Mission set to 2 - Emergency Escape and Hover")
             self.mission_id = 2
             self.state_id = 0
-        if data.buttons[4] == 1.0:
+        if data.buttons[2] == 1.0:
             print("Mission set to 3 - Disengage, Exit, and Hover")
             self.mission_id = 3
             self.state_id = 0
-        if data.buttons[5] == 1.0:
+        if data.buttons[3] == 1.0:
             print("Mission set to 4 - Changing Flight Mode to Landing")
             self.mission_id = 4
             self.state_id = 0
-        if data.buttons[2] == 1.0:
+        if data.buttons[4] == 1.0:
             if not self.on_mission:
                 print("Starting Mission " + str(self.mission_id))
             else:
@@ -344,9 +345,9 @@ class magdroneControlNode():
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
-            if (check[0] < 0.1) & (check[1] < 0.1) & (check[2] < 0.05):
+            if (check[0] < 0.15) & (check[1] < 0.15) & (check[2] < 0.05):
                 self.state_id += 1
-                print("New target is: X Pos: " + str(x_des) + " Y Pos: " + str(y_des) + " Z Pos: " + str(z_des))
+                print("New target is: X Pos: " + str(self.desired_positions_m3[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m3[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m3[self.state_id][2]))
          
             x_des = self.desired_positions_m3[self.state_id][0]
             y_des = self.desired_positions_m3[self.state_id][1]
@@ -355,6 +356,9 @@ class magdroneControlNode():
         elif self.mission_id == 4:
             print("setting LAND mode")
             self.vehicle.mode = VehicleMode("LAND")
+            x_des = x_drone
+            y_des = y_drone
+            z_des = z_drone
 
         return [x_des, y_des, z_des]
 
@@ -388,6 +392,7 @@ class magdroneControlNode():
         time.sleep(5)
         self.vehicle.send_mavlink(msg_neut)
         self.log_book.printAndLog("Magnet in Neutral")
+        self.docked = True
 
     def disengage_magnet(self):
         msg_low = self.vehicle.message_factory.command_long_encode(
@@ -412,6 +417,7 @@ class magdroneControlNode():
         time.sleep(5)
         self.vehicle.send_mavlink(msg_neut)
         self.log_book.printAndLog("Magnet in Neutral")
+        self.docked = False
 
     def send_commands(self):
         print("Accepting Commands")
@@ -435,11 +441,19 @@ class magdroneControlNode():
                 linear_x_cmd  = self.clipCommand(uX + 0.45, 7.5, -7.5)
                 angular_z_cmd = self.clipCommand(uW, 5, -5)
 
-                self.set_attitude(roll_angle = -linear_y_cmd,
+                if not self.docked:
+                    self.set_attitude(roll_angle = -linear_y_cmd,
                                   pitch_angle = -linear_x_cmd,
                                   yaw_angle = None,
                                   yaw_rate = angular_z_cmd, use_yaw_rate = True, 
                                   thrust = linear_z_cmd,
+                                  duration=1.0/self.rate)
+                else:    
+                    self.set_attitude(roll_angle = 0.0,
+                                  pitch_angle = 0.0,
+                                  yaw_angle = None,
+                                  yaw_rate = 0.0, use_yaw_rate = True, 
+                                  thrust = 0.5,
                                   duration=1.0/self.rate)
 
                 # Log everything
