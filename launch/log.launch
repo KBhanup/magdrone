@@ -1,0 +1,24 @@
+<launch>
+	<!-- Start recording the flight log data -->
+	<node pkg="rosbag" type="record" name="flight_log_bagfile" output="screen"
+		  args="record -o $(Magdrone)/py_scripts/Logs
+
+/rosout
+/rosout_agg
+
+/opti_state/pose
+/opti_state/rates
+
+/vrpn_client_node/UAV/pose
+/vrpn_client_node/LandingStructure/pose
+/vrpn_client_node/SensorPackage/pose
+
+/position_error
+/commands
+
+/joy
+
+"
+	/>
+
+</launch>

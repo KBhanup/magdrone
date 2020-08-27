@@ -12,7 +12,7 @@ from pymavlink import mavutil
 from logbook import LogBook
 
 from sensor_msgs.msg import Joy
-from geometry_msgs.msg import Twist, PoseStamped, TwistStamped
+from geometry_msgs.msg import Twist, PoseStamped, TwistStamped, Vector3Stamped
 
 def to_rpy(qw, qx, qy, qz):
     r = np.arctan2(2 * (qw*qx + qy*qz), 1 - 2*(qx*qx + qy*qy))
@@ -64,8 +64,15 @@ class magdroneControlNode():
             "/opti_state/pose", PoseStamped, self.pose_callback, queue_size=1)
         self.pose_sub = rp.Subscriber(
             "/opti_state/rates", TwistStamped, self.rate_callback, queue_size=1)
+
         self.joy_sub = rp.Subscriber(
             "/joy", Joy, self.joy_callback, queue_size=1)
+
+        # Set up Publishers
+        self.error_pub = rp.Publisher(
+            "/position_error", TwistStamped, self.pub_error, queue_size=1)
+        self.command_pub = rp.Publisher(
+            "/commands", Vector3Stamped, self.pub_command, queue_size=1)
 
         # Set up Controllers
         self.kp_z = 0.45
@@ -234,6 +241,8 @@ class magdroneControlNode():
         + x error = + pitch
         - x error = - pitch
         """
+TwistStamped, self.pub_error
+        self.pub_error = TwistStamped()
 
         # Get current pose wrt Optitrack
         qw = data.pose.orientation.w
@@ -242,11 +251,19 @@ class magdroneControlNode():
         qz = data.pose.orientation.z
         orientation = to_rpy(qw, qx, qy, qz)
 
+        self.pub_error.angular.x = qx
+        self.pub_error.angular.y = qy
+        self.pub_error.angular.z = qz
+
         # Drone body system is Front-Left-Down
         w_drone = -orientation[2]
         x_drone = data.pose.position.x
         y_drone = data.pose.position.y
         z_drone = data.pose.position.z
+
+        self.pub_error.linear.x = x_drone
+        self.pub_error.linear.y = y_drone
+        self.pub_error.linear.z = z_drone
 
         # Update yaw
         self.yaw_position = w_drone
@@ -440,7 +457,15 @@ class magdroneControlNode():
                 linear_y_cmd  = self.clipCommand(uY - 1.3, 7.5, -7.5)
                 linear_x_cmd  = self.clipCommand(uX + 0.45, 7.5, -7.5)
                 angular_z_cmd = self.clipCommand(uW, 5, -5)
+                
+                self.pub_command = Vector3Stamped()
+                
+                self.pub_command.1 = linear_z_cmd 
+                self.pub_command.2 = linear_y_cmd 
+                self.pub_command.3 = linear_x_cmd 
 
+        # Joystick Controls
+        self.cmds.linear.x 
                 if not self.docked:
                     self.set_attitude(roll_angle = -linear_y_cmd,
                                   pitch_angle = -linear_x_cmd,
