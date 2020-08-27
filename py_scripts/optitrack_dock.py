@@ -90,16 +90,17 @@ class magdroneControlNode():
         self.mission_id = 1
         self.state_id = 0
         self.arm = 0
-        self.mag = 0
         self.magnet_engaged = False
-        # Incremental altitudes to reach the structure
-        # The last one should be unreachable
-        self.desired_positions = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
 
+        # Desired positions for misions 1 and 3
         self.struct_x = 0.04
         self.struct_y = 0.02
         self.struct_z = 2.08
-
+        # Mission 1. Incremental altitudes
+        # The last one should be unreachable
+        self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
+        # Mission 3
+        self.desired_positions_m3 = [[self.struct_x, self.struct_y, self.struct_z - 0.3], [self.struct_x, self.struct_y, self.struct_z - 0.5], [0.0, -1.8, 1.0]]
 
         # Make a global variable for the current yaw position to be used for pose and rate transormations
         self.yaw_position = 0.0
@@ -284,13 +285,13 @@ class magdroneControlNode():
         self.cmds = Twist()
 
         # Joystick Controls
-        self.cmds.linear.x  = data.axes[2] * 10.0  # roll
-        self.cmds.linear.y  = data.axes[3] * 10.0  # pitch
-        self.cmds.angular.z = data.axes[0] * 10.0  # yaw
+        self.cmds.linear.x  = data.axes[2] * 10.0        # roll
+        self.cmds.linear.y  = data.axes[3] * 10.0        # pitch
+        self.cmds.angular.z = data.axes[0] * 10.0        # yaw
+        self.cmds.linear.z  = (data.axes[1] / 2.0) + 0.5 # thrust
 
         # Button Controls
         self.arm = data.buttons[9]
-        self.mag = data.axes[5]
 
         if data.buttons[0] == 1.0:
             print("Mission set to 1 - Docking")
@@ -306,7 +307,7 @@ class magdroneControlNode():
             self.state_id = 0
         if data.buttons[5] == 1.0:
             print("Mission set to 4 - Changing Flight Mode to Landing")
-            self.mission_id = 3
+            self.mission_id = 4
             self.state_id = 0
         if data.buttons[2] == 1.0:
             if not self.on_mission:
@@ -320,44 +321,40 @@ class magdroneControlNode():
 
             x_des = self.struct_x
             y_des = self.struct_y
-            z_des = self.desired_positions[self.state_id] + self.struct_z
+            z_des = self.desired_positions_m1[self.state_id] + self.struct_z
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
             if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
                 self.state_id += 1
+                print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + 2.08))
 
-            print("New target altitude is: " + str(self.desired_positions[self.state_id] + 2.08))
+            z_des = self.desired_positions_m1[self.state_id] + self.struct_z
+        
+        elif self.mission_id == 2:
+            x_des = 0.0
+            y_des = -1.8
+            z_des = 1.0
 
-            z_des = self.desired_positions[self.state_id] + struct_z
+        elif self.mission_id == 3:
 
-        if self.mission_id == 3:
-
-            desired_positions = ([[self.struct_x,self.struct_y,self.struct_z - 0.3], [self.struct_x,self.struct_y,self.struct_z - 0.5], [0.0, -1.8, 1.0]])
-
-            x_des = desired_positions[self.state_id][0]
-            y_des = desired_positions[self.state_id][1]
-            z_des = desired_positions[self.state_id][2]
+            x_des = self.desired_positions_m3[self.state_id][0]
+            y_des = self.desired_positions_m3[self.state_id][1]
+            z_des = self.desired_positions_m3[self.state_id][2]
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
             if (check[0] < 0.1) & (check[1] < 0.1) & (check[2] < 0.05):
                 self.state_id += 1
+                print("New target is: X Pos: " + str(x_des) + " Y Pos: " + str(y_des) + " Z Pos: " + str(z_des))
          
-            x_des = desired_positions[self.state_id][0]
-            y_des = desired_positions[self.state_id][1]
-            z_des = desired_positions[self.state_id][2]
+            x_des = self.desired_positions_m3[self.state_id][0]
+            y_des = self.desired_positions_m3[self.state_id][1]
+            z_des = self.desired_positions_m3[self.state_id][2]
 
-            print("New target is: " + " X Pos: " + str(x_des) + " Y Pos: " + str(y_des) + " Z Pos: " + str(z_des) + )
-
-        if self.mission_id == 4:
+        elif self.mission_id == 4:
             print("setting LAND mode")
-            vehicle.mode = VehicleMode("LAND")
-
-        elif self.mission_id == 2:
-            x_des = 0.0
-            y_des = -1.8
-            z_des = 1.0
+            self.vehicle.mode = VehicleMode("LAND")
 
         return [x_des, y_des, z_des]
 
@@ -452,7 +449,7 @@ class magdroneControlNode():
                        str(self.w_error) + "\t" + str(angular_z_cmd))
                 self.log_book.justLog(msg)
 
-                if (self.state_id == len(self.desired_positions) - 1) & (not self.magnet_engaged):
+                if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 1) & (not self.magnet_engaged):
                     self.magnet_engaged = True
                     t = threading.Thread(target=self.engage_magnet)
                     t.start()
