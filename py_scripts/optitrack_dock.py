@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import rospy as rp
-import numpy as np
 import threading
 import math
 import time
@@ -15,17 +14,17 @@ from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, PoseStamped, TwistStamped
 
 def to_rpy(qw, qx, qy, qz):
-    r = np.arctan2(2 * (qw*qx + qy*qz), 1 - 2*(qx*qx + qy*qy))
+    r = math.atan2(2 * (qw*qx + qy*qz), 1 - 2*(qx*qx + qy*qy))
 
     sinP = 2 * (qw*qy - qz*qx)
-    if np.abs(sinP) > 1:
-        p = np.sign(sinP) * np.pi / 2
+    if abs(sinP) > 1:
+        p = math.copysign(1.0, sinP) * math.pi / 2
     else:
-        p = np.arcsin(sinP)
+        p = math.asin(sinP)
 
-    y = np.arctan2(2 * (qw*qz + qx*qy), 1 - 2*(qy*qy + qz*qz))
+    y = math.atan2(2 * (qw*qz + qx*qy), 1 - 2*(qy*qy + qz*qz))
 
-    return np.rad2deg([r, p, y])
+    return [math.degrees(r), math.degrees(p), math.degrees(y)]
 
 def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
     """

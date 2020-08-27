@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import rospy as rp
-import numpy as np
 import threading
 import math
 import time
@@ -9,23 +8,21 @@ import time
 from dronekit import connect, VehicleMode, LocationGlobal, LocationGlobalRelative
 from pymavlink import mavutil
 
-from logbook import LogBook
-
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, PoseStamped, TwistStamped, Vector3Stamped
 
 def to_rpy(qw, qx, qy, qz):
-    r = np.arctan2(2 * (qw*qx + qy*qz), 1 - 2*(qx*qx + qy*qy))
+    r = math.atan2(2 * (qw*qx + qy*qz), 1 - 2*(qx*qx + qy*qy))
 
     sinP = 2 * (qw*qy - qz*qx)
-    if np.abs(sinP) > 1:
-        p = np.sign(sinP) * np.pi / 2
+    if abs(sinP) > 1:
+        p = math.copysign(1.0, sinP) * math.pi / 2
     else:
-        p = np.arcsin(sinP)
+        p = math.asin(sinP)
 
-    y = np.arctan2(2 * (qw*qz + qx*qy), 1 - 2*(qy*qy + qz*qz))
+    y = math.atan2(2 * (qw*qz + qx*qy), 1 - 2*(qy*qy + qz*qz))
 
-    return np.rad2deg([r, p, y])
+    return [math.degrees(r), math.degrees(p), math.degrees(y)]
 
 def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
     """
@@ -69,10 +66,8 @@ class magdroneControlNode():
             "/joy", Joy, self.joy_callback, queue_size=1)
 
         # Set up Publishers
-        self.error_pub = rp.Publisher(
-            "/position_error", TwistStamped, self.pub_error, queue_size=1)
-        self.command_pub = rp.Publisher(
-            "/commands", Vector3Stamped, self.pub_command, queue_size=1)
+        self.setpoint_pub = rp.Publisher("/setpoint", Vector3Stamped, queue_size=1)
+        self.command_pub = rp.Publisher("/commands", TwistStamped, queue_size=1)
 
         # Set up Controllers
         self.kp_z = 0.45
@@ -103,21 +98,18 @@ class magdroneControlNode():
         # Desired positions for misions 1 and 3
         self.struct_x = 0.04
         self.struct_y = 0.02
-        self.struct_z = 1.98 #offset is reduced because of the addition of the sensor package
+        self.struct_z = 1.98 # Offset is reduced because of the addition of the sensor package
         # Mission 1. Incremental altitudes
         # The last one should be unreachable
         self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
         # Mission 3
-        self.desired_positions_m3 = [[self.struct_x, self.struct_y, self.struct_z - 0.3], [self.struct_x, self.struct_y, self.struct_z - 0.5], [0.0, -1.8, 1.0],[0.0,-1.8,0.25]]
+        self.desired_positions_m3 = [[self.struct_x, self.struct_y, self.struct_z - 0.3],
+                                     [self.struct_x, self.struct_y, self.struct_z - 0.5],
+                                     [0.0, -1.8, 1.0],
+                                     [0.0, -1.8, 0.25]]
 
         # Make a global variable for the current yaw position to be used for pose and rate transormations
         self.yaw_position = 0.0
-
-        # Create log file
-        self.log_book = LogBook("test_flight")
-
-        # Labeling the log file by controller
-        self.log_book.printAndLog('Running optitrack_controller.py')
 
         # Create thread for publisher
         self.rate = 30
@@ -233,17 +225,6 @@ class magdroneControlNode():
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
 
     def pose_callback(self, data):
-        """
-        + z error = + thrust
-        - z error = - thrust
-        + y error = - roll
-        - y error = + roll
-        + x error = + pitch
-        - x error = - pitch
-        """
-TwistStamped, self.pub_error
-        self.pub_error = TwistStamped()
-
         # Get current pose wrt Optitrack
         qw = data.pose.orientation.w
         qx = data.pose.orientation.x
@@ -251,25 +232,25 @@ TwistStamped, self.pub_error
         qz = data.pose.orientation.z
         orientation = to_rpy(qw, qx, qy, qz)
 
-        self.pub_error.angular.x = qx
-        self.pub_error.angular.y = qy
-        self.pub_error.angular.z = qz
-
         # Drone body system is Front-Left-Down
         w_drone = -orientation[2]
         x_drone = data.pose.position.x
         y_drone = data.pose.position.y
         z_drone = data.pose.position.z
 
-        self.pub_error.linear.x = x_drone
-        self.pub_error.linear.y = y_drone
-        self.pub_error.linear.z = z_drone
-
         # Update yaw
         self.yaw_position = w_drone
 
         # Get desired position from State Machine
         des_position = self.stateMachine(x_drone, y_drone, z_drone)
+
+        # Publish setpoint
+        setpoint = Vector3Stamped()
+        setpoint.header.stamp = rp.Time.now()
+        setpoint.vector.x = des_position[0]
+        setpoint.vector.y = des_position[1]
+        setpoint.vector.z = des_position[2]
+        self.setpoint_pub.publish(setpoint)
 
         # Calculate error
         dx = des_position[0] - x_drone
@@ -294,8 +275,8 @@ TwistStamped, self.pub_error
         drone_error_rate = opti_to_drone(-data.twist.linear.x, -data.twist.linear.y, self.yaw_position)
 
         # Update rate errors
-        self.x_error_d = drone_error_rate[0]
-        self.y_error_d = drone_error_rate[1]
+        self.x_error_d =  drone_error_rate[0]
+        self.y_error_d =  drone_error_rate[1]
         self.z_error_d = -data.twist.linear.z
 
     def joy_callback(self, data):
@@ -303,10 +284,10 @@ TwistStamped, self.pub_error
         self.cmds = Twist()
 
         # Joystick Controls
-        self.cmds.linear.x  = data.axes[2] * 10.0        # roll
-        self.cmds.linear.y  = data.axes[3] * 10.0        # pitch
-        self.cmds.angular.z = data.axes[0] * 10.0        # yaw
-        self.cmds.linear.z  = (data.axes[1] / 2.0) + 0.5 # thrust
+        self.cmds.linear.x  = data.axes[2] * 10.0               # roll
+        self.cmds.linear.y  = data.axes[3] * 10.0               # pitch
+        self.cmds.angular.z = data.axes[0] * 10.0               # yaw
+        self.cmds.linear.z  = 0.25 * (data.axes[1] / 2.0) + 0.5 # thrust
 
         # Button Controls
         self.arm = data.buttons[9]
@@ -405,10 +386,10 @@ TwistStamped, self.pub_error
 
         # Send command
         self.vehicle.send_mavlink(msg_hi)
-        self.log_book.printAndLog("Magnet Engaged")
+        print("Magnet Engaged")
         time.sleep(5)
         self.vehicle.send_mavlink(msg_neut)
-        self.log_book.printAndLog("Magnet in Neutral")
+        print("Magnet in Neutral")
         self.docked = True
 
     def disengage_magnet(self):
@@ -430,10 +411,10 @@ TwistStamped, self.pub_error
 
         # Send command
         self.vehicle.send_mavlink(msg_low)
-        self.log_book.printAndLog("Magnet Disengaged")
+        print("Magnet Disengaged")
         time.sleep(5)
         self.vehicle.send_mavlink(msg_neut)
-        self.log_book.printAndLog("Magnet in Neutral")
+        print("Magnet in Neutral")
         self.docked = False
 
     def send_commands(self):
@@ -442,7 +423,7 @@ TwistStamped, self.pub_error
         while not rp.is_shutdown():
             # Arm motors
             if self.arm > 0:
-                self.log_book.printAndLog("Arming...")
+                print("Arming...")
                 self.arm_and_takeoff_nogps()
 
             # Mission has started
@@ -458,35 +439,28 @@ TwistStamped, self.pub_error
                 linear_x_cmd  = self.clipCommand(uX + 0.45, 7.5, -7.5)
                 angular_z_cmd = self.clipCommand(uW, 5, -5)
                 
-                self.pub_command = Vector3Stamped()
-                
-                self.pub_command.1 = linear_z_cmd 
-                self.pub_command.2 = linear_y_cmd 
-                self.pub_command.3 = linear_x_cmd 
+                cmd = TwistStamped()
+                cmd.header.stamp = rp.Time.now()
+                cmd.twist.linear.x  = -linear_x_cmd
+                cmd.twist.linear.y  = -linear_y_cmd
+                cmd.twist.linear.z  =  linear_z_cmd
+                cmd.twist.angular.z =  angular_z_cmd
+                self.command_pub.publish(cmd)
 
-        # Joystick Controls
-        self.cmds.linear.x 
                 if not self.docked:
                     self.set_attitude(roll_angle = -linear_y_cmd,
-                                  pitch_angle = -linear_x_cmd,
-                                  yaw_angle = None,
-                                  yaw_rate = angular_z_cmd, use_yaw_rate = True, 
-                                  thrust = linear_z_cmd,
-                                  duration=1.0/self.rate)
+                                      pitch_angle = -linear_x_cmd,
+                                      yaw_angle = None,
+                                      yaw_rate = angular_z_cmd, use_yaw_rate = True, 
+                                      thrust = linear_z_cmd,
+                                      duration=1.0/self.rate)
                 else:    
                     self.set_attitude(roll_angle = 0.0,
-                                  pitch_angle = 0.0,
-                                  yaw_angle = None,
-                                  yaw_rate = 0.0, use_yaw_rate = True, 
-                                  thrust = 0.5,
-                                  duration=1.0/self.rate)
-
-                # Log everything
-                msg = (str(self.z_error) + "\t" + str(self.z_error_d) + "\t" + str(linear_z_cmd) + "\t" +
-                       str(self.y_error) + "\t" + str(self.y_error_d) + "\t" + str(linear_x_cmd) + "\t" +
-                       str(self.x_error) + "\t" + str(self.x_error_d) + "\t" + str(linear_y_cmd) + "\t" +
-                       str(self.w_error) + "\t" + str(angular_z_cmd))
-                self.log_book.justLog(msg)
+                                      pitch_angle = 0.0,
+                                      yaw_angle = None,
+                                      yaw_rate = 0.0, use_yaw_rate = True, 
+                                      thrust = 0.5,
+                                      duration=1.0/self.rate)
 
                 if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 1) & (self.magnet_engaged):
                     self.magnet_engaged = True
