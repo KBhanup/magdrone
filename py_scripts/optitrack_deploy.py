@@ -96,7 +96,7 @@ class magdroneControlNode():
         # Desired positions for misions 1 and 3
         self.struct_x = 0.04
         self.struct_y = 0.02
-        self.struct_z = 2.08
+        self.struct_z = 1.98 #offset is reduced because of the addition of the sensor package
         # Mission 1. Incremental altitudes
         # The last one should be unreachable
         self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
@@ -463,15 +463,15 @@ class magdroneControlNode():
                        str(self.w_error) + "\t" + str(angular_z_cmd))
                 self.log_book.justLog(msg)
 
-                if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 1) & (not self.magnet_engaged):
+                if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 1) & (self.magnet_engaged):
                     self.magnet_engaged = True
-                    t = threading.Thread(target=self.engage_magnet)
-                    t.start()
-
-                if (self.mission_id == 3) & (self.magnet_engaged):
-                    self.magnet_engaged = False
                     t = threading.Thread(target=self.disengage_magnet)
                     t.start()
+
+                #if (self.mission_id == 3) & (self.magnet_engaged):
+                #    self.magnet_engaged = False
+                #    t = threading.Thread(target=self.disengage_magnet)
+                #    t.start()
 
             r.sleep()
 
