@@ -183,8 +183,8 @@ class magdroneControlNode():
         self.dsrm = data.buttons[0]
         self.land = data.buttons[1]
         self.arm = data.buttons[9]
-	self.mag = data.axes[5]
-	self.exit = data.buttons[2]
+	    self.mag = data.axes[5]
+	    self.exit = data.buttons[2]
 
 	#msg = "arm: " + str(self.arm) + " disarm: " + str(self.dsrm) + " magnet: " + str(self.mag)
         #self.log_book.printAndLog(msg)
@@ -254,11 +254,11 @@ class magdroneControlNode():
 
 		msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
 		self.log_book.printAndLog(msg)
-                if self.dsrm > 0:
-		    self.log_book.printAndLog("Disarming")
-                    self.set_attitude(thrust = 0, duration = 8)
-		    self.log_book.printAndLog("Disarm complete")
-                if self.arm > 0:
+         if self.dsrm > 0:
+		    self.log_book.printAndLog("Landing")
+            print("setting LAND mode")
+            vehicle.mode = VehicleMode("LAND")
+        if self.arm > 0:
                     self.log_book.printAndLog("Arming...")
                     self.arm_and_takeoff_nogps()
 		if self.mag > 0:
