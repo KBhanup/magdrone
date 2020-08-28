@@ -294,7 +294,7 @@ class magdroneControlNode():
 
         # Button Controls
         self.arm = data.buttons[9]
-        self.magnet_button = data.axes[6]
+        self.magnet_button = data.axes[5]
 
         if data.buttons[0] == 1.0:
             print("Mission set to 1 - Deploying Sensor")
@@ -461,21 +461,13 @@ class magdroneControlNode():
                 cmd.twist.angular.z =  angular_z_cmd
                 self.command_pub.publish(cmd)
 
-                if not self.docked:
-                    self.set_attitude(roll_angle = -linear_y_cmd,
+                self.set_attitude(roll_angle = -linear_y_cmd,
                                       pitch_angle = -linear_x_cmd,
                                       yaw_angle = None,
                                       yaw_rate = angular_z_cmd, use_yaw_rate = True, 
                                       thrust = linear_z_cmd,
                                       duration=1.0/self.rate)
-                else:    
-                    self.set_attitude(roll_angle = 0.0,
-                                      pitch_angle = 0.0,
-                                      yaw_angle = None,
-                                      yaw_rate = 0.0, use_yaw_rate = True, 
-                                      thrust = 0.5,
-                                      duration=1.0/self.rate)
-
+                
                 if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 2) & (self.magnet_engaged):
                     self.magnet_engaged = False
                     t = threading.Thread(target=self.disengage_magnet)
@@ -486,15 +478,15 @@ class magdroneControlNode():
                     t = threading.Thread(target=self.engage_magnet)
                     t.start()
 
-                if self.magnet_button == 1:
-                    self.magnet_engaged = True
-                    t = threading.Thread(target=self.engage_magnet)
-                    t.start()
+            if self.magnet_button == 1:
+                self.magnet_engaged = True
+                t = threading.Thread(target=self.engage_magnet)
+                t.start()
                 
-                if self.magnet_button == -1:
-                    self.magnet_engaged = False
-                    t = threading.Thread(target=self.disengage_magnet)
-                    t.start()
+            if self.magnet_button == -1:
+                self.magnet_engaged = False
+                t = threading.Thread(target=self.disengage_magnet)
+                t.start()
 
 
             r.sleep()
