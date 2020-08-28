@@ -98,12 +98,12 @@ class magdroneControlNode():
         self.docked = True
         self.magnet_button = 0
 
-        # Desired positions for misions 1 and 3
-        self.struct_x = 0.1
-        self.struct_y = 0.06
-        self.struct_z = 1.98 # Offset is reduced because of the addition of the sensor package
-        # Mission 1. Incremental altitudes
-        # The last one should be unreachable
+        # Desired positions for misions 1 and 2
+        # Offset is reduced because of the addition of the sensor package
+        self.struct_x = 0.10
+        self.struct_y = 0.05
+        self.struct_z = 2.00
+        # Mission 1.
         self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1, -0.5]
         # Mission 2
         self.desired_positions_m2 = [[self.struct_x, self.struct_y, self.struct_z - 0.2],
@@ -343,8 +343,9 @@ class magdroneControlNode():
                     rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
             else:
                 if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
-                    self.state_id += 1
-                    rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
+                    if (self.state_id < len(self.desired_positions_m1) - 1):
+                        self.state_id += 1
+                        rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
 
             z_des = self.desired_positions_m1[self.state_id] + self.struct_z
 
@@ -362,9 +363,10 @@ class magdroneControlNode():
                     rp.loginfo("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
             else:
                 if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
-                    self.state_id += 1
-                    rp.loginfo("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
-         
+                    if (self.state_id < len(self.desired_positions_m2) - 1):
+                        self.state_id += 1
+                        rp.loginfo("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
+
             x_des = self.desired_positions_m2[self.state_id][0]
             y_des = self.desired_positions_m2[self.state_id][1]
             z_des = self.desired_positions_m2[self.state_id][2]
@@ -452,6 +454,10 @@ class magdroneControlNode():
         rp.loginfo("Magnet in Neutral")
         self.docked = False
 
+    '''
+        Main Loop
+    '''
+
     def send_commands(self):
         rp.loginfo("Accepting Commands")
         r = rp.Rate(self.rate)
@@ -460,10 +466,6 @@ class magdroneControlNode():
             if self.arm > 0:
                 rp.loginfo("Arming...")
                 self.arm_and_takeoff_nogps()
-
-    '''
-        Main Loop
-    '''
 
             # Mission has started
             if self.on_mission:
