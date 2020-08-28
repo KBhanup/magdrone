@@ -1,0 +1,7 @@
+<launch>
+	<!-- Start flight data log-->
+	<include file="$(find magdrone)/launch/log.launch"/>
+
+	<!-- Start deploy mission script -->
+	<node name="magdrone_deploy" pkg="magdrone" type="optitrack_deploy.py" output="screen"/>
+</launch>

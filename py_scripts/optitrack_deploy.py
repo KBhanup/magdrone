@@ -50,18 +50,19 @@ def opti_to_drone(x_error, y_error, yaw_angle):
 class magdroneControlNode():
 
     def __init__(self):
-        rp.init_node("magdrone_node")
+        rp.init_node("magdrone_deploy")
 
         # Connect to the Vehicle
-        print('Connecting to Vehicle')
+        rp.loginfo('Connecting to Vehicle')
         self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
 
         # Set up Subscribers
         self.pose_sub = rp.Subscriber(
             "/opti_state/pose", PoseStamped, self.pose_callback, queue_size=1)
-        self.pose_sub = rp.Subscriber(
+        self.rate_sub = rp.Subscriber(
             "/opti_state/rates", TwistStamped, self.rate_callback, queue_size=1)
-
+        self.opti_sub = rp.Subscriber(
+            "/vrpn_client_node/UAV/pose", PoseStamped, self.opti_callback, queue_size=1)
         self.joy_sub = rp.Subscriber(
             "/joy", Joy, self.joy_callback, queue_size=1)
 
@@ -87,6 +88,7 @@ class magdroneControlNode():
         self.x_error_d = 0.0
 
         # Variables
+        self.lastOnline = 0
         self.cmds = None
         self.on_mission = False
         self.mission_id = 1
@@ -138,37 +140,37 @@ class magdroneControlNode():
         DEFAULT_TAKEOFF_THRUST = 0.55
         SMOOTH_TAKEOFF_THRUST = 0.52
 
-        print("Basic pre-arm checks")
+        rp.loginfo("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
         while not self.vehicle.is_armable:
-            print(" Waiting for vehicle to initialise...")
+            rp.loginfo(" Waiting for vehicle to initialise...")
             time.sleep(1)
 
-        print("Arming motors")
+        rp.loginfo("Arming motors")
         #  GUIDED_NOGPS mode is recommended by DroneKit
         self.vehicle.mode = VehicleMode("GUIDED_NOGPS")
         self.vehicle.armed = True
 
         while not self.vehicle.armed:
-            print(" Waiting for arming...")
+            rp.loginfo(" Waiting for arming...")
             self.vehicle.armed = True
             time.sleep(1)
 
-        print('Armed')
+        rp.loginfo('Armed')
 
         if aTargetAltitude > 0:
-            print("Taking off!")
+            rp.loginfo("Taking off!")
 
             thrust = DEFAULT_TAKEOFF_THRUST
             while True:
                 current_altitude = self.vehicle.location.global_relative_frame.alt
-                print(" Altitude: %f  Desired: %f" %
+                rp.loginfo(" Altitude: %f  Desired: %f" %
                       (current_altitude, aTargetAltitude))
                 # Trigger just below target alt.
                 if current_altitude >= aTargetAltitude*0.95:
-                    print("Reached target altitude")
+                    rp.loginfo("Reached target altitude")
                     break
                 elif current_altitude >= aTargetAltitude*0.6:
                     thrust = SMOOTH_TAKEOFF_THRUST
@@ -227,6 +229,10 @@ class magdroneControlNode():
         # Reset attitude, or it will persist for 1s more due to the timeout
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
 
+    '''
+        Callbacks
+    '''
+
     def pose_callback(self, data):
         # Get current pose wrt Optitrack
         qw = data.pose.orientation.w
@@ -282,6 +288,9 @@ class magdroneControlNode():
         self.y_error_d =  drone_error_rate[1]
         self.z_error_d = -data.twist.linear.z
 
+    def opti_callback(self, data):
+        self.lastOnline = time.time()
+
     def joy_callback(self, data):
         # Empty Command
         self.cmds = Twist()
@@ -297,26 +306,26 @@ class magdroneControlNode():
         self.magnet_button = data.axes[5]
 
         if data.buttons[0] == 1.0:
-            print("Mission set to 1 - Deploying Sensor")
+            rp.loginfo("Mission set to 1 - Deploying Sensor")
             self.mission_id = 1
             self.state_id = 0
         if data.buttons[1] == 1.0:
-            print("Mission set to 2 - Emergency Escape and Hover")
+            rp.loginfo("Mission set to 2 - Emergency Escape and Hover")
             self.mission_id = 2
             self.state_id = 0
         if data.buttons[2] == 1.0:
-            print("Mission set to 3 - Retreiving Sensor and Exiting")
+            rp.loginfo("Mission set to 3 - Retreiving Sensor and Exiting")
             self.mission_id = 3
             self.state_id = 0
         if data.buttons[3] == 1.0:
-            print("Mission set to 4 - Changing Flight Mode to Landing")
+            rp.loginfo("Mission set to 4 - Changing Flight Mode to Landing")
             self.mission_id = 4
             self.state_id = 0
         if data.buttons[4] == 1.0:
             if not self.on_mission:
-                print("Starting Mission " + str(self.mission_id))
+                rp.loginfo("Starting Mission " + str(self.mission_id))
             else:
-                print("Quitting mission")
+                rp.loginfo("Quitting mission")
             self.on_mission = not self.on_mission
 
     def stateMachine(self, x_drone, y_drone, z_drone):
@@ -332,10 +341,10 @@ class magdroneControlNode():
                 if (self.state_id == len(self.desired_positions_m1) - 2):
                     if not self.docked:
                         self.state_id += 1
-                        print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
+                        rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
                 else:
                     self.state_id += 1
-                    print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
+                    rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
 
             z_des = self.desired_positions_m1[self.state_id] + self.struct_z
 
@@ -351,10 +360,10 @@ class magdroneControlNode():
                 if (self.state_id == 1):
                     if self.docked:
                         self.state_id += 1
-                        print("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
+                        rp.loginfo("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
                 else:
                     self.state_id += 1
-                    print("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
+                    rp.loginfo("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
          
             x_des = self.desired_positions_m2[self.state_id][0]
             y_des = self.desired_positions_m2[self.state_id][1]
@@ -366,7 +375,7 @@ class magdroneControlNode():
             z_des = 1.0
 
         elif self.mission_id == 4:
-            print("setting LAND mode")
+            rp.loginfo("setting LAND mode")
             self.vehicle.mode = VehicleMode("LAND")
             x_des = x_drone
             y_des = y_drone
@@ -400,10 +409,10 @@ class magdroneControlNode():
 
         # Send command
         self.vehicle.send_mavlink(msg_hi)
-        print("Magnet Engaged")
+        rp.loginfo("Magnet Engaged")
         time.sleep(5)
         self.vehicle.send_mavlink(msg_neut)
-        print("Magnet in Neutral")
+        rp.loginfo("Magnet in Neutral")
         self.docked = True
 
     def disengage_magnet(self):
@@ -425,19 +434,19 @@ class magdroneControlNode():
 
         # Send command
         self.vehicle.send_mavlink(msg_low)
-        print("Magnet Disengaged")
+        rp.loginfo("Magnet Disengaged")
         time.sleep(5)
         self.vehicle.send_mavlink(msg_neut)
-        print("Magnet in Neutral")
+        rp.loginfo("Magnet in Neutral")
         self.docked = False
 
     def send_commands(self):
-        print("Accepting Commands")
+        rp.loginfo("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
             # Arm motors
             if self.arm > 0:
-                print("Arming...")
+                rp.loginfo("Arming...")
                 self.arm_and_takeoff_nogps()
 
             # Mission has started
@@ -452,22 +461,31 @@ class magdroneControlNode():
                 linear_y_cmd  = self.clipCommand(uY - 1.3, 7.5, -7.5)
                 linear_x_cmd  = self.clipCommand(uX + 0.45, 7.5, -7.5)
                 angular_z_cmd = self.clipCommand(uW, 5, -5)
-                
+
                 cmd = TwistStamped()
                 cmd.header.stamp = rp.Time.now()
-                cmd.twist.linear.x  = -linear_x_cmd
-                cmd.twist.linear.y  = -linear_y_cmd
-                cmd.twist.linear.z  =  linear_z_cmd
+                cmd.twist.angular.x = -linear_y_cmd
+                cmd.twist.angular.y = -linear_x_cmd
                 cmd.twist.angular.z =  angular_z_cmd
+                cmd.twist.linear.z  =  linear_z_cmd
                 self.command_pub.publish(cmd)
 
-                self.set_attitude(roll_angle = -linear_y_cmd,
+                if (time.time() - self.lastOnline < 0.5):
+                    self.set_attitude(roll_angle = -linear_y_cmd,
                                       pitch_angle = -linear_x_cmd,
                                       yaw_angle = None,
                                       yaw_rate = angular_z_cmd, use_yaw_rate = True, 
                                       thrust = linear_z_cmd,
                                       duration=1.0/self.rate)
-                
+                else:
+                    self.set_attitude(roll_angle = 0.0,
+                                      pitch_angle = 0.0,
+                                      yaw_angle = None,
+                                      yaw_rate = 0.0, use_yaw_rate = True, 
+                                      thrust = 0.5,
+                                      duration=1.0/self.rate)
+                    rp.logwarn("Connection Lost!!! Hovering")
+
                 if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 2) & (self.magnet_engaged):
                     self.magnet_engaged = False
                     t = threading.Thread(target=self.disengage_magnet)
@@ -478,16 +496,15 @@ class magdroneControlNode():
                     t = threading.Thread(target=self.engage_magnet)
                     t.start()
 
+            # For manual control of the magnet
             if self.magnet_button == 1:
                 self.magnet_engaged = True
                 t = threading.Thread(target=self.engage_magnet)
                 t.start()
-                
-            if self.magnet_button == -1:
+            elif self.magnet_button == -1:
                 self.magnet_engaged = False
                 t = threading.Thread(target=self.disengage_magnet)
                 t.start()
-
 
             r.sleep()
 
