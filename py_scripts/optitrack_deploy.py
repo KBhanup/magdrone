@@ -93,7 +93,7 @@ class magdroneControlNode():
         self.state_id = 0
         self.arm = 0
         self.magnet_engaged = False
-        self.docked = False
+        self.docked = True
 
         # Desired positions for misions 1 and 3
         self.struct_x = 0.1
@@ -101,9 +101,10 @@ class magdroneControlNode():
         self.struct_z = 1.98 # Offset is reduced because of the addition of the sensor package
         # Mission 1. Incremental altitudes
         # The last one should be unreachable
-        self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1,-0.5]
-        # Mission 3
-        self.desired_positions_m3 = [[self.struct_x, self.struct_y, self.struct_z + 0.1]
+        self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1, -0.5]
+        # Mission 2
+        self.desired_positions_m2 = [[self.struct_x, self.struct_y, self.struct_z - 0.2],
+                                     [self.struct_x, self.struct_y, self.struct_z + 0.1],
                                      [self.struct_x, self.struct_y, self.struct_z - 0.3],
                                      [self.struct_x, self.struct_y, self.struct_z - 0.5],
                                      [0.0, -1.8, 1.0],
@@ -326,40 +327,41 @@ class magdroneControlNode():
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
             if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
-                if (self.stat_id = len(self.desired_positions_m1) - 1) &  (not self.magnet_engaged):
-                    self.state_id +=1
-                elif (self.stat_id = len(self.desired_positions_m1) - 1) &  (self.magnet_engaged):
-                    self.state_id = self.state_id
-                elif (not (self.stat_id = len(self.desired_positions_m1) - 1))
+                if (self.state_id == len(self.desired_positions_m1) - 2):
+                    if not self.docked:
+                        self.state_id += 1
+                        print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
+                else:
                     self.state_id += 1
-                print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
+                    print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
 
             z_des = self.desired_positions_m1[self.state_id] + self.struct_z
-        
+
         elif self.mission_id == 2:
-            x_des = 0.0
-            y_des = -1.8
-            z_des = 1.0
 
-        elif self.mission_id == 3:
-
-            x_des = self.desired_positions_m3[self.state_id][0]
-            y_des = self.desired_positions_m3[self.state_id][1]
-            z_des = self.desired_positions_m3[self.state_id][2]
+            x_des = self.desired_positions_m2[self.state_id][0]
+            y_des = self.desired_positions_m2[self.state_id][1]
+            z_des = self.desired_positions_m2[self.state_id][2]
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
-            if (check[0] < 0.15) & (check[1] < 0.15) & (check[2] < 0.05):
-                if (self.stat_id = [0]) &  (self.magnet_engaged):
-                    self.state_id +=1
-                elif (self.stat_id = [0]) &  (not self.magnet_engaged):
-                    self.state_id = self.state_id
-                self.state_id += 1
-                print("New target is: X Pos: " + str(self.desired_positions_m3[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m3[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m3[self.state_id][2]))
+            if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
+                if (self.state_id == 1):
+                    if self.docked:
+                        self.state_id += 1
+                        print("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
+                else:
+                    self.state_id += 1
+                    print("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
          
-            x_des = self.desired_positions_m3[self.state_id][0]
-            y_des = self.desired_positions_m3[self.state_id][1]
-            z_des = self.desired_positions_m3[self.state_id][2]
+            x_des = self.desired_positions_m2[self.state_id][0]
+            y_des = self.desired_positions_m2[self.state_id][1]
+            z_des = self.desired_positions_m2[self.state_id][2]
+
+        elif self.mission_id == 3:
+            x_des = 0.0
+            y_des = -1.8
+            z_des = 1.0
 
         elif self.mission_id == 4:
             print("setting LAND mode")
@@ -477,7 +479,7 @@ class magdroneControlNode():
                     t = threading.Thread(target=self.disengage_magnet)
                     t.start()
 
-                if (self.mission_id == 3) & (not self.magnet_engaged):
+                if (self.mission_id == 2) & (self.state_id == 1) & (not self.magnet_engaged):
                     self.magnet_engaged = True
                     t = threading.Thread(target=self.engage_magnet)
                     t.start()
