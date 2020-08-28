@@ -330,7 +330,8 @@ class magdroneControlNode():
                     self.state_id +=1
                 elif (self.stat_id = len(self.desired_positions_m1) - 1) &  (self.magnet_engaged):
                     self.state_id = self.state_id
-                elif self.state_id += 1
+                elif (not (self.stat_id = len(self.desired_positions_m1) - 1))
+                    self.state_id += 1
                 print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
 
             z_des = self.desired_positions_m1[self.state_id] + self.struct_z
