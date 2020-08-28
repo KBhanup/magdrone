@@ -94,7 +94,7 @@ class magdroneControlNode():
         self.mission_id = 1
         self.state_id = 0
         self.arm = 0
-        self.magnet_engaged = False
+        self.magnet_engaged = True
         self.docked = True
         self.magnet_button = 0
 
@@ -123,13 +123,9 @@ class magdroneControlNode():
 
         rp.spin()
 
-    def clipCommand(self, cmd, upperBound, lowerBound):
-        if cmd < lowerBound:
-            cmd = lowerBound
-        elif cmd > upperBound:
-            cmd = upperBound
-
-        return cmd
+    '''
+        DroneKit Functions
+    '''
 
     def arm_and_takeoff_nogps(self, aTargetAltitude=-1.0):
         """
@@ -328,6 +324,10 @@ class magdroneControlNode():
                 rp.loginfo("Quitting mission")
             self.on_mission = not self.on_mission
 
+    '''
+        State Machine Functions
+    '''
+
     def stateMachine(self, x_drone, y_drone, z_drone):
         if self.mission_id == 1:
 
@@ -337,12 +337,12 @@ class magdroneControlNode():
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
-            if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
-                if (self.state_id == len(self.desired_positions_m1) - 2):
-                    if not self.docked:
-                        self.state_id += 1
-                        rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
-                else:
+            if (self.state_id == len(self.desired_positions_m1) - 2):
+                if not self.docked:
+                    self.state_id += 1
+                    rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
+            else:
+                if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
                     self.state_id += 1
                     rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
 
@@ -356,12 +356,12 @@ class magdroneControlNode():
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
-            if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
-                if (self.state_id == 1):
-                    if self.docked:
-                        self.state_id += 1
-                        rp.loginfo("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
-                else:
+            if (self.state_id == 1):
+                if self.docked:
+                    self.state_id += 1
+                    rp.loginfo("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
+            else:
+                if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
                     self.state_id += 1
                     rp.loginfo("New target is: X Pos: " + str(self.desired_positions_m2[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m2[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m2[self.state_id][2]))
          
@@ -389,6 +389,18 @@ class magdroneControlNode():
         dz = abs(current_p[2] - desired_p[2])
 
         return [dx, dy, dz]
+
+    def clipCommand(self, cmd, upperBound, lowerBound):
+        if cmd < lowerBound:
+            cmd = lowerBound
+        elif cmd > upperBound:
+            cmd = upperBound
+
+        return cmd
+
+    '''
+        Magnet Control
+    '''
 
     def engage_magnet(self):
         msg_hi = self.vehicle.message_factory.command_long_encode(
@@ -448,6 +460,10 @@ class magdroneControlNode():
             if self.arm > 0:
                 rp.loginfo("Arming...")
                 self.arm_and_takeoff_nogps()
+
+    '''
+        Main Loop
+    '''
 
             # Mission has started
             if self.on_mission:
