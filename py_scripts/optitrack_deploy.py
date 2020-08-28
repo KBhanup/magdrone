@@ -96,14 +96,15 @@ class magdroneControlNode():
         self.docked = False
 
         # Desired positions for misions 1 and 3
-        self.struct_x = 0.04
-        self.struct_y = 0.02
+        self.struct_x = 0.1
+        self.struct_y = 0.06
         self.struct_z = 1.98 # Offset is reduced because of the addition of the sensor package
         # Mission 1. Incremental altitudes
         # The last one should be unreachable
-        self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
+        self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1,-0.5]
         # Mission 3
-        self.desired_positions_m3 = [[self.struct_x, self.struct_y, self.struct_z - 0.3],
+        self.desired_positions_m3 = [[self.struct_x, self.struct_y, self.struct_z + 0.1]
+                                     [self.struct_x, self.struct_y, self.struct_z - 0.3],
                                      [self.struct_x, self.struct_y, self.struct_z - 0.5],
                                      [0.0, -1.8, 1.0],
                                      [0.0, -1.8, 0.25]]
@@ -293,7 +294,7 @@ class magdroneControlNode():
         self.arm = data.buttons[9]
 
         if data.buttons[0] == 1.0:
-            print("Mission set to 1 - Docking")
+            print("Mission set to 1 - Deploying Sensor")
             self.mission_id = 1
             self.state_id = 0
         if data.buttons[1] == 1.0:
@@ -301,7 +302,7 @@ class magdroneControlNode():
             self.mission_id = 2
             self.state_id = 0
         if data.buttons[2] == 1.0:
-            print("Mission set to 3 - Disengage, Exit, and Hover")
+            print("Mission set to 3 - Retreiving Sensor and Exiting")
             self.mission_id = 3
             self.state_id = 0
         if data.buttons[3] == 1.0:
@@ -325,8 +326,12 @@ class magdroneControlNode():
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
             if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
-                self.state_id += 1
-                print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + 2.08))
+                if (self.stat_id = len(self.desired_positions_m1) - 1) &  (not self.magnet_engaged):
+                    self.state_id +=1
+                elif (self.stat_id = len(self.desired_positions_m1) - 1) &  (self.magnet_engaged):
+                    self.state_id = self.state_id
+                elif self.state_id += 1
+                print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + self.struct_z))
 
             z_des = self.desired_positions_m1[self.state_id] + self.struct_z
         
@@ -344,6 +349,10 @@ class magdroneControlNode():
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
             if (check[0] < 0.15) & (check[1] < 0.15) & (check[2] < 0.05):
+                if (self.stat_id = [0]) &  (self.magnet_engaged):
+                    self.state_id +=1
+                elif (self.stat_id = [0]) &  (not self.magnet_engaged):
+                    self.state_id = self.state_id
                 self.state_id += 1
                 print("New target is: X Pos: " + str(self.desired_positions_m3[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m3[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m3[self.state_id][2]))
          
@@ -462,15 +471,15 @@ class magdroneControlNode():
                                       thrust = 0.5,
                                       duration=1.0/self.rate)
 
-                if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 1) & (self.magnet_engaged):
-                    self.magnet_engaged = True
+                if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 2) & (self.magnet_engaged):
+                    self.magnet_engaged = False
                     t = threading.Thread(target=self.disengage_magnet)
                     t.start()
 
-                #if (self.mission_id == 3) & (self.magnet_engaged):
-                #    self.magnet_engaged = False
-                #    t = threading.Thread(target=self.disengage_magnet)
-                #    t.start()
+                if (self.mission_id == 3) & (not self.magnet_engaged):
+                    self.magnet_engaged = True
+                    t = threading.Thread(target=self.engage_magnet)
+                    t.start()
 
             r.sleep()
 
