@@ -94,6 +94,7 @@ class magdroneControlNode():
         self.arm = 0
         self.magnet_engaged = False
         self.docked = True
+        self.magnet_button = 0
 
         # Desired positions for misions 1 and 3
         self.struct_x = 0.1
@@ -293,6 +294,7 @@ class magdroneControlNode():
 
         # Button Controls
         self.arm = data.buttons[9]
+        self.magnet_button = data.axes[6]
 
         if data.buttons[0] == 1.0:
             print("Mission set to 1 - Deploying Sensor")
@@ -483,6 +485,17 @@ class magdroneControlNode():
                     self.magnet_engaged = True
                     t = threading.Thread(target=self.engage_magnet)
                     t.start()
+
+                if self.magnet_button == 1:
+                    self.magnet_engaged = True
+                    t = threading.Thread(target=self.engage_magnet)
+                    t.start()
+                
+                if self.magnet_button == -1:
+                    self.magnet_engaged = False
+                    t = threading.Thread(target=self.disengage_magnet)
+                    t.start()
+
 
             r.sleep()
 
