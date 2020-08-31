@@ -65,7 +65,7 @@ class magdroneControlNode():
 
         # Connect to the Vehicle
         rp.loginfo('Connecting to Vehicle')
-        self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
+        # self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
 
         # Set up tf listener
         self.tf_listener = tf.TransformListener()
@@ -246,8 +246,7 @@ class magdroneControlNode():
             if self.engage_controller:
                 # Get latest transform
                 try:
-                    (T, R) = self.tf_listener.lookupTransform(
-                        'logi_cam', 'bundle', rp.Time(0))
+                    (T, R) = self.tf_listener.lookupTransform('logi_cam', 'bundle', rp.Time(0))
                 except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                     continue
 
@@ -258,9 +257,7 @@ class magdroneControlNode():
                 # Drone body system is Front-Left-Down
                 w_drone = -orientation[2]
                 x_drone = T[0], y_drone = T[1], z_drone = T[2]
-
-                # Update yaw
-                self.yaw_position = w_drone
+                print("X = " + str(x_drone) + ", Y = " + str(y_drone) + ", Z = " + str(z_drone) + ", W = " + str(w_drone))
 
                 # Set desired position
                 des_position = [0, 0, 1]  # x, y, and z
@@ -318,12 +315,12 @@ class magdroneControlNode():
                 linear_x_cmd  = self.clipCommand(self.pid_x.getCommand() + 0.45, 7.5, -7.5)
 
                 # Apply commands
-                self.set_attitude(roll_angle=-linear_y_cmd,
-                                  pitch_angle=-linear_x_cmd,
-                                  yaw_angle=None,
-                                  yaw_rate=angular_z_cmd, use_yaw_rate=True,
-                                  thrust=linear_z_cmd,
-                                  duration=1.0/self.rate)
+                # self.set_attitude(roll_angle=-linear_y_cmd,
+                #                   pitch_angle=-linear_x_cmd,
+                #                   yaw_angle=None,
+                #                   yaw_rate=angular_z_cmd, use_yaw_rate=True,
+                #                   thrust=linear_z_cmd,
+                #                   duration=1.0/self.rate)
 
                 # Publish commands for logging
                 cmd = TwistStamped()
