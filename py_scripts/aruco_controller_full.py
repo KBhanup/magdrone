@@ -246,14 +246,16 @@ class magdroneControlNode():
             if self.engage_controller:
                 # Get latest transform
                 try:
-                    (T, R) = self.tf_listener.lookupTransform('/raspicam', '/bundle', rp.Time(0))
+                    (T, R) = self.tf_listener.lookupTransform('raspicam', 'bundle', rp.Time())
                 except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                     continue
+
+                lastTFtime = self.tf_listener.getLatestCommonTime('raspicam', 'bundle')
 
                 # Get current pose wrt Tag
                 qx = R[0]
                 qy = R[1]
-		qz = R[2]
+                qz = R[2]
                 qw = R[3]
                 orientation = to_rpy(qw, qx, qy, qz)
 
@@ -314,10 +316,20 @@ class magdroneControlNode():
                 self.pid_z.updateError(z_error)
 
                 # Get commands
-                angular_z_cmd = self.clipCommand(self.pid_w.getCommand(), 5, -5)
-                linear_z_cmd  = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.65, 0.35)
-                linear_y_cmd  = self.clipCommand(self.pid_y.getCommand() - 1.3, 7.5, -7.5)
-                linear_x_cmd  = self.clipCommand(self.pid_x.getCommand() + 0.45, 7.5, -7.5)
+                dt_ros = rp.get_rostime() - lastTFtime
+                dt = dt_ros.secs + dt_ros.nsecs * 1e-9
+
+                if dt < 2.0:
+                    angular_z_cmd = self.clipCommand(self.pid_w.getCommand(), 5, -5)
+                    linear_z_cmd  = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.65, 0.35)
+                    linear_y_cmd  = self.clipCommand(self.pid_y.getCommand() - 1.3, 7.5, -7.5)
+                    linear_x_cmd  = self.clipCommand(self.pid_x.getCommand() + 0.45, 7.5, -7.5)
+                else:
+                    angular_z_cmd = 0.0
+                    linear_z_cmd  = 0.5
+                    linear_y_cmd  = 0.0
+                    linear_x_cmd  = 0.0
+                    rp.logwarn("Marker lost for more than 2 seconds!!! Hovering")
 
                 # Apply commands
                 # self.set_attitude(roll_angle=-linear_y_cmd,

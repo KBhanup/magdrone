@@ -1,0 +1,16 @@
+<launch>
+    <!-- Start ArUco bundle tracking -->
+    <include file="$(find magdrone)/launch/aruco_bundle_piCam.launch"/>
+
+    <!-- Broadcast static TF from the camera frame to the drone frame -->
+    <node pkg="tf" type="static_transform_publisher" name="camera_to_drone"
+        args="0.165 0.0 0.0 3.14152 0.0 0.0 drone raspicam 1000">
+    </node>
+
+    <!-- Start flight data log-->
+    <include file="$(find magdrone)/launch/log_aruco.launch"/>
+
+    <!-- Start aruco mission script -->
+    <node pkg="magdrone" type="aruco_controller_full.py" name="magdrone_aruco" output="screen"/>
+
+</launch>
