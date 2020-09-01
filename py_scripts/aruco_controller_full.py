@@ -65,7 +65,7 @@ class magdroneControlNode():
 
         # Connect to the Vehicle
         rp.loginfo('Connecting to Vehicle')
-        # self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
+        self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
 
         # Set up tf listener
         self.tf_listener = tf.TransformListener()
@@ -246,7 +246,7 @@ class magdroneControlNode():
             if self.engage_controller:
                 # Get latest transform
                 try:
-                    (T, R) = self.tf_listener.lookupTransform('raspicam', 'bundle', rp.Time())
+                    (T, R) = self.tf_listener.lookupTransform('drone', 'bundle', rp.Time())
                 except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                     continue
 
@@ -260,14 +260,13 @@ class magdroneControlNode():
                 orientation = to_rpy(qw, qx, qy, qz)
 
                 # Drone body system is Front-Left-Down
-                w_drone = -orientation[2]
+                w_drone = orientation[2]
                 x_drone = T[0]
                 y_drone = T[1]
                 z_drone = T[2]
-                print("X = " + str(x_drone) + ", Y = " + str(y_drone) + ", Z = " + str(z_drone) + ", W = " + str(w_drone))
 
                 # Set desired position
-                des_position = [0, 0, 1]  # x, y, and z
+                des_position = [0, 0, -0.5]  # x, y, and z
 
                 # Publish setpoint
                 setpoint = Vector3Stamped()
@@ -292,17 +291,10 @@ class magdroneControlNode():
                 # x-error = z-tag - x_des = z-camera
 
                 # Calculate error
-                dx = des_position[0] - x_drone
-                dy = des_position[1] - y_drone
-                dz = z_drone - des_position[2]
-                dw = 90.0 - w_drone
-
-                # Translate error from optitrack frame to drone body frame
-                drone_error = tag_to_drone(dx, dy, w_drone)
-
-                x_error = drone_error[0]
-                y_error = drone_error[1]
-                z_error = dz
+                x_error = des_position[0] - x_drone
+                y_error = des_position[1] - y_drone
+                z_error = des_position[2] - z_drone
+                dw = w_drone
 
                 if dw > 180.0:
                     w_error = dw - 360.0
@@ -327,17 +319,17 @@ class magdroneControlNode():
                 else:
                     angular_z_cmd = 0.0
                     linear_z_cmd  = 0.5
-                    linear_y_cmd  = 0.0
-                    linear_x_cmd  = 0.0
+                    linear_y_cmd  = -1.3
+                    linear_x_cmd  = 0.45
                     rp.logwarn("Marker lost for more than 2 seconds!!! Hovering")
 
                 # Apply commands
-                # self.set_attitude(roll_angle=-linear_y_cmd,
-                #                   pitch_angle=-linear_x_cmd,
-                #                   yaw_angle=None,
-                #                   yaw_rate=angular_z_cmd, use_yaw_rate=True,
-                #                   thrust=linear_z_cmd,
-                #                   duration=1.0/self.rate)
+                 self.set_attitude(roll_angle=-linear_y_cmd,
+                                   pitch_angle=-linear_x_cmd,
+                                   yaw_angle=None,
+                                   yaw_rate=angular_z_cmd, use_yaw_rate=True,
+                                   thrust=linear_z_cmd,
+                                   duration=1.0/self.rate)
 
                 # Publish commands for logging
                 cmd = TwistStamped()
@@ -345,7 +337,7 @@ class magdroneControlNode():
                 cmd.twist.angular.x = -linear_y_cmd
                 cmd.twist.angular.y = -linear_x_cmd
                 cmd.twist.angular.z = angular_z_cmd
-                cmd.twist.linear.z = linear_z_cmd
+                cmd.twist.linear.z  = linear_z_cmd
                 self.command_pub.publish(cmd)
             r.sleep()
 
