@@ -221,7 +221,7 @@ class magdroneControlNode():
                 rp.loginfo("Controller Engaged")
             else:
                 rp.loginfo("Controller Disengaged")
-            self.on_mission = not self.on_mission
+            self.engage_controller = not self.engage_controller
 
     def clipCommand(self, cmd, upperBound, lowerBound):
         if cmd < lowerBound:
@@ -246,17 +246,22 @@ class magdroneControlNode():
             if self.engage_controller:
                 # Get latest transform
                 try:
-                    (T, R) = self.tf_listener.lookupTransform('logi_cam', 'bundle', rp.Time(0))
+                    (T, R) = self.tf_listener.lookupTransform('/raspicam', '/bundle', rp.Time(0))
                 except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                     continue
 
                 # Get current pose wrt Tag
-                qx = R[0], qy = R[1], qz = R[2], qw = R[3]
+                qx = R[0]
+                qy = R[1]
+		qz = R[2]
+                qw = R[3]
                 orientation = to_rpy(qw, qx, qy, qz)
 
                 # Drone body system is Front-Left-Down
                 w_drone = -orientation[2]
-                x_drone = T[0], y_drone = T[1], z_drone = T[2]
+                x_drone = T[0]
+                y_drone = T[1]
+                z_drone = T[2]
                 print("X = " + str(x_drone) + ", Y = " + str(y_drone) + ", Z = " + str(z_drone) + ", W = " + str(w_drone))
 
                 # Set desired position
@@ -287,7 +292,7 @@ class magdroneControlNode():
                 # Calculate error
                 dx = des_position[0] - x_drone
                 dy = des_position[1] - y_drone
-                dz = des_position[2] - z_drone
+                dz = z_drone - des_position[2]
                 dw = 90.0 - w_drone
 
                 # Translate error from optitrack frame to drone body frame
