@@ -42,50 +42,42 @@ def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
 
     return [w, x, y, z]
 
-def opti_to_drone(x_error, y_error, yaw_angle):
-    x_error_d = (x_error * math.cos(math.radians(yaw_angle))) - (y_error * math.sin(math.radians(yaw_angle)))
-    y_error_d = (x_error * math.sin(math.radians(yaw_angle))) + (y_error * math.cos(math.radians(yaw_angle)))
+def tag_to_drone(x_error, y_error, yaw_angle):
+    x_error_d = (x_error * math.cos(math.radians(yaw_angle))) - \
+        (y_error * math.sin(math.radians(yaw_angle)))
+    y_error_d = (x_error * math.sin(math.radians(yaw_angle))) + \
+        (y_error * math.cos(math.radians(yaw_angle)))
     return [x_error_d, y_error_d]
+
 
 class magdroneControlNode():
 
     def __init__(self):
-        rp.init_node("magdrone_deploy")
+        rp.init_node("magdrone_aruco_deploy")
 
         # Connect to the Vehicle
         rp.loginfo('Connecting to Vehicle')
         self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
 
+        # Set up tf listener
+        self.tf_listener = tf.TransformListener()
+
         # Set up Subscribers
-        self.pose_sub = rp.Subscriber(
-            "/opti_state/pose", PoseStamped, self.pose_callback, queue_size=1)
-        self.rate_sub = rp.Subscriber(
-            "/opti_state/rates", TwistStamped, self.rate_callback, queue_size=1)
-        self.opti_sub = rp.Subscriber(
-            "/vrpn_client_node/UAV/pose", PoseStamped, self.opti_callback, queue_size=1)
         self.joy_sub = rp.Subscriber(
             "/joy", Joy, self.joy_callback, queue_size=1)
 
         # Set up Publishers
-        self.setpoint_pub = rp.Publisher("/setpoint", Vector3Stamped, queue_size=1)
-        self.command_pub = rp.Publisher("/commands", TwistStamped, queue_size=1)
+        self.setpoint_pub = rp.Publisher(
+            "/setpoint", Vector3Stamped, queue_size=1)
+        self.command_pub = rp.Publisher(
+            "/commands", TwistStamped, queue_size=1)
 
-        # Set up Controllers
-        self.kp_z = 0.45
-        self.kd_z = 0.3
-        self.kp_y = 10.5
-        self.kd_y = 8.5
-        self.kp_x = 10.5
-        self.kd_x = 8.5
-        self.kp_w = 0.15
 
-        self.z_error = 0.0
-        self.y_error = 0.0
-        self.x_error = 0.0
-        self.w_error = 0.0
-        self.z_error_d = 0.0
-        self.y_error_d = 0.0
-        self.x_error_d = 0.0
+        # Create PID Controller
+        self.pid_z = PIDcontroller(1.0, 0.0, 17.5, 3)
+        self.pid_y = PIDcontroller(9.5, 0.0, 200.0, 30)
+        self.pid_x = PIDcontroller(9.5, 0.0, 200.0, 30)
+        self.pid_w = PIDcontroller(0.15, 0.0, 0.0, 30)
 
         # Variables
         self.lastOnline = 0
@@ -98,20 +90,16 @@ class magdroneControlNode():
         self.docked = True
         self.magnet_button = 0
 
-        # Desired positions for misions 1 and 2
-        # Offset is reduced because of the addition of the sensor package
-        self.struct_x = 0.10
-        self.struct_y = 0.05
-        self.struct_z = 2.00
+
         # Mission 1.
         self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1, -0.5]
         # Mission 2
-        self.desired_positions_m2 = [[self.struct_x, self.struct_y, self.struct_z - 0.2],
-                                     [self.struct_x, self.struct_y, self.struct_z + 0.1],
-                                     [self.struct_x, self.struct_y, self.struct_z - 0.3],
-                                     [self.struct_x, self.struct_y, self.struct_z - 0.5],
-                                     [0.0, -1.8, 1.0],
-                                     [0.0, -1.8, 0.25]]
+        self.desired_positions_m2 = [[0.0, 0.0, -0.2],
+                                     [0.0, 0.0,  0.1],
+                                     [[0.0, 0.0, -0.3],
+                                     [[0.0, 0.0, - 0.5],
+                                     [0.75, 0.0, 1.0], #change the desired safe position to drone frame
+                                     [0.75, 0.0, 0.25]] #change the desired safe position to drone frame
 
         # Make a global variable for the current yaw position to be used for pose and rate transormations
         self.yaw_position = 0.0
@@ -230,62 +218,68 @@ class magdroneControlNode():
     '''
 
     def pose_callback(self, data):
-        # Get current pose wrt Optitrack
-        qw = data.pose.orientation.w
-        qx = data.pose.orientation.x
-        qy = data.pose.orientation.y
-        qz = data.pose.orientation.z
-        orientation = to_rpy(qw, qx, qy, qz)
+        # Get latest transform
+                try:
+                    (T, R) = self.tf_listener.lookupTransform('drone', 'bundle', rp.Time())
+                except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                    continue
 
-        # Drone body system is Front-Left-Down
-        w_drone = -orientation[2]
-        x_drone = data.pose.position.x
-        y_drone = data.pose.position.y
-        z_drone = data.pose.position.z
+                lastTFtime = self.tf_listener.getLatestCommonTime('raspicam', 'bundle')
 
-        # Update yaw
-        self.yaw_position = w_drone
+                # Get current pose wrt Tag
+                qx = R[0]
+                qy = R[1]
+                qz = R[2]
+                qw = R[3]
+                orientation = to_rpy(qw, qx, qy, qz)
 
-        # Get desired position from State Machine
-        des_position = self.stateMachine(x_drone, y_drone, z_drone)
+                # Drone body system is Front-Left-Down
+                w_drone = orientation[2]
+                x_drone = T[0]
+                y_drone = T[1]
+                z_drone = T[2]
 
-        # Publish setpoint
-        setpoint = Vector3Stamped()
-        setpoint.header.stamp = rp.Time.now()
-        setpoint.vector.x = des_position[0]
-        setpoint.vector.y = des_position[1]
-        setpoint.vector.z = des_position[2]
-        self.setpoint_pub.publish(setpoint)
+                # Set desired position
+                des_position = [0, 0, -0.5]  # x, y, and z
 
-        # Calculate error
-        dx = des_position[0] - x_drone
-        dy = des_position[1] - y_drone
-        dz = des_position[2] - z_drone
-        dw = 90.0 - w_drone
+                # Publish setpoint
+                setpoint = Vector3Stamped()
+                setpoint.header.stamp = rp.Time.now()
+                setpoint.vector.x = des_position[0]
+                setpoint.vector.y = des_position[1]
+                setpoint.vector.z = des_position[2]
+                self.setpoint_pub.publish(setpoint)
 
-        # Translate error from optitrack frame to drone body frame
-        drone_error = opti_to_drone(dx, dy, w_drone)
+                """
+                + z error = + thrust
+                - z error = - thrust
+                + y error = - roll
+                - y error = + roll
+                + x error = + pitch
+                - x error = - pitch 		
+                """
 
-        self.x_error = drone_error[0]
-        self.y_error = drone_error[1]
-        self.z_error = dz
+                # Position conversions where the reported position is in terms of the camera frame
+                # z-error = x-tag - z_des = y-camera
+                # y-error = y-tag - y_des = x-camera
+                # x-error = z-tag - x_des = z-camera
 
-        if dw > 180.0:
-            self.w_error = dw - 360.0
-        else:
-            self.w_error = dw
+                # Calculate error
+                x_error = des_position[0] - x_drone
+                y_error = des_position[1] - y_drone
+                z_error = des_position[2] - z_drone
+                dw = w_drone
 
-    def rate_callback(self, data):
-        # Translate error rate from optitrack frame to drone body frame
-        drone_error_rate = opti_to_drone(-data.twist.linear.x, -data.twist.linear.y, self.yaw_position)
+                if dw > 180.0:
+                    w_error = dw - 360.0
+                else:
+                    w_error = dw
 
-        # Update rate errors
-        self.x_error_d =  drone_error_rate[0]
-        self.y_error_d =  drone_error_rate[1]
-        self.z_error_d = -data.twist.linear.z
-
-    def opti_callback(self, data):
-        self.lastOnline = time.time()
+                # Update errors
+                self.pid_w.updateError(w_error)
+                self.pid_x.updateError(x_error)
+                self.pid_y.updateError(y_error)
+                self.pid_z.updateError(z_error)
 
     def joy_callback(self, data):
         # Empty Command
@@ -331,9 +325,9 @@ class magdroneControlNode():
     def stateMachine(self, x_drone, y_drone, z_drone):
         if self.mission_id == 1:
 
-            x_des = self.struct_x
-            y_des = self.struct_y
-            z_des = self.desired_positions_m1[self.state_id] + self.struct_z
+            x_des = 0
+            y_des = 0
+            z_des = self.desired_positions_m1[self.state_id]
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
