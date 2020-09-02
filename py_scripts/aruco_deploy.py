@@ -367,7 +367,7 @@ class magdroneControlNode():
 
         elif self.mission_id == 3:
             x_des = 0.0
-            y_des = -1.8
+            y_des = 0.75
             z_des = 1.0
 
         elif self.mission_id == 4:
@@ -464,16 +464,11 @@ class magdroneControlNode():
             # Mission has started
             if self.on_mission:
                 # Generate commands
-                uZ = self.kp_z * self.z_error + self.kd_z * self.z_error_d
-                uY = self.kp_y * self.y_error + self.kd_y * self.y_error_d
-                uX = self.kp_x * self.x_error + self.kd_x * self.x_error_d
-                uW = self.kp_w * self.w_error
-
-                linear_z_cmd  = self.clipCommand(uZ + 0.5, 0.65, 0.35)
-                linear_y_cmd  = self.clipCommand(uY - 1.3, 5, -5)
-                linear_x_cmd  = self.clipCommand(uX + 0.45, 5, -5)
-                angular_z_cmd = self.clipCommand(uW, 5, -5)
-
+                angular_z_cmd = self.clipCommand(self.pid_w.getCommand(), 5, -5)
+                linear_z_cmd  = self.clipCommand(self.pid_z.getCommand() + 0.5, 0.65, 0.35)
+                linear_y_cmd  = self.clipCommand(self.pid_y.getCommand() - 1.3, 7.5, -7.5)
+                linear_x_cmd  = self.clipCommand(self.pid_x.getCommand() + 0.45, 7.5, -7.5)
+ 
                 cmd = TwistStamped()
                 cmd.header.stamp = rp.Time.now()
                 cmd.twist.angular.x = -linear_y_cmd
