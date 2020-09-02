@@ -9,6 +9,12 @@
 /tf
 /tf_static
 
+/opti_state/pose
+/opti_state/rates
+
+/vrpn_client_node/UAV/pose
+/vrpn_client_node/LandingStructure/pose
+
 /setpoint
 /commands
 

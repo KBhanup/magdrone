@@ -242,6 +242,7 @@ class magdroneControlNode():
             # Arm motors
             if self.arm > 0:
                 rp.loginfo("Arming...")
+                self.arm_and_takeoff_nogps()
 
             if self.engage_controller:
                 # Get latest transform
@@ -324,12 +325,12 @@ class magdroneControlNode():
                     rp.logwarn("Marker lost for more than 2 seconds!!! Hovering")
 
                 # Apply commands
-                 self.set_attitude(roll_angle=-linear_y_cmd,
-                                   pitch_angle=-linear_x_cmd,
-                                   yaw_angle=None,
-                                   yaw_rate=angular_z_cmd, use_yaw_rate=True,
-                                   thrust=linear_z_cmd,
-                                   duration=1.0/self.rate)
+                self.set_attitude(roll_angle=-linear_y_cmd,
+                                  pitch_angle=-linear_x_cmd,
+                                  yaw_angle=None,
+                                  yaw_rate=angular_z_cmd, use_yaw_rate=True,
+                                  thrust=linear_z_cmd,
+                                  duration=1.0/self.rate)
 
                 # Publish commands for logging
                 cmd = TwistStamped()
