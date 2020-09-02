@@ -247,7 +247,7 @@ class magdroneControlNode():
             if self.engage_controller:
                 # Get latest transform
                 try:
-                    (T, R) = self.tf_listener.lookupTransform('drone', 'bundle', rp.Time())
+                    (T, R) = self.tf_listener.lookupTransform('UAV', 'bundle', rp.Time())
                 except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                     continue
 
