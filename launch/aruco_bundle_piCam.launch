@@ -12,7 +12,11 @@
         <param name="marker_size"        value=".05"/>
         <param name="reference_frame"    value="cam_frame"/>   <!-- frame in which the marker pose will be refered -->
         <param name="camera_frame"       value="cam_frame"/>
-        <param name="tag_config_json"    value="$(find magdrone)/aruco_bundle_2.json"/>
+        <param name="tag_config_json"    value="$(find magdrone)/aruco_bundlev2_flip.json"/>
+    </node>
+
+    <node pkg="tf" type="static_transform_publisher" name="camera_to_drone"
+        args="0.165 0.0 0.0 -1.5707963 0.0 3.1415927 UAV raspicam 1000">
     </node>
 
 </launch>

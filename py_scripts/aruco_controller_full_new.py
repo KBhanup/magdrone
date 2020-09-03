@@ -265,13 +265,13 @@ class magdroneControlNode():
                 qz = R[2]
                 qw = R[3]
                 orientation = to_rpy(qw, qx, qy, qz)
-                q_BwD = to_quaternion(roll  = -math.degrees(self.vehicle.attiude.roll),
-                                      pitch = -math.degrees(self.vehicle.attiude.pitch),
+                q_BwD = to_quaternion(roll  = -math.degrees(self.vehicle.attitude.roll),
+                                      pitch = -math.degrees(self.vehicle.attitude.pitch),
                                       yaw   =  orientation[2])
                 q_BwD_i = [q_BwD[0], -q_BwD[1], -q_BwD[2], -q_BwD[3]]
                 t_BwD = [0, T[0], T[1], T[2]]
 
-                t_DwB = quatMultiply(q_BwD, quatMultiply(t_BwD, q_BwD_i))
+                t_DwB = quatMultiply(q_BwD_i, quatMultiply(t_BwD, q_BwD))
 
                 # Drone position and orientation wrt bundle
                 w_drone = orientation[2]
