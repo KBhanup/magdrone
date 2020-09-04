@@ -14,6 +14,6 @@
     <include file="$(find magdrone)/launch/log_aruco.launch"/>
 
     <!-- Start aruco mission script -->
-    <node pkg="magdrone" type="aruco_controller_full.py" name="magdrone_aruco" output="screen"/>
+    <node pkg="magdrone" type="aruco_controller_full_new.py" name="magdrone_aruco" output="screen"/>
 
 </launch>
