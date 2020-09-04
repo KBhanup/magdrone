@@ -26,15 +26,15 @@ time:
 # --- mavros plugins (alphabetical order) ---
 
 # 3dr_radio
-tdr_radio:
-  low_rssi: 40  # raw rssi lower level for diagnostics
+#tdr_radio:
+#  low_rssi: 40  # raw rssi lower level for diagnostics
 
 # actuator_control
 # None
 
 # command
-cmd:
-  use_comp_id_system_control: false # quirk for some old FCUs
+#cmd:
+#  use_comp_id_system_control: false # quirk for some old FCUs
 
 # dummy
 # None
