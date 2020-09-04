@@ -269,7 +269,7 @@ class magdroneControlNode():
                 roll = self.vehicle.attitude.roll
                 pitch = self.vehicle.attitude.pitch
 
-                print("Roll before = " + str(math.degrees(roll)) + ", pitch before = " + str(math.degrees(pitch)))
+                #print("Roll before = " + str(math.degrees(roll)) + ", pitch before = " + str(math.degrees(pitch)))
 
                 tag_angles = tag_to_drone(math.degrees(roll),
                                           math.degrees(pitch),
@@ -287,11 +287,11 @@ class magdroneControlNode():
 
                 # Drone position and orientation wrt bundle
                 w_drone = orientation[2]
-                x_drone = t_DwB[1]
-                y_drone = t_DwB[2]
-                z_drone = t_DwB[3]
+                x_drone = -t_DwB[1]
+                y_drone = -t_DwB[2]
+                z_drone = -t_DwB[3]
 
-                print("Drone position wrt the Bundle -> x = " + str(x_drone) + ", y = " + str(y_drone) + ", z = " + str(z_drone) + ", w = " + str(w_drone))
+                #print("Drone position wrt the Bundle -> x = " + str(x_drone) + ", y = " + str(y_drone) + ", z = " + str(z_drone) + ", w = " + str(w_drone))
 
                 # Set desired position
                 des_position = [0, 0, -0.5]  # x, y, and z
@@ -321,7 +321,7 @@ class magdroneControlNode():
                 # Calculate error
                 dx = des_position[0] - x_drone
                 dy = des_position[1] - y_drone
-                dz = des_position[2] - z_drone
+                dz = z_drone - des_position[2]
                 dw = w_drone
 
                 # Translate error from optitrack frame to drone body frame
@@ -342,6 +342,8 @@ class magdroneControlNode():
                 self.pid_y.updateError(y_error)
                 self.pid_z.updateError(z_error)
 
+                #print('w_error: ' + str(w_error) + ' x_error: ' + str(x_error) + ' y_error: ' + str(y_error) + ' z_error: ' + str(z_error)) 
+
                 # Get commands
                 dt_ros = rp.get_rostime() - lastTFtime
                 dt = dt_ros.secs + dt_ros.nsecs * 1e-9
@@ -358,8 +360,11 @@ class magdroneControlNode():
                     linear_x_cmd  = 0.45
                     rp.logwarn("Marker lost for more than 2 seconds!!! Hovering")
 
+
+                #print('w_cmd: ' + str(angular_z_cmd) + ' x_cmd: ' + str(linear_x_cmd) + ' y_cmd: ' + str(linear_y_cmd) + ' z_cmd: ' + str(linear_z_cmd))
+
                 # Apply commands
-                self.set_attitude(roll_angle=-linear_y_cmd,
+                self.set_attitude(roll_angle=linear_y_cmd,
                                   pitch_angle=-linear_x_cmd,
                                   yaw_angle=None,
                                   yaw_rate=angular_z_cmd, use_yaw_rate=True,
