@@ -1,40 +1,60 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-© Copyright 2015-2016, 3D Robotics.
-vehicle_state.py: 
-Demonstrates how to get and set vehicle state and parameter information, 
-and how to observe vehicle attribute (state) changes.
-Full documentation is provided at http://python.dronekit.io/examples/vehicle_state.html
-"""
 import rospy as rp
 
 from dronekit import connect, VehicleMode
+
+import threading
 import time
-from geometry_msgs.msg import Vector3Stamped
+from sensor_msgs.msg import Joy
+from geometry_msgs.msg import Twist, PoseStamped, TwistStamped, Vector3Stamped
 
-def __init__():
-    # Set up Publishers
-    rpy_pub = rp.Publisher(
-        "/rpy", Vector3Stamped, queue_size=1)
+class magdroneControlNode():
 
-    # Connect to the Vehicle. 
-    print("\nConnecting to vehicle ")
-    vehicle = connect('/dev/serial0', wait_ready= True, baud=57600)
+    def __init__(self):
+        # Set up Subscribers
+        self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
+    
+        # Set up Publishers
+        self.rpy_pub = rp.Publisher("/rpy", Vector3Stamped, queue_size=1)
 
-    roll = vehicle.attitude.roll
-    pitch = vehicle.attitude.pitch 
-    yaw = vehicle.attitude.yaw
+        # Connect to the Vehicle. 
+        print("\nConnecting to vehicle ")
+        vehicle = connect('/dev/serial0', wait_ready= True, baud=57600)
 
-    # Publish setpoint
-    rpy = Vector3Stamped()
-    rpy.header.stamp = rp.Time.now()
-    rpy.vector.roll = roll
-    rpy.vector.pitch = pitch
-    rpy.vector.yaw = yaw
-    rpy_pub.publish(rpy)
+        # Create thread for publisher
+        self.rate = 30
+        t = threading.Thread(target=self.rpy)
+        t.start()
 
-__init__()
+    def rpy(self):
+        rp.loginfo("Accepting Commands")
+        r = rp.Rate(self.rate)
+        while not rp.is_shutdown():
+            if self.arm == 0:        
+                print('starting rpy')
+                roll = vehicle.attitude.roll
+                pitch = vehicle.attitude.pitch 
+                yaw = vehicle.attitude.yaw
+
+                # Publish setpoint
+                self.rpy = Vector3Stamped()
+                rpy.header.stamp = rp.Time.now()
+                rpy.vector.roll = roll
+                rpy.vector.pitch = pitch
+                rpy.vector.yaw = yaw
+                self.rpy_pub.publish(rpy)
+
+    def joy_callback(self, data):
+        # Empty Command
+        self.cmds = Twist()
+
+        # Joystick Controls
+
+        # Button Controls
+        self.arm = data.buttons[9]
+
+magdroneControlNode()  
 
 
