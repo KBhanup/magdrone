@@ -265,8 +265,13 @@ class magdroneControlNode():
                 qz = R[2]
                 qw = R[3]
                 orientation = to_rpy(qw, qx, qy, qz)
-                q_BwD = to_quaternion(roll  = -math.degrees(self.vehicle.attitude.roll),
-                                      pitch = -math.degrees(self.vehicle.attitude.pitch),
+
+                tag_angles = tag_to_drone(-math.degrees(self.vehicle.attitude.roll),
+                                          -math.degrees(self.vehicle.attitude.pitch),
+                                          orientation[2])
+
+                q_BwD = to_quaternion(roll  = tag_angles[0],
+                                      pitch = tag_angles[1],
                                       yaw   =  orientation[2])
                 q_BwD_i = [q_BwD[0], -q_BwD[1], -q_BwD[2], -q_BwD[3]]
                 t_BwD = [0, T[0], T[1], T[2]]
