@@ -15,8 +15,4 @@
         <param name="tag_config_json"    value="$(find magdrone)/aruco_bundlev2_flip.json"/>
     </node>
 
-    <node pkg="tf" type="static_transform_publisher" name="camera_to_drone"
-        args="0.165 0.0 0.0 -1.5707963 0.0 3.1415927 UAV raspicam 1000">
-    </node>
-
 </launch>
