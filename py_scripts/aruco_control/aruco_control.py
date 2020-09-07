@@ -67,10 +67,6 @@ class magdroneControlNode():
         self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
 
         # Set up Subscribers
-        self.pose_sub = rp.Subscriber(
-            "/aruco_state/pose", PoseStamped, self.pose_callback, queue_size=1)
-        self.rate_sub = rp.Subscriber(
-            "/aruco_state/rates", TwistStamped, self.rate_callback, queue_size=1)
         self.aruco_sub = rp.Subscriber(
             "/aruco_marker_publisher/bundles", PoseStamped, self.aruco_callback, queue_size=1)
         self.joy_sub = rp.Subscriber(
@@ -79,6 +75,8 @@ class magdroneControlNode():
         # Set up Publishers
         self.setpoint_pub = rp.Publisher("/setpoint", Vector3Stamped, queue_size=1)
         self.command_pub = rp.Publisher("/commands", TwistStamped, queue_size=1)
+        self.state_pub = rp.Publisher("/aruco_state/pose", PoseStamped, queue_size=1)
+        self.state_rate_pub = rp.Publisher("aruco_state/rates", TwistStamped, queue_size=1)
 
         # Create Filter Node
         self.filter = FilterNode()
@@ -104,9 +102,6 @@ class magdroneControlNode():
         self.lastOnline = 0
         self.cmds = None
         self.on_mission = False
-
-        # Make a global variable for the current yaw position to be used for pose and rate transormations
-        self.yaw_position = 0.0
 
         # Create thread for publisher
         self.rate = 30
@@ -336,6 +331,84 @@ class magdroneControlNode():
 
         return cmd
 
+    def update_error(self, X):
+        # Get current pose wrt Aruco
+        w_drone = -X.item(8)
+        x_drone = X.item(0)
+        y_drone = X.item(1)
+        z_drone = X.item(2)
+
+        # Desired position
+        des_position = [0, 0, -0.5]
+
+        # Publish setpoint
+        setpoint = Vector3Stamped()
+        setpoint.header.stamp = rp.Time.now()
+        setpoint.vector.x = des_position[0]
+        setpoint.vector.y = des_position[1]
+        setpoint.vector.z = des_position[2]
+        self.setpoint_pub.publish(setpoint)
+
+        # Calculate error
+        dx = des_position[0] - x_drone
+        dy = des_position[1] - y_drone
+        dz = z_drone - des_position[2]
+        dw = w_drone
+
+        # Translate error from optitrack frame to drone body frame
+        drone_error = tag_to_drone(dx, dy, w_drone)
+
+        self.x_error = drone_error[0]
+        self.y_error = drone_error[1]
+        self.z_error = dz
+
+        if dw > 180.0:
+            self.w_error = dw - 360.0
+        else:
+            self.w_error = dw
+        
+        # Translate error rate from optitrack frame to drone body frame
+        drone_error_rate = tag_to_drone(X.item(3), X.item(4), w_drone)
+
+        # Update rate errors
+        self.x_error_d = drone_error_rate[0]
+        self.y_error_d = drone_error_rate[1]
+        self.z_error_d = X.item(5)
+    
+    def publish_state(self, X):
+        timeNow = time.time()
+        stateMsg = PoseStamped()
+        stateMsg.header.stamp = timeNow
+        stateMsg.header.frame_id = 'bundle'
+
+        stateMsg.pose.position.x = X.item(0)
+        stateMsg.pose.position.y = X.item(1)
+        stateMsg.pose.position.z = X.item(2)
+
+        q = to_quaternion(roll=X.item(6),
+                          pitch=X.item(7),
+                          yaw=X.item(8))
+
+        stateMsg.pose.orientation.x = q[1]
+        stateMsg.pose.orientation.y = q[2]
+        stateMsg.pose.orientation.z = q[3]
+        stateMsg.pose.orientation.w = q[0]
+
+        twistMsg = TwistStamped()
+        twistMsg.header.stamp = timeNow
+        twistMsg.header.frame_id = 'bundle'
+
+        twistMsg.twist.linear.x = X.item(3)
+        twistMsg.twist.linear.y = X.item(4)
+        twistMsg.twist.linear.z = X.item(5)
+
+        twistMsg.twist.angular.x = X.item(9)
+        twistMsg.twist.angular.y = X.item(10)
+        twistMsg.twist.angular.z = X.item(11)
+
+        self.state_pub.publish(stateMsg)
+        self.state_rate_pub.publish(twistMsg)
+
     '''
         Main Loop
     '''
@@ -348,6 +421,13 @@ class magdroneControlNode():
             if self.arm > 0:
                 rp.loginfo("Arming...")
                 self.arm_and_takeoff_nogps()
+
+            # Get current state and publish it
+            X = self.filter.get_state()
+            if X is not None:
+                self.update_error(X)
+                t = threading.Thread(target=self.publish_state, args=X)
+                t.start()
 
             # Mission has started
             if self.on_mission:

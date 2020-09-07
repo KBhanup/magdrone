@@ -20,9 +20,7 @@ import threading
 
 
 class FilterNode():
-    def __init__(self,):
-        rp.init_node("filter")
-
+    def __init__(self):
         # Number of states
         self.n = 12
 
@@ -51,19 +49,6 @@ class FilterNode():
         self.kalmanF = KalmanFilter()
         self.isInit = False
         self.lastTime = None
-
-        # Set up Publisher
-        self.state_pub = rp.Publisher(
-            "aruco_state/pose", PoseStamped, queue_size=1)
-        self.state_rate_pub = rp.Publisher(
-            "aruco_state/rates", TwistStamped, queue_size=1)
-
-        # Create thread for publisher
-        self.rate = 30
-        t = threading.Thread(target=self.statePublisher)
-        t.start()
-
-        rp.spin()
 
     def state_update(self, T, R, mTime):
         attiQ = Quaternion(R[0], R[1], R[2], R[3])
@@ -106,48 +91,17 @@ class FilterNode():
             self.lastTime = mTime
             self.isInit = True
 
-    def statePublisher(self):
-        r = rp.Rate(self.rate)
+    def get_state(self):
+        if self.isInit:
+            timeNow = time.time()
+            dt = timeNow - self.lastTime
+            self.lastTime = timeNow
 
-        while not rp.is_shutdown():
-            if self.isInit:
-                timeNow = time.time()
-                dt = timeNow - self.lastTime
-                self.lastTime = timeNow
+            # Prediction
+            self.kalmanF.updateF(dt)
+            self.kalmanF.updateQ()
+            self.kalmanF.predict()
 
-                # Prediction
-                self.kalmanF.updateF(dt)
-                self.kalmanF.updateQ()
-                self.kalmanF.predict()
-
-                stateMsg = PoseStamped()
-                stateMsg.header.stamp = timeNow
-                stateMsg.header.frame_id = 'raspicam'
-
-                stateMsg.pose.position.x = self.X.item(0)
-                stateMsg.pose.position.y = self.X.item(1)
-                stateMsg.pose.position.z = self.X.item(2)
-
-                q = rpy2quat(self.X.item(6), self.X.item(7), self.X.item(8))
-
-                stateMsg.pose.orientation.x = q.x
-                stateMsg.pose.orientation.y = q.y
-                stateMsg.pose.orientation.z = q.z
-                stateMsg.pose.orientation.w = q.w
-
-                twistMsg = TwistStamped()
-                twistMsg.header.stamp = timeNow
-                twistMsg.header.frame_id = 'raspicam'
-
-                twistMsg.twist.linear.x = self.X.item(3)
-                twistMsg.twist.linear.y = self.X.item(4)
-                twistMsg.twist.linear.z = self.X.item(5)
-
-                twistMsg.twist.angular.x = self.X.item(9)
-                twistMsg.twist.angular.y = self.X.item(10)
-                twistMsg.twist.angular.z = self.X.item(11)
-
-                self.state_pub.publish(stateMsg)
-                self.state_rate_pub.publish(twistMsg)
-
-            r.sleep()
+            return self.X
+        else:
+            return None
