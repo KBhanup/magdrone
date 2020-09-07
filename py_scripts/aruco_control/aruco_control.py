@@ -273,8 +273,6 @@ class magdroneControlNode():
         self.z_error_d = -data.twist.linear.z
 
     def aruco_callback(self, data):
-        self.lastOnline = time.time()
-
         q_BwC = [data.pose.orientation.w,
                  data.pose.orientation.x,
                  data.pose.orientation.y,
@@ -314,6 +312,7 @@ class magdroneControlNode():
         T = [-t_DwB[1], -t_DwB[2], -t_DwB[3]]
         R = [-q_BwD[1], -q_BwD[2], -q_BwD[3], q_BwD[0]]
 
+        self.lastOnline = time.time()
         self.filter.state_update(T, R, self.lastOnline)
 
     def joy_callback(self, data):
@@ -352,7 +351,7 @@ class magdroneControlNode():
         z_drone = X.item(2)
 
         # Desired position
-        des_position = [0, 0, -0.5]
+        des_position = [0, 0, -1]
 
         # Publish setpoint
         setpoint = Vector3Stamped()
@@ -389,7 +388,7 @@ class magdroneControlNode():
         self.z_error_d = X.item(5)
     
     def publish_state(self, X):
-        timeNow = time.time()
+        timeNow = rp.Time.now()
         stateMsg = PoseStamped()
         stateMsg.header.stamp = timeNow
         stateMsg.header.frame_id = 'bundle'
