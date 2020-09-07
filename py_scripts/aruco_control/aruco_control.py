@@ -101,6 +101,7 @@ class magdroneControlNode():
         # Variables
         self.lastOnline = 0
         self.cmds = None
+        self.arm = 0
         self.on_mission = False
 
         # Create thread for publisher
@@ -274,15 +275,27 @@ class magdroneControlNode():
     def aruco_callback(self, data):
         self.lastOnline = time.time()
 
-        T = [0,
-             data.pose.position.x,
-             data.pose.position.y,
-             data.pose.position.z]
+        q_BwC = [data.pose.orientation.w,
+                 data.pose.orientation.x,
+                 data.pose.orientation.y,
+                 data.pose.orientation.z]
 
-        orientation = to_rpy(data.pose.orientation.w,
-                             data.pose.orientation.x,
-                             data.pose.orientation.y,
-                             data.pose.orientation.z)
+        t_BwC = [0,
+                 data.pose.position.x,
+                 data.pose.position.y,
+                 data.pose.position.z]
+
+        q_CwD   = [0, -0.7071,  0.7071, 0]
+        q_CwD_i = [0,  0.7071, -0.7071, 0]
+        t_CwD = [0, 0.165, 0, 0]
+
+        q_BwD_pre = quatMultiply(q_CwD, q_BwC)
+        t_BwD = quatMultiply(q_CwD, quatMultiply(t_BwC, q_CwD_i)) + t_CwD
+
+        orientation = to_rpy(q_BwD_pre[0],
+                             q_BwD_pre[1],
+                             q_BwD_pre[2],
+                             q_BwD_pre[3])
         
         roll = self.vehicle.attitude.roll
         pitch = self.vehicle.attitude.pitch
@@ -296,9 +309,9 @@ class magdroneControlNode():
                               yaw   =  orientation[2])
         q_BwD_i = [q_BwD[0], -q_BwD[1], -q_BwD[2], -q_BwD[3]]
 
-        t_DwB = quatMultiply(q_BwD_i, quatMultiply(T, q_BwD))
+        t_DwB = quatMultiply(q_BwD_i, quatMultiply(t_BwD, q_BwD))
 
-        T = [t_DwB[1], t_DwB[2], t_DwB[3]]
+        T = [-t_DwB[1], -t_DwB[2], -t_DwB[3]]
         R = [-q_BwD[1], -q_BwD[2], -q_BwD[3], q_BwD[0]]
 
         self.filter.state_update(T, R, self.lastOnline)
@@ -385,9 +398,9 @@ class magdroneControlNode():
         stateMsg.pose.position.y = X.item(1)
         stateMsg.pose.position.z = X.item(2)
 
-        q = to_quaternion(roll=X.item(6),
-                          pitch=X.item(7),
-                          yaw=X.item(8))
+        q = to_quaternion(roll  = X.item(6),
+                          pitch = X.item(7),
+                          yaw   = X.item(8))
 
         stateMsg.pose.orientation.x = q[1]
         stateMsg.pose.orientation.y = q[2]
@@ -426,7 +439,7 @@ class magdroneControlNode():
             X = self.filter.get_state()
             if X is not None:
                 self.update_error(X)
-                t = threading.Thread(target=self.publish_state, args=X)
+                t = threading.Thread(target=self.publish_state, args=[X])
                 t.start()
 
             # Mission has started
