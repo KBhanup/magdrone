@@ -9,11 +9,13 @@
 /tf
 /tf_static
 
+/aruco_state/pose
+/aruco_state/rates
+
+/aruco_marker_publisher/bundles
+
 /opti_state/pose
 /opti_state/rates
-
-/vrpn_client_node/UAV/pose
-/vrpn_client_node/LandingStructure/pose
 
 /setpoint
 /commands

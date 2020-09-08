@@ -64,7 +64,7 @@ class magdroneControlNode():
 
         # Connect to the Vehicle
         rp.loginfo('Connecting to Vehicle')
-        self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
+        self.vehicle = connect('/dev/serial0', wait_ready=True, baud=115200)
 
         # Set up Subscribers
         self.aruco_sub = rp.Subscriber(
@@ -105,7 +105,7 @@ class magdroneControlNode():
         self.on_mission = False
 
         # Create thread for publisher
-        self.rate = 30
+        self.rate = 15
         t = threading.Thread(target=self.send_commands)
         t.start()
 
@@ -124,13 +124,13 @@ class magdroneControlNode():
         DEFAULT_TAKEOFF_THRUST = 0.55
         SMOOTH_TAKEOFF_THRUST = 0.52
 
-        rp.loginfo("Basic pre-arm checks")
+        # rp.loginfo("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
-        while not self.vehicle.is_armable:
-            rp.loginfo(" Waiting for vehicle to initialise...")
-            time.sleep(1)
+        # while not self.vehicle.is_armable:
+        #     rp.loginfo(" Waiting for vehicle to initialise...")
+        #     time.sleep(1)
 
         rp.loginfo("Arming motors")
         #  GUIDED_NOGPS mode is recommended by DroneKit
@@ -217,61 +217,6 @@ class magdroneControlNode():
         Callbacks
     '''
 
-    def pose_callback(self, data):
-        # Get current pose wrt Optitrack
-        qw = data.pose.orientation.w
-        qx = data.pose.orientation.x
-        qy = data.pose.orientation.y
-        qz = data.pose.orientation.z
-        orientation = to_rpy(qw, qx, qy, qz)
-
-        # Drone body system is Front-Left-Down
-        w_drone = -orientation[2]
-        x_drone = data.pose.position.x
-        y_drone = data.pose.position.y
-        z_drone = data.pose.position.z
-
-        # Update yaw
-        self.yaw_position = w_drone
-
-        # Desired position
-        des_position = [0, 0, -0.5]
-
-        # Publish setpoint
-        setpoint = Vector3Stamped()
-        setpoint.header.stamp = rp.Time.now()
-        setpoint.vector.x = des_position[0]
-        setpoint.vector.y = des_position[1]
-        setpoint.vector.z = des_position[2]
-        self.setpoint_pub.publish(setpoint)
-
-        # Calculate error
-        dx = des_position[0] - x_drone
-        dy = des_position[1] - y_drone
-        dz = z_drone - des_position[2]
-        dw = w_drone
-
-        # Translate error from optitrack frame to drone body frame
-        drone_error = tag_to_drone(dx, dy, w_drone)
-
-        self.x_error = drone_error[0]
-        self.y_error = drone_error[1]
-        self.z_error = dz
-
-        if dw > 180.0:
-            self.w_error = dw - 360.0
-        else:
-            self.w_error = dw
-
-    def rate_callback(self, data):
-        # Translate error rate from optitrack frame to drone body frame
-        drone_error_rate = tag_to_drone(-data.twist.linear.x, -data.twist.linear.y, self.yaw_position)
-
-        # Update rate errors
-        self.x_error_d =  drone_error_rate[0]
-        self.y_error_d =  drone_error_rate[1]
-        self.z_error_d = -data.twist.linear.z
-
     def aruco_callback(self, data):
         q_BwC = [data.pose.orientation.w,
                  data.pose.orientation.x,
@@ -297,6 +242,9 @@ class magdroneControlNode():
         
         roll = self.vehicle.attitude.roll
         pitch = self.vehicle.attitude.pitch
+
+        #print("Roll : " + str(roll))
+        #print("Pitch: " + str(pitch)) 
 
         tag_angles = tag_to_drone(math.degrees(roll),
                                   math.degrees(pitch),
@@ -351,7 +299,7 @@ class magdroneControlNode():
         z_drone = X.item(2)
 
         # Desired position
-        des_position = [0, 0, -1]
+        des_position = [-0.1, 0, 1.0]
 
         # Publish setpoint
         setpoint = Vector3Stamped()
@@ -450,14 +398,14 @@ class magdroneControlNode():
                 uW = self.kp_w * self.w_error
 
                 if (time.time() - self.lastOnline < 1.0):
-                    linear_z_cmd  = self.clipCommand(uZ + 0.5, 0.65, 0.35)
-                    linear_y_cmd  = self.clipCommand(uY - 1.3, 7.5, -7.5)
-                    linear_x_cmd  = self.clipCommand(uX + 0.45, 7.5, -7.5)
-                    angular_z_cmd = self.clipCommand(uW, 5, -5)
+                    linear_z_cmd  = self.clipCommand(uZ + 0.5, 0.6, 0.4)
+                    linear_y_cmd  = self.clipCommand(uY, 5.0, -5.0)
+                    linear_x_cmd  = self.clipCommand(uX, 5.0, -5.0)
+                    angular_z_cmd = self.clipCommand(uW, 5.0, -5.0)
                 else:
                     linear_z_cmd  = 0.5
-                    linear_y_cmd  = -1.3
-                    linear_x_cmd  = 0.45
+                    linear_y_cmd  = 0.0
+                    linear_x_cmd  = 0.0
                     angular_z_cmd = 0.0
                     rp.logwarn("Marker lost for more than a second!!! Hovering")
 
@@ -472,7 +420,7 @@ class magdroneControlNode():
                 # Publish commands for logging
                 cmd = TwistStamped()
                 cmd.header.stamp = rp.Time.now()
-                cmd.twist.angular.x = -linear_y_cmd
+                cmd.twist.angular.x =  linear_y_cmd
                 cmd.twist.angular.y = -linear_x_cmd
                 cmd.twist.angular.z =  angular_z_cmd
                 cmd.twist.linear.z  =  linear_z_cmd

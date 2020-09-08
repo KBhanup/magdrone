@@ -102,6 +102,9 @@ class FilterNode():
             self.kalmanF.updateQ()
             self.kalmanF.predict()
 
+            # Update state
+            self.X = self.kalmanF.getState()
+
             return self.X
         else:
             return None
