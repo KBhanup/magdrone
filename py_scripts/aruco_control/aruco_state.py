@@ -29,6 +29,8 @@ class FilterNode():
 
         # Initial State Transition Matrix
         self.F = np.asmatrix(np.eye(self.n))
+        self.F[3:6,  3:6]  = 0.95 * np.matrix(np.eye(3))
+        self.F[9:12, 9:12] = 0.95 * np.matrix(np.eye(3))
 
         # Initial Process Matrix
         self.P = np.asmatrix(1.0e3 * np.eye(self.n))

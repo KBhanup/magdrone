@@ -44,7 +44,7 @@ def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
 
     return [w, x, y, z]
 
-def quatMultiply(p, q):
+def quat_multiply(p, q):
     w = p[0] * q[0] - p[1] * q[1] - p[2] * q[2] - p[3] * q[3]
     x = p[0] * q[1] + p[1] * q[0] + p[2] * q[3] - p[3] * q[2]
     y = p[0] * q[2] - p[1] * q[3] + p[2] * q[0] + p[3] * q[1]
@@ -52,10 +52,10 @@ def quatMultiply(p, q):
     
     return [w, x, y, z]
 
-def tag_to_drone(x_error, y_error, yaw_angle):
-    x_error_d = (x_error * math.cos(math.radians(yaw_angle))) - (y_error * math.sin(math.radians(yaw_angle)))
-    y_error_d = (x_error * math.sin(math.radians(yaw_angle))) + (y_error * math.cos(math.radians(yaw_angle)))
-    return [x_error_d, y_error_d]
+def rotate_vector(x, y, angle):
+    x_r = (x * math.cos(math.radians(angle))) - (y * math.sin(math.radians(angle)))
+    y_r = (x * math.sin(math.radians(angle))) + (y * math.cos(math.radians(angle)))
+    return [x_r, y_r]
 
 class magdroneControlNode():
 
@@ -230,23 +230,20 @@ class magdroneControlNode():
 
         q_CwD   = [0, -0.7071,  0.7071, 0]
         q_CwD_i = [0,  0.7071, -0.7071, 0]
-        t_CwD = [0, 0.165, 0, 0]
+        t_CwD   = [0, 0.165, 0, 0]
 
-        q_BwD_pre = quatMultiply(q_CwD, q_BwC)
-        t_BwD = quatMultiply(q_CwD, quatMultiply(t_BwC, q_CwD_i)) + t_CwD
+        q_BwD_pre = quat_multiply(q_CwD, q_BwC)
+        t_BwD = quat_multiply(q_CwD, quat_multiply(t_BwC, q_CwD_i)) + t_CwD
 
         orientation = to_rpy(q_BwD_pre[0],
                              q_BwD_pre[1],
                              q_BwD_pre[2],
                              q_BwD_pre[3])
-        
+
         roll = self.vehicle.attitude.roll
         pitch = self.vehicle.attitude.pitch
 
-        #print("Roll : " + str(roll))
-        #print("Pitch: " + str(pitch)) 
-
-        tag_angles = tag_to_drone(math.degrees(roll),
+        tag_angles = rotate_vector(math.degrees(roll),
                                   math.degrees(pitch),
                                   -orientation[2])
 
@@ -255,7 +252,7 @@ class magdroneControlNode():
                               yaw   =  orientation[2])
         q_BwD_i = [q_BwD[0], -q_BwD[1], -q_BwD[2], -q_BwD[3]]
 
-        t_DwB = quatMultiply(q_BwD_i, quatMultiply(t_BwD, q_BwD))
+        t_DwB = quat_multiply(q_BwD_i, quat_multiply(t_BwD, q_BwD))
 
         T = [-t_DwB[1], -t_DwB[2], -t_DwB[3]]
         R = [-q_BwD[1], -q_BwD[2], -q_BwD[3], q_BwD[0]]
@@ -283,7 +280,7 @@ class magdroneControlNode():
                 rp.loginfo("Disabled Controller")
             self.on_mission = not self.on_mission
 
-    def clipCommand(self, cmd, upperBound, lowerBound):
+    def clip_command(self, cmd, upperBound, lowerBound):
         if cmd < lowerBound:
             cmd = lowerBound
         elif cmd > upperBound:
@@ -294,9 +291,9 @@ class magdroneControlNode():
     def update_error(self, X):
         # Get current pose wrt Aruco
         w_drone = -X.item(8)
-        x_drone = X.item(0)
-        y_drone = X.item(1)
-        z_drone = X.item(2)
+        x_drone =  X.item(0)
+        y_drone =  X.item(1)
+        z_drone =  X.item(2)
 
         # Desired position
         des_position = [-0.1, 0, 1.0]
@@ -316,7 +313,7 @@ class magdroneControlNode():
         dw = w_drone
 
         # Translate error from optitrack frame to drone body frame
-        drone_error = tag_to_drone(dx, dy, w_drone)
+        drone_error = rotate_vector(dx, dy, w_drone)
 
         self.x_error = drone_error[0]
         self.y_error = drone_error[1]
@@ -326,15 +323,15 @@ class magdroneControlNode():
             self.w_error = dw - 360.0
         else:
             self.w_error = dw
-        
+
         # Translate error rate from optitrack frame to drone body frame
-        drone_error_rate = tag_to_drone(X.item(3), X.item(4), w_drone)
+        drone_error_rate = rotate_vector(X.item(3), X.item(4), w_drone)
 
         # Update rate errors
         self.x_error_d = drone_error_rate[0]
         self.y_error_d = drone_error_rate[1]
         self.z_error_d = X.item(5)
-    
+
     def publish_state(self, X):
         timeNow = rp.Time.now()
         stateMsg = PoseStamped()
@@ -383,11 +380,12 @@ class magdroneControlNode():
                 self.arm_and_takeoff_nogps()
 
             # Get current state and publish it
-            X = self.filter.get_state()
-            if X is not None:
-                self.update_error(X)
-                t = threading.Thread(target=self.publish_state, args=[X])
-                t.start()
+            if (time.time() - self.lastOnline < 1.0):
+                X = self.filter.get_state()
+                if X is not None:
+                    self.update_error(X)
+                    t = threading.Thread(target=self.publish_state, args=[X])
+                    t.start()
 
             # Mission has started
             if self.on_mission:
@@ -398,10 +396,10 @@ class magdroneControlNode():
                 uW = self.kp_w * self.w_error
 
                 if (time.time() - self.lastOnline < 1.0):
-                    linear_z_cmd  = self.clipCommand(uZ + 0.5, 0.6, 0.4)
-                    linear_y_cmd  = self.clipCommand(uY, 5.0, -5.0)
-                    linear_x_cmd  = self.clipCommand(uX, 5.0, -5.0)
-                    angular_z_cmd = self.clipCommand(uW, 5.0, -5.0)
+                    linear_z_cmd  = self.clip_command(uZ + 0.5, 0.6, 0.4)
+                    linear_y_cmd  = self.clip_command(uY, 5.0, -5.0)
+                    linear_x_cmd  = self.clip_command(uX, 5.0, -5.0)
+                    angular_z_cmd = self.clip_command(uW, 5.0, -5.0)
                 else:
                     linear_z_cmd  = 0.5
                     linear_y_cmd  = 0.0
