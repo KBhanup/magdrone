@@ -296,7 +296,7 @@ class magdroneControlNode():
         z_drone =  X.item(2)
 
         # Desired position
-        des_position = [-0.1, 0, 1.0]
+        des_position = [-0.1, 0, 1.5]
 
         # Publish setpoint
         setpoint = Vector3Stamped()
@@ -397,13 +397,13 @@ class magdroneControlNode():
 
                 if (time.time() - self.lastOnline < 1.0):
                     linear_z_cmd  = self.clip_command(uZ + 0.5, 0.6, 0.4)
-                    linear_y_cmd  = self.clip_command(uY, 5.0, -5.0)
-                    linear_x_cmd  = self.clip_command(uX, 5.0, -5.0)
+                    linear_y_cmd  = self.clip_command(uY - 1.3, 7.5, -7.5)
+                    linear_x_cmd  = self.clip_command(uX + 0.45, 7.5, -7.5)
                     angular_z_cmd = self.clip_command(uW, 5.0, -5.0)
                 else:
                     linear_z_cmd  = 0.5
-                    linear_y_cmd  = 0.0
-                    linear_x_cmd  = 0.0
+                    linear_y_cmd  = 1.3
+                    linear_x_cmd  = 4.5
                     angular_z_cmd = 0.0
                     rp.logwarn("Marker lost for more than a second!!! Hovering")
 

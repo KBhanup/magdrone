@@ -1,13 +1,10 @@
 <launch>
     <!-- Start piCam -->
-    <include file="$(find raspicam_node)/launch/camerav2_410x308_30fps.launch"/>
-
-    <!-- Launch image transport node to uncompress image -->
-    <node pkg="image_transport" type="republish" name="publish_raw" args="compressed in:=/raspicam_node/image raw out:=/raspicam_node/image_raw"/>
+    <include file="$(find raspicam_node)/launch/camerav2_640x480.launch"/>
 
     <node pkg="aruco_ros" type="marker_publisher" name="aruco_marker_publisher" required="false" output="screen">
         <remap from="/camera_info" to="/raspicam_node/camera_info" />
-        <remap from="/image" to="/raspicam_node/image_raw" />
+        <remap from="/image" to="/raspicam_node/image" />
         <param name="image_is_rectified" value="True"/>
         <param name="marker_size"        value=".05"/>
         <param name="reference_frame"    value="cam_frame"/>   <!-- frame in which the marker pose will be refered -->
