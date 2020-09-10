@@ -1,0 +1,15 @@
+<launch>
+    <!-- Start piCam -->
+    <include file="$(find raspicam_node)/launch/camerav2_640x480.launch"/>
+
+    <node pkg="aruco_ros" type="marker_publisher" name="aruco_marker_publisher" required="false" output="screen">
+        <remap from="/camera_info" to="/raspicam_node/camera_info" />
+        <remap from="/image" to="/raspicam_node/image" />
+        <param name="image_is_rectified" value="True"/>
+        <param name="marker_size"        value=".05"/>
+        <param name="reference_frame"    value="cam_frame"/>   <!-- frame in which the marker pose will be refered -->
+        <param name="camera_frame"       value="cam_frame"/>
+        <param name="tag_config_json"    value="$(find magdrone)/aruco_bundlev2_flip.json"/>
+    </node>
+
+</launch>
