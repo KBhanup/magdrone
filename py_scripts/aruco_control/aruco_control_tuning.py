@@ -80,8 +80,6 @@ class magdroneControlNode():
             "/opti_state/pose", PoseStamped, self.opti_pose_callback, queue_size=1)
         self.rate_sub = rp.Subscriber(
             "/opti_state/rates", TwistStamped, self.opti_rate_callback, queue_size=1)
-        self.opti_sub = rp.Subscriber(
-            "/vrpn_client_node/UAV/pose", PoseStamped, self.opti_callback, queue_size=1)
 
         # Set up Publishers
         self.setpoint_pub = rp.Publisher("/setpoint", Vector3Stamped, queue_size=1)
@@ -110,6 +108,7 @@ class magdroneControlNode():
         self.x_error_d = 0.0
 
         # Variables
+        self.yaw_position = 0.0
         self.lastOnline = 0
         self.cmds = None
         self.arm = 0
@@ -286,26 +285,16 @@ class magdroneControlNode():
         w_drone = -orientation[2]
         x_drone = data.pose.position.x
         y_drone = data.pose.position.y
-        z_drone = data.pose.position.z
 
         # Update yaw
         self.yaw_position = w_drone
 
         # Get desired position from State Machine
-        des_position = self.stateMachine(x_drone, y_drone, z_drone)
-
-        # Publish setpoint
-        setpoint = Vector3Stamped()
-        setpoint.header.stamp = rp.Time.now()
-        setpoint.vector.x = des_position[0]
-        setpoint.vector.y = des_position[1]
-        setpoint.vector.z = des_position[2]
-        self.setpoint_pub.publish(setpoint)
+        des_position = [0.0, 0.0]
 
         # Calculate error
         dx = des_position[0] - x_drone
         dy = des_position[1] - y_drone
-        dz = des_position[2] - z_drone
         dw = 90.0 - w_drone
 
         # Translate error from optitrack frame to drone body frame
@@ -373,25 +362,25 @@ class magdroneControlNode():
         self.setpoint_pub.publish(setpoint)
 
         # Calculate error
-        dx = self.des_position[0] - x_drone
-        dy = self.des_position[1] - y_drone
+        # dx = self.des_position[0] - x_drone
+        # dy = self.des_position[1] - y_drone
         dz = z_drone - self.des_position[2]
-        dw = w_drone
+        # dw = w_drone
 
         # Translate error from optitrack frame to drone body frame
-        drone_error = rotate_vector(dx, dy, w_drone)
+        # drone_error = rotate_vector(dx, dy, w_drone)
 
         # self.x_error = drone_error[0]
         # self.y_error = drone_error[1]
         self.z_error = dz
 
-        if dw > 180.0:
-            self.w_error = dw - 360.0
-        else:
-            self.w_error = dw
+        # if dw > 180.0:
+        #     self.w_error = dw - 360.0
+        # else:
+        #     self.w_error = dw
 
         # Translate error rate from optitrack frame to drone body frame
-        drone_error_rate = rotate_vector(X.item(3), X.item(4), w_drone)
+        # drone_error_rate = rotate_vector(X.item(3), X.item(4), w_drone)
 
         # Update rate errors
         # self.x_error_d = drone_error_rate[0]
