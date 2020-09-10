@@ -27,12 +27,13 @@ Author: Michail Kalaitzakis
 
 import numpy as np
 
+
 class Quaternion:
     """
         Class for rotation quaternions
     """
 
-    def __init__(self, x = 0, y = 0, z = 0, w = 1):
+    def __init__(self, x=0, y=0, z=0, w=1):
         self.x = x
         self.y = y
         self.z = z
@@ -43,26 +44,30 @@ class Quaternion:
         self.y = y
         self.z = z
         self.w = w
-    
+
     def norm(self):
-        mag = pow(pow(self.x, 2) + pow(self.y, 2) + pow(self.z, 2) + pow(self.w, 2), 0.5)
+        mag = pow(pow(self.x, 2) + pow(self.y, 2) +
+                  pow(self.z, 2) + pow(self.w, 2), 0.5)
 
         if mag > 0:
             self.x = self.x / mag
             self.y = self.y / mag
             self.z = self.z / mag
             self.w = self.w / mag
-	
+
+
 def quatInverse(q):
-	return Quaternion(-q.x, -q.y, -q.z, q.w)
+    return Quaternion(-q.x, -q.y, -q.z, q.w)
+
 
 def quatMultiply(p, q):
     x = p.w * q.x + p.x * q.w + p.y * q.z - p.z * q.y
     y = p.w * q.y - p.x * q.z + p.y * q.w + p.z * q.x
     z = p.w * q.z + p.x * q.y - p.y * q.x + p.z * q.w
     w = p.w * q.w - p.x * q.x - p.y * q.y - p.z * q.z
-    
+
     return Quaternion(x, y, z, w)
+
 
 def quat2rpy(q):
     r = np.arctan2(2 * (q.w*q.x + q.y*q.z), 1 - 2*(q.x*q.x + q.y*q.y))
@@ -72,10 +77,11 @@ def quat2rpy(q):
         p = np.sign(sinP) * np.pi / 2
     else:
         p = np.arcsin(sinP)
-    
+
     y = np.arctan2(2 * (q.w*q.z + q.x*q.y), 1 - 2*(q.y*q.y + q.z*q.z))
 
     return np.array([r, p, y])
+
 
 def rpy2quat(r, p, y):
     cy = np.cos(0.5 * y)
