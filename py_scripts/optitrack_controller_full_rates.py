@@ -222,8 +222,8 @@ class magdroneControlNode():
         """
         # Define the desired position
         self.z_des = 1.0  # thrust
-        self.y_des = 0.0  # roll
-        self.x_des = 0.0  # pitch
+        self.y_des = -1.9  # roll
+        self.x_des = 0.2  # pitch
         self.yaw_des = 180.0 #yaw in degrees
 
         #Get orientation data 

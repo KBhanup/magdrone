@@ -86,14 +86,16 @@ class magdroneControlNode():
         # Set up Publishers
         self.command_pub = rp.Publisher(
             "/commands", TwistStamped, queue_size=1)
+        self.state_pub = rp.Publisher("/aruco_state/pose", PoseStamped, queue_size=1)
+        self.state_rate_pub = rp.Publisher("aruco_state/rates", TwistStamped, queue_size=1)
 
         # Set up Controllers
         self.kp_z = 0.45
         self.kd_z = 0.3
-        self.kp_y = 10.5
-        self.kd_y = 8.5
-        self.kp_x = 10.5
-        self.kd_x = 8.5
+        self.kp_y = 0.18
+        self.kd_y = 0.15
+        self.kp_x = 0.18
+        self.kd_x = 0.15
         self.kp_w = 0.15
 
         self.z_error = 0.0
@@ -317,12 +319,46 @@ class magdroneControlNode():
             self.w_error = dw
 
         # Translate error rate from optitrack frame to drone body frame
-        drone_error_rate = rotate_vector(X.item(3), X.item(4), w_drone)
+        drone_error_rate = rotate_vector(-X.item(3), -X.item(4), w_drone)
 
         # Update rate errors
         self.x_error_d = drone_error_rate[0]
         self.y_error_d = drone_error_rate[1]
         self.z_error_d = X.item(5)
+
+    def publish_state(self, X):
+        timeNow = rp.Time.now()
+        stateMsg = PoseStamped()
+        stateMsg.header.stamp = timeNow
+        stateMsg.header.frame_id = 'bundle'
+
+        stateMsg.pose.position.x = X.item(0)
+        stateMsg.pose.position.y = X.item(1)
+        stateMsg.pose.position.z = X.item(2)
+
+        q = to_quaternion(roll  = X.item(6),
+                          pitch = X.item(7),
+                          yaw   = X.item(8))
+
+        stateMsg.pose.orientation.x = q[1]
+        stateMsg.pose.orientation.y = q[2]
+        stateMsg.pose.orientation.z = q[3]
+        stateMsg.pose.orientation.w = q[0]
+
+        twistMsg = TwistStamped()
+        twistMsg.header.stamp = timeNow
+        twistMsg.header.frame_id = 'bundle'
+
+        twistMsg.twist.linear.x = X.item(3)
+        twistMsg.twist.linear.y = X.item(4)
+        twistMsg.twist.linear.z = X.item(5)
+
+        twistMsg.twist.angular.x = X.item(9)
+        twistMsg.twist.angular.y = X.item(10)
+        twistMsg.twist.angular.z = X.item(11)
+
+        self.state_pub.publish(stateMsg)
+        self.state_rate_pub.publish(twistMsg)
 
     '''
         Main Loop
@@ -342,6 +378,8 @@ class magdroneControlNode():
                 X = self.filter.get_state()
                 if X is not None:
                     self.update_error(X)
+                    t = threading.Thread(target=self.publish_state, args=[X])
+                    t.start()
 
             # Mission has started
             if self.on_mission:
