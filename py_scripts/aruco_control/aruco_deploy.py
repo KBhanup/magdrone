@@ -10,6 +10,7 @@ from aruco_state import FilterNode
 from dronekit import connect, VehicleMode, LocationGlobal, LocationGlobalRelative
 from pymavlink import mavutil
 
+from std_msgs.msg import Int8
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import PoseStamped, TwistStamped
 
@@ -84,10 +85,14 @@ class magdroneControlNode():
             "/joy", Joy, self.joy_callback, queue_size=1)
 
         # Set up Publishers
+        self.setpoint_pub = rp.Publisher(
+            "/setpoint", Int8, queue_size=1)
         self.command_pub = rp.Publisher(
             "/commands", TwistStamped, queue_size=1)
-        self.state_pub = rp.Publisher("/aruco_state/pose", PoseStamped, queue_size=1)
-        self.state_rate_pub = rp.Publisher("aruco_state/rates", TwistStamped, queue_size=1)
+        self.state_pub = rp.Publisher(
+            "/aruco_state/pose", PoseStamped, queue_size=1)
+        self.state_rate_pub = rp.Publisher(
+            "aruco_state/rates", TwistStamped, queue_size=1)
 
         # Set up Controllers
         self.kp_z = 0.45
@@ -108,31 +113,27 @@ class magdroneControlNode():
 
         # Variables
         self.lastOnline = 0
-        self.cmds = None
+        self.arm = 0
         self.on_mission = False
         self.mission_id = 1
         self.state_id = 0
-        self.arm = 0
-        self.magnet_engaged = False
-        self.docked = False
+        self.magnet_engaged = True
+        self.docked = True
 
         # Desired positions for misions 1 and 2
-        self.struct_x = -0.1
-        self.struct_y = 0.00
-        self.struct_z = 0.2
-        # Mission 1. Incremental altitudes
-        # The last one should be unreachable
-        self.desired_positions_m1 = [-1.3, -1.2, -1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, 0.1]
+        # Offset is reduced because of the addition of the sensor package
+        self.struct_x = 0.0
+        self.struct_y = 0.0
+        self.struct_z = 2.00
+        # Mission 1.
+        self.desired_positions_m1 = [1.0, 0.8, 0.7, 0.5, 0.3, 0.0, 0.5]
         # Mission 2
-        self.desired_positions_m2 = [[self.struct_x, self.struct_y, self.struct_z - 0.3], [self.struct_x, self.struct_y, self.struct_z - 0.5], [0.0, -1.8, 1.0],[0.0,-1.8,0.25]]
-
-        # Make a global variable for the current yaw position to be used for pose and rate transormations
-        self.yaw_position = 0.0
+        self.desired_positions_m2 = [0.4, 0.3, 0.0, 0.3, 0.5, 1.0, 1.5]
 
         # Constant transformations
-        self.q_CwD = [0, -0.7071,  0.7071, 0]
-        self.q_CwD_i = [0,  0.7071, -0.7071, 0]
-        self.t_CwD = [0,  0.165,   0,      0]
+        self.q_CwD = [0, -0.7071, 0.7071, 0]
+        self.q_CwD_i = [0, 0.7071, -0.7071, 0]
+        self.t_CwD = [0, 0.165, 0, 0]
 
         # Create thread for publisher
         self.rate = 30
@@ -290,81 +291,80 @@ class magdroneControlNode():
         self.filter.state_update(T, R, self.lastOnline)
 
     def joy_callback(self, data):
-        # Empty Command
-        self.cmds = Twist()
-
         # Button Controls
         self.arm = data.buttons[9]
 
         if data.buttons[0] == 1.0:
-            print("Mission set to 1 - Docking")
+            rp.loginfo("Mission set to 1 - Deploying Sensor")
             self.mission_id = 1
             self.state_id = 0
         if data.buttons[1] == 1.0:
-            print("Mission set to 2 - Emergency Escape and Hover")
+            rp.loginfo("Mission set to 2 - Retrieving Sensor and Exiting")
             self.mission_id = 2
             self.state_id = 0
         if data.buttons[2] == 1.0:
-            print("Mission set to 3 - Disengage, Exit, and Hover")
+            rp.loginfo("Mission set to 3 - Emergency Escape and Hover")
             self.mission_id = 3
             self.state_id = 0
         if data.buttons[3] == 1.0:
-            print("Mission set to 4 - Changing Flight Mode to Landing")
+            rp.loginfo("Mission set to 4 - Changing Flight Mode to Landing")
             self.mission_id = 4
             self.state_id = 0
         if data.buttons[4] == 1.0:
             if not self.on_mission:
-                print("Starting Mission " + str(self.mission_id))
+                rp.loginfo("Starting Mission " + str(self.mission_id))
             else:
-                print("Quitting mission")
+                rp.loginfo("Mission Canceled")
             self.on_mission = not self.on_mission
 
-    def clip_command(self, cmd, upperBound, lowerBound):
-        if cmd < lowerBound:
-            cmd = lowerBound
-        elif cmd > upperBound:
-            cmd = upperBound
-
-        return cmd
+    '''
+        State Machine Functions
+    '''
 
     def stateMachine(self, x_drone, y_drone, z_drone):
+        x_des = -0.165
+        y_des =  0.0
         if self.mission_id == 1:
 
-            x_des = self.struct_x
-            y_des = self.struct_y
-            z_des = self.desired_positions_m1[self.state_id] + self.struct_z
+            z_des = self.desired_positions_m1[self.state_id]
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
-            if (check[0] < 0.075) & (check[1] < 0.075) & (check[2] < 0.05):
-                self.state_id += 1
-                print("New target altitude is: " + str(self.desired_positions_m1[self.state_id] + 2.08))
+            if (self.state_id == len(self.desired_positions_m1) - 2):
+                if not self.docked:
+                    self.state_id += 1
+                    rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id]))
+            else:
+                if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.05):
+                    if (self.state_id < len(self.desired_positions_m1) - 1):
+                        self.state_id += 1
+                        rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id]))
 
             z_des = self.desired_positions_m1[self.state_id] + self.struct_z
 
         elif self.mission_id == 2:
 
-            x_des = self.desired_positions_m2[self.state_id][0]
-            y_des = self.desired_positions_m2[self.state_id][1]
-            z_des = self.desired_positions_m2[self.state_id][2]
+            z_des = self.desired_positions_m2[self.state_id]
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
 
-            if (check[0] < 0.15) & (check[1] < 0.15) & (check[2] < 0.05):
-                self.state_id += 1
-                print("New target is: X Pos: " + str(self.desired_positions_m3[self.state_id][0]) + " Y Pos: " + str(self.desired_positions_m3[self.state_id][1]) + " Z Pos: " + str(self.desired_positions_m3[self.state_id][2]))
-         
-            x_des = self.desired_positions_m3[self.state_id][0]
-            y_des = self.desired_positions_m3[self.state_id][1]
-            z_des = self.desired_positions_m3[self.state_id][2]
-        
+            if (self.state_id == 1):
+                if self.docked:
+                    self.state_id += 1
+                    rp.loginfo("New target altitude is: " + str(self.desired_positions_m2[self.state_id]))
+            else:
+                if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.05):
+                    if (self.state_id < len(self.desired_positions_m2) - 1):
+                        self.state_id += 1
+                        rp.loginfo("New target altitude is: " + str(self.desired_positions_m2[self.state_id]))
+
+            z_des = self.desired_positions_m2[self.state_id]
+
         elif self.mission_id == 3:
-            x_des = 0.0
-            y_des = -1.8
             z_des = 1.0
-            
+
         elif self.mission_id == 4:
-            print("setting LAND mode")
+            rp.loginfo("Setting LAND mode")
             self.vehicle.mode = VehicleMode("LAND")
             x_des = x_drone
             y_des = y_drone
@@ -379,6 +379,68 @@ class magdroneControlNode():
 
         return [dx, dy, dz]
 
+    def clip_command(self, cmd, upperBound, lowerBound):
+        if cmd < lowerBound:
+            cmd = lowerBound
+        elif cmd > upperBound:
+            cmd = upperBound
+
+        return cmd
+
+    '''
+        Magnet Control
+    '''
+
+    def engage_magnet(self):
+        msg_hi = self.vehicle.message_factory.command_long_encode(
+                0, 0,   # target_system, target_command
+                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+                0,
+                8,    # servo number
+                2006, # servo position
+                0, 0, 0, 0, 0)
+
+        msg_neut = self.vehicle.message_factory.command_long_encode(
+                0, 0,   # target_system, target_command
+                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+                0,
+                8,    # servo number
+                1500, # servo position
+                0, 0, 0, 0, 0)
+
+        # Send command
+        self.vehicle.send_mavlink(msg_hi)
+        rp.loginfo("Magnet Engaged")
+        time.sleep(5)
+        self.vehicle.send_mavlink(msg_neut)
+        rp.loginfo("Magnet in Neutral")
+        self.docked = True
+
+    def disengage_magnet(self):
+        msg_low = self.vehicle.message_factory.command_long_encode(
+                0, 0,   # target_system, target_command
+                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+                0,
+                8,    # servo number
+                982,  # servo position
+                0, 0, 0, 0, 0)
+
+        msg_neut = self.vehicle.message_factory.command_long_encode(
+                0, 0,   # target_system, target_command
+                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
+                0,
+                8,    # servo number
+                1500, # servo position
+                0, 0, 0, 0, 0)
+
+        # Send command
+        self.vehicle.send_mavlink(msg_low)
+        rp.loginfo("Magnet Disengaged")
+        time.sleep(5)
+        self.vehicle.send_mavlink(msg_neut)
+        rp.loginfo("Magnet in Neutral")
+        self.docked = False
+
     def update_error(self, X):
         # Get current pose wrt Aruco
         w_drone = -X.item(8)
@@ -386,7 +448,7 @@ class magdroneControlNode():
         y_drone = X.item(1)
         z_drone = X.item(2)
 
-        # Desired position from State Machine
+        # Desired position
         des_position = self.stateMachine(x_drone, y_drone, z_drone)
 
         # Calculate error
@@ -415,57 +477,6 @@ class magdroneControlNode():
         self.y_error_d = drone_error_rate[1]
         self.z_error_d = X.item(5)
 
-
-    def engage_magnet(self):
-        msg_hi = self.vehicle.message_factory.command_long_encode(
-                0, 0,   # target_system, target_command
-                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-                0,
-                8,    # servo number
-                2006, # servo position
-                0, 0, 0, 0, 0)
-
-        msg_neut = self.vehicle.message_factory.command_long_encode(
-                0, 0,   # target_system, target_command
-                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-                0,
-                8,    # servo number
-                1500, # servo position
-                0, 0, 0, 0, 0)
-
-        # Send command
-        self.vehicle.send_mavlink(msg_hi)
-        self.log_book.printAndLog("Magnet Engaged")
-        time.sleep(5)
-        self.vehicle.send_mavlink(msg_neut)
-        self.log_book.printAndLog("Magnet in Neutral")
-        self.docked = True
-
-    def disengage_magnet(self):
-        msg_low = self.vehicle.message_factory.command_long_encode(
-                0, 0,   # target_system, target_command
-                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-                0,
-                8,    # servo number
-                982,  # servo position
-                0, 0, 0, 0, 0)
-
-        msg_neut = self.vehicle.message_factory.command_long_encode(
-                0, 0,   # target_system, target_command
-                mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-                0,
-                8,    # servo number
-                1500, # servo position
-                0, 0, 0, 0, 0)
-
-        # Send command
-        self.vehicle.send_mavlink(msg_low)
-        self.log_book.printAndLog("Magnet Disengaged")
-        time.sleep(5)
-        self.vehicle.send_mavlink(msg_neut)
-        self.log_book.printAndLog("Magnet in Neutral")
-        self.docked = False
-
     def publish_state(self, X):
         timeNow = rp.Time.now()
         stateMsg = PoseStamped()
@@ -476,9 +487,9 @@ class magdroneControlNode():
         stateMsg.pose.position.y = X.item(1)
         stateMsg.pose.position.z = X.item(2)
 
-        q = to_quaternion(roll  = X.item(6),
-                          pitch = X.item(7),
-                          yaw   = X.item(8))
+        q = to_quaternion(roll=X.item(6),
+                          pitch=X.item(7),
+                          yaw=X.item(8))
 
         stateMsg.pose.orientation.x = q[1]
         stateMsg.pose.orientation.y = q[2]
@@ -546,31 +557,13 @@ class magdroneControlNode():
                         "Marker lost for more than a second!!! Hovering")
 
                 # Apply commands
-                if not self.docked:
-                    self.set_attitude(roll_angle = linear_y_cmd,
-                                  pitch_angle = -linear_x_cmd,
-                                  yaw_angle = None,
-                                  yaw_rate = angular_z_cmd, use_yaw_rate = True, 
-                                  thrust = linear_z_cmd,
+                self.set_attitude(roll_angle=linear_y_cmd,
+                                  pitch_angle=-linear_x_cmd,
+                                  yaw_angle=None,
+                                  yaw_rate=angular_z_cmd,
+                                  use_yaw_rate=True,
+                                  thrust=linear_z_cmd,
                                   duration=1.0/self.rate)
-                else:    
-                    self.set_attitude(roll_angle = 0.0,
-                                  pitch_angle = 0.0,
-                                  yaw_angle = None,
-                                  yaw_rate = 0.0, use_yaw_rate = True, 
-                                  thrust = 0.5,
-                                  duration=1.0/self.rate)
-                
-                if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 1) & (not self.magnet_engaged):
-                    self.magnet_engaged = True
-                    t = threading.Thread(target=self.engage_magnet)
-                    t.start()
-
-                if (self.mission_id == 2) & (self.magnet_engaged):
-                    self.magnet_engaged = False
-                    t = threading.Thread(target=self.disengage_magnet)
-                    t.start()
-
 
                 # Publish commands for logging
                 cmd = TwistStamped()
@@ -580,6 +573,16 @@ class magdroneControlNode():
                 cmd.twist.angular.z = angular_z_cmd
                 cmd.twist.linear.z = linear_z_cmd
                 self.command_pub.publish(cmd)
+
+                if (self.mission_id == 1) & (self.state_id == len(self.desired_positions_m1) - 2) & (self.magnet_engaged):
+                    self.magnet_engaged = False
+                    t = threading.Thread(target=self.disengage_magnet)
+                    t.start()
+
+                if (self.mission_id == 2) & (self.state_id == 1) & (not self.magnet_engaged):
+                    self.magnet_engaged = True
+                    t = threading.Thread(target=self.engage_magnet)
+                    t.start()
 
             r.sleep()
 
