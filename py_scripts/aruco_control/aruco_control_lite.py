@@ -115,7 +115,7 @@ class magdroneControlNode():
         self.t_CwD = [0,  0.165,   0,      0]
 
         # Create thread for publisher
-        self.rate = 15
+        self.rate = 30
         t = threading.Thread(target=self.send_commands)
         t.start()
 
@@ -211,10 +211,12 @@ class magdroneControlNode():
         The code below should work on either version.
         Sending the message multiple times is the recommended way.
         """
+        start = time.time()
+
         self.send_attitude_target(roll_angle, pitch_angle,
                                   yaw_angle, yaw_rate, use_yaw_rate,
                                   thrust)
-        start = time.time()
+
         while time.time() - start < duration:
             self.send_attitude_target(roll_angle, pitch_angle,
                                       yaw_angle, yaw_rate, use_yaw_rate,
@@ -266,12 +268,6 @@ class magdroneControlNode():
 
         self.lastOnline = time.time()
         self.filter.state_update(T, R, self.lastOnline)
-
-        # Get current state and publish it
-        if (time.time() - self.lastOnline < 1.0):
-            X = self.filter.get_state()
-            if X is not None:
-                self.update_error(X)
 
     def joy_callback(self, data):
         # Button Controls
@@ -340,6 +336,12 @@ class magdroneControlNode():
             if self.arm > 0:
                 rp.loginfo("Arming...")
                 self.arm_and_takeoff_nogps()
+
+            # Get current state and publish it
+            if (time.time() - self.lastOnline < 1.0):
+                X = self.filter.get_state()
+                if X is not None:
+                    self.update_error(X)
 
             # Mission has started
             if self.on_mission:
