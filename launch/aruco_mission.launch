@@ -6,9 +6,9 @@
     <node pkg="joy" type="joy_node" name="joy_node"/>
 
     <!-- Start flight data log-->
-    <include file="$(find magdrone)/launch/log_aruco.launch"/>
+    <!--include file="$(find magdrone)/launch/log_aruco.launch"/-->
 
     <!-- Start aruco mission script -->
-    <node pkg="magdrone" type="aruco_control_lite.py" name="magdrone_aruco" output="screen"/>
+    <node pkg="magdrone" type="aruco_deploy.py" name="magdrone_aruco" output="screen"/>
 
 </launch>

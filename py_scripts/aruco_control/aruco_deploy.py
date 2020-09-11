@@ -126,7 +126,7 @@ class magdroneControlNode():
         self.struct_y = 0.0
         self.struct_z = 2.00
         # Mission 1.
-        self.desired_positions_m1 = [1.0, 0.8, 0.7, 0.5, 0.3, 0.0, 0.5]
+        self.desired_positions_m1 = [1.1, 0.9, 0.7, 0.5, 0.3, 0.0, 0.5]
         # Mission 2
         self.desired_positions_m2 = [0.4, 0.3, 0.0, 0.3, 0.5, 1.0, 1.5]
 
@@ -323,7 +323,7 @@ class magdroneControlNode():
 
     def stateMachine(self, x_drone, y_drone, z_drone):
         x_des = -0.165
-        y_des =  0.0
+        y_des = 0.0
         if self.mission_id == 1:
 
             z_des = self.desired_positions_m1[self.state_id]
@@ -335,12 +335,12 @@ class magdroneControlNode():
                     self.state_id += 1
                     rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id]))
             else:
-                if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.05):
+                if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.075):
                     if (self.state_id < len(self.desired_positions_m1) - 1):
                         self.state_id += 1
                         rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id]))
 
-            z_des = self.desired_positions_m1[self.state_id] + self.struct_z
+            z_des = self.desired_positions_m1[self.state_id]
 
         elif self.mission_id == 2:
 
@@ -353,7 +353,7 @@ class magdroneControlNode():
                     self.state_id += 1
                     rp.loginfo("New target altitude is: " + str(self.desired_positions_m2[self.state_id]))
             else:
-                if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.05):
+                if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.075):
                     if (self.state_id < len(self.desired_positions_m2) - 1):
                         self.state_id += 1
                         rp.loginfo("New target altitude is: " + str(self.desired_positions_m2[self.state_id]))
@@ -450,7 +450,7 @@ class magdroneControlNode():
 
         # Desired position
         des_position = self.stateMachine(x_drone, y_drone, z_drone)
-
+        
         # Calculate error
         dx = des_position[0] - x_drone
         dy = des_position[1] - y_drone
@@ -545,13 +545,13 @@ class magdroneControlNode():
                     # 1.3 degrees -> 0.023 rad
                     # 0.5 degrees -> 0.008 rad
                     linear_z_cmd = self.clip_command(uZ + 0.5, 0.6, 0.4)
-                    linear_y_cmd = self.clip_command(uY - 0.023, 0.131, -0.131)
-                    linear_x_cmd = self.clip_command(uX + 0.008, 0.131, -0.131)
+                    linear_y_cmd = self.clip_command(uY + 0.0, 0.131, -0.131)
+                    linear_x_cmd = self.clip_command(uX + 0.0, 0.131, -0.131)
                     angular_z_cmd = self.clip_command(uW, 0.087, -0.087)
                 else:
                     linear_z_cmd = 0.5
-                    linear_y_cmd = -0.023
-                    linear_x_cmd = 0.008
+                    linear_y_cmd = 0.0
+                    linear_x_cmd = 0.0
                     angular_z_cmd = 0.0
                     rp.logwarn(
                         "Marker lost for more than a second!!! Hovering")
