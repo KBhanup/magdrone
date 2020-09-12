@@ -126,9 +126,9 @@ class magdroneControlNode():
         self.struct_y = 0.0
         self.struct_z = 2.00
         # Mission 1.
-        self.desired_positions_m1 = [1.1, 0.9, 0.7, 0.5, 0.3, 0.0, 0.5]
+        self.desired_positions_m1 = [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.4, 0.1, 0.5]
         # Mission 2
-        self.desired_positions_m2 = [0.4, 0.3, 0.0, 0.3, 0.5, 1.0, 1.5]
+        self.desired_positions_m2 = [0.4, 0.1, 0.4, 0.7, 1.0, 1.4]
 
         # Constant transformations
         self.q_CwD = [0, -0.7071, 0.7071, 0]
@@ -155,13 +155,13 @@ class magdroneControlNode():
         DEFAULT_TAKEOFF_THRUST = 0.55
         SMOOTH_TAKEOFF_THRUST = 0.52
 
-        # rp.loginfo("Basic pre-arm checks")
+        rp.loginfo("Basic pre-arm checks")
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
-        # while not self.vehicle.is_armable:
-        #     rp.loginfo(" Waiting for vehicle to initialise...")
-        #     time.sleep(1)
+        #while not self.vehicle.is_armable:
+        #    rp.loginfo(" Waiting for vehicle to initialise...")
+        #    time.sleep(1)
 
         rp.loginfo("Arming motors")
         #  GUIDED_NOGPS mode is recommended by DroneKit
@@ -322,7 +322,7 @@ class magdroneControlNode():
     '''
 
     def stateMachine(self, x_drone, y_drone, z_drone):
-        x_des = -0.165
+        x_des = -0.06
         y_des = 0.0
         if self.mission_id == 1:
 
