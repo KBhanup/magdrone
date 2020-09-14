@@ -119,6 +119,11 @@ class magdroneControlNode():
         self.state_id = 0
         self.magnet_engaged = True
         self.docked = True
+        self.w_drone = 0.0
+        self.target_x = -0.11
+        self.target_y =  0.0
+        self.deployed_x = self.target_x
+        self.deployed_y = self.target_y
 
         # Desired positions for misions 1 and 2
         # Offset is reduced because of the addition of the sensor package
@@ -312,7 +317,7 @@ class magdroneControlNode():
             self.state_id = 0
         if data.buttons[4] == 1.0:
             if not self.on_mission:
-                rp.loginfo("Starting Mission " + str(self.mission_id))
+                rp.loginfo("Starting Mission %d", self.mission_id)
             else:
                 rp.loginfo("Mission Canceled")
             self.on_mission = not self.on_mission
@@ -322,10 +327,9 @@ class magdroneControlNode():
     '''
 
     def stateMachine(self, x_drone, y_drone, z_drone):
-        x_des = -0.06
-        y_des = 0.0
         if self.mission_id == 1:
-
+            x_des = self.target_x
+            y_des = self.target_y
             z_des = self.desired_positions_m1[self.state_id]
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
@@ -333,17 +337,18 @@ class magdroneControlNode():
             if (self.state_id == len(self.desired_positions_m1) - 2):
                 if not self.docked:
                     self.state_id += 1
-                    rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id]))
+                    rp.loginfo("New target altitude is %f", self.desired_positions_m1[self.state_id])
             else:
                 if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.075):
                     if (self.state_id < len(self.desired_positions_m1) - 1):
                         self.state_id += 1
-                        rp.loginfo("New target altitude is: " + str(self.desired_positions_m1[self.state_id]))
+                        rp.loginfo("New target altitude is %f", self.desired_positions_m1[self.state_id])
 
             z_des = self.desired_positions_m1[self.state_id]
 
         elif self.mission_id == 2:
-
+            x_des = self.deployed_x
+            y_des = self.deployed_y
             z_des = self.desired_positions_m2[self.state_id]
 
             check = self.checkState([x_drone, y_drone, z_drone], [x_des, y_des, z_des])
@@ -351,12 +356,12 @@ class magdroneControlNode():
             if (self.state_id == 1):
                 if self.docked:
                     self.state_id += 1
-                    rp.loginfo("New target altitude is: " + str(self.desired_positions_m2[self.state_id]))
+                    rp.loginfo("New target altitude is %f", self.desired_positions_m2[self.state_id])
             else:
                 if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.075):
                     if (self.state_id < len(self.desired_positions_m2) - 1):
                         self.state_id += 1
-                        rp.loginfo("New target altitude is: " + str(self.desired_positions_m2[self.state_id]))
+                        rp.loginfo("New target altitude is %f", self.desired_positions_m2[self.state_id])
 
             z_des = self.desired_positions_m2[self.state_id]
 
@@ -443,22 +448,22 @@ class magdroneControlNode():
 
     def update_error(self, X):
         # Get current pose wrt Aruco
-        w_drone = -X.item(8)
+        self.w_drone = -X.item(8)
         x_drone = X.item(0)
         y_drone = X.item(1)
         z_drone = X.item(2)
 
         # Desired position
         des_position = self.stateMachine(x_drone, y_drone, z_drone)
-        
+
         # Calculate error
         dx = des_position[0] - x_drone
         dy = des_position[1] - y_drone
         dz = z_drone - des_position[2]
-        dw = w_drone
+        dw = self.w_drone
 
         # Translate error from optitrack frame to drone body frame
-        drone_error = rotate_vector(dx, dy, w_drone)
+        drone_error = rotate_vector(dx, dy, self.w_drone)
 
         self.x_error = drone_error[0]
         self.y_error = drone_error[1]
@@ -470,7 +475,7 @@ class magdroneControlNode():
             self.w_error = dw
 
         # Translate error rate from optitrack frame to drone body frame
-        drone_error_rate = rotate_vector(-X.item(3), -X.item(4), w_drone)
+        drone_error_rate = rotate_vector(-X.item(3), -X.item(4), self.w_drone)
 
         # Update rate errors
         self.x_error_d = drone_error_rate[0]
@@ -578,6 +583,10 @@ class magdroneControlNode():
                     self.magnet_engaged = False
                     t = threading.Thread(target=self.disengage_magnet)
                     t.start()
+                    deployed_at = rotate_vector(self.x_error, self.y_error, -self.w_drone)
+                    self.deployed_x = deployed_at[0]
+                    self.deployed_y = deployed_at[1]
+                    rp.loginfo("Sensor deployed at (%f, %f)", self.deployed_x, self.deployed_y)
 
                 if (self.mission_id == 2) & (self.state_id == 1) & (not self.magnet_engaged):
                     self.magnet_engaged = True
