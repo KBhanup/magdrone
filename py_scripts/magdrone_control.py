@@ -14,7 +14,8 @@ from pymavlink import mavutil
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
 
-def to_quaternion(roll = 0.0, pitch = 0.0, yaw = 0.0):
+
+def to_quaternion(roll=0.0, pitch=0.0, yaw=0.0):
     """
     Convert degrees to quaternions
     """
@@ -32,21 +33,15 @@ def to_quaternion(roll = 0.0, pitch = 0.0, yaw = 0.0):
 
     return [w, x, y, z]
 
+
 class magdroneControlNode():
 
     def __init__(self):
         rp.init_node("magdrone_node")
 
-        #print('Running magrdone_control.py')
-
-	    # Create log file
-    	#self.log_file = open("log.txt", 'a');
-
-        # Create log book
-        # self.log_book = LogBook("test_flight")
-
         # Set up Subscribers
-        self.joy_sub = rp.Subscriber("/joy", Joy, self.joy_callback, queue_size=1)
+        self.joy_sub = rp.Subscriber(
+            "/joy", Joy, self.joy_callback, queue_size=1)
 
         # Set up Publishers
 
@@ -67,7 +62,7 @@ class magdroneControlNode():
 
         rp.spin()
 
-    def arm_and_takeoff_nogps(self, aTargetAltitude = -1.0):
+    def arm_and_takeoff_nogps(self, aTargetAltitude=-1.0):
         """
         Arms vehicle and fly to aTargetAltitude without GPS data.
         """
@@ -79,13 +74,13 @@ class magdroneControlNode():
         # Don't let the user try to arm until autopilot is ready
         # If you need to disable the arming check,
         # just comment it with your own responsibility.
-        #while not self.vehicle.is_armable:
-         #   print(" Waiting for vehicle to initialise...")
-          #  time.sleep(1)
+        # while not self.vehicle.is_armable:
+        #   print(" Waiting for vehicle to initialise...")
+        #  time.sleep(1)
 
         print("Arming motors")
         #  GUIDED_NOGPS mode is recommended by DroneKit
-        self.vehicle.mode = VehicleMode("GUIDED_NOGPS") 
+        self.vehicle.mode = VehicleMode("GUIDED_NOGPS")
         self.vehicle.armed = True
 
         while not self.vehicle.armed:
@@ -102,18 +97,19 @@ class magdroneControlNode():
             while True:
                 current_altitude = self.vehicle.location.global_relative_frame.alt
                 print(" Altitude: %f  Desired: %f" %
-                    (current_altitude, aTargetAltitude))
-                if current_altitude >= aTargetAltitude*0.95: # Trigger just below target alt.
+                      (current_altitude, aTargetAltitude))
+                # Trigger just below target alt.
+                if current_altitude >= aTargetAltitude*0.95:
                     print("Reached target altitude")
                     break
                 elif current_altitude >= aTargetAltitude*0.6:
                     thrust = SMOOTH_TAKEOFF_THRUST
-                self.set_attitude(thrust = thrust)
+                self.set_attitude(thrust=thrust)
                 time.sleep(0.2)
 
-    def send_attitude_target(self, roll_angle = 0.0, pitch_angle = 0.0,
-                             yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False,
-                             thrust = 0.5):
+    def send_attitude_target(self, roll_angle=0.0, pitch_angle=0.0,
+                             yaw_angle=None, yaw_rate=0.0, use_yaw_rate=False,
+                             thrust=0.5):
         """
         use_yaw_rate: the yaw can be controlled using yaw_angle OR yaw_rate.
                       When one is used, the other is ignored by Ardupilot.
@@ -128,21 +124,21 @@ class magdroneControlNode():
         # Thrust == 0.5: Hold the altitude
         # Thrust <  0.5: Descend
         msg = self.vehicle.message_factory.set_attitude_target_encode(
-            0, # time_boot_ms
-            1, # Target system
-            1, # Target component
+            0,  # time_boot_ms
+            1,  # Target system
+            1,  # Target component
             0b00000000 if use_yaw_rate else 0b00000100,
-            to_quaternion(roll_angle, pitch_angle, yaw_angle), # Quaternion
-            0, # Body roll rate in radian
-            0, # Body pitch rate in radian
-            math.radians(yaw_rate), # Body yaw rate in radian/second
+            to_quaternion(roll_angle, pitch_angle, yaw_angle),  # Quaternion
+            0,  # Body roll rate in radian
+            0,  # Body pitch rate in radian
+            math.radians(yaw_rate),  # Body yaw rate in radian/second
             thrust  # Thrust
         )
         self.vehicle.send_mavlink(msg)
 
-    def set_attitude(self, roll_angle = 0.0, pitch_angle = 0.0,
-                     yaw_angle = None, yaw_rate = 0.0, use_yaw_rate = False,
-                     thrust = 0, duration = 0.1):
+    def set_attitude(self, roll_angle=0.0, pitch_angle=0.0,
+                     yaw_angle=None, yaw_rate=0.0, use_yaw_rate=False,
+                     thrust=0, duration=0.1):
         """
         Note that from AC3.3 the message should be re-sent more often than every
         second, as an ATTITUDE_TARGET order has a timeout of 1s.
@@ -151,116 +147,115 @@ class magdroneControlNode():
         Sending the message multiple times is the recommended way.
         """
         self.send_attitude_target(roll_angle, pitch_angle,
-                             yaw_angle, yaw_rate, use_yaw_rate,
-                             thrust)
+                                  yaw_angle, yaw_rate, use_yaw_rate,
+                                  thrust)
         start = time.time()
         while time.time() - start < duration:
             self.send_attitude_target(roll_angle, pitch_angle,
-                                 yaw_angle, yaw_rate, use_yaw_rate,
-                                 thrust)
+                                      yaw_angle, yaw_rate, use_yaw_rate,
+                                      thrust)
             time.sleep(duration)
         # Reset attitude, or it will persist for 1s more due to the timeout
         self.send_attitude_target(0, 0, 0, 0, True, thrust)
-	#msg = "            actual roll: " + str(roll_angle) + " actual pitch: " + str(pitch_angle)
-	#print(msg)
+        #msg = "            actual roll: " + str(roll_angle) + " actual pitch: " + str(pitch_angle)
+        # print(msg)
 
     def joy_callback(self, data):
         self.cmds = Twist()
 
         # Joystick Controls
-        self.cmds.linear.x  = data.axes[2]*10 #roll
-        self.cmds.linear.y  = data.axes[3]*10 #pitch
-        self.cmds.linear.z  = 0.2 * data.axes[1] + 0.5 #thrust
-        self.cmds.angular.z = data.axes[0]*10 #yaw
+        self.cmds.linear.x = data.axes[2]*10  # roll
+        self.cmds.linear.y = data.axes[3]*10  # pitch
+        self.cmds.linear.z = 0.2 * data.axes[1] + 0.5  # thrust
+        self.cmds.angular.z = data.axes[0]*10  # yaw
 
         # Button Controls
         self.dsrm = data.buttons[0]
         self.land = data.buttons[1]
         self.arm = data.buttons[9]
-	    self.mag = data.axes[5]
-	    self.exit = data.buttons[2]
+        self.mag = data.axes[5]
+        self.exit = data.buttons[2]
 
     def engage_magnet(self):
-	msg_hi = self.vehicle.message_factory.command_long_encode(
-        	0, 0,   # target_system, target_command
-        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-		0,
-        	8,    # servo number
-        	2006, # servo position
-        	0, 0, 0, 0, 0)
+        msg_hi = self.vehicle.message_factory.command_long_encode(
+            0, 0,   # target_system, target_command
+            mavutil.mavlink.MAV_CMD_DO_SET_SERVO,  # command
+            0,
+            8,    # servo number
+            2006,  # servo position
+            0, 0, 0, 0, 0)
 
-    	msg_neut = self.vehicle.message_factory.command_long_encode(
-        	0, 0,   # target_system, target_command
-        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-		0,
-        	8,    # servo number
-        	1500, # servo position
-        	0, 0, 0, 0, 0)
+        msg_neut = self.vehicle.message_factory.command_long_encode(
+            0, 0,   # target_system, target_command
+            mavutil.mavlink.MAV_CMD_DO_SET_SERVO,  # command
+            0,
+            8,    # servo number
+            1500,  # servo position
+            0, 0, 0, 0, 0)
 
-    	#send command
-	self.vehicle.send_mavlink(msg_hi)
-    	print("Magnet Engaged")
-    	time.sleep(5)
-    	self.vehicle.send_mavlink(msg_neut)
-    	print("Magnet in Neutral")
-    	print("complete")
-
+        # send command
+        self.vehicle.send_mavlink(msg_hi)
+        print("Magnet Engaged")
+        time.sleep(5)
+        self.vehicle.send_mavlink(msg_neut)
+        print("Magnet in Neutral")
+        print("complete")
 
     def disengage_magnet(self):
-	msg_lo = self.vehicle.message_factory.command_long_encode(
-        	0, 0,   # target_system, target_command
-        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-		0,
-        	8,    # servo number
-        	982, # servo position
-        	0, 0, 0, 0, 0)
+        msg_lo = self.vehicle.message_factory.command_long_encode(
+            0, 0,   # target_system, target_command
+            mavutil.mavlink.MAV_CMD_DO_SET_SERVO,  # command
+            0,
+            8,    # servo number
+            982,  # servo position
+            0, 0, 0, 0, 0)
 
-    	msg_neut = self.vehicle.message_factory.command_long_encode(
-        	0, 0,   # target_system, target_command
-        	mavutil.mavlink.MAV_CMD_DO_SET_SERVO, # command
-		0,
-        	8,    # servo number
-        	1500, # servo position
-        	0, 0, 0, 0, 0)
+        msg_neut = self.vehicle.message_factory.command_long_encode(
+            0, 0,   # target_system, target_command
+            mavutil.mavlink.MAV_CMD_DO_SET_SERVO,  # command
+            0,
+            8,    # servo number
+            1500,  # servo position
+            0, 0, 0, 0, 0)
 
-    	#send command
-	self.vehicle.send_mavlink(msg_lo)
-    	print("Magnet Disengaged")
-    	time.sleep(5)
-    	self.vehicle.send_mavlink(msg_neut)
-    	print("Magnet in Neutral")
-    	print("complete")
-
-
+        # send command
+        self.vehicle.send_mavlink(msg_lo)
+        print("Magnet Disengaged")
+        time.sleep(5)
+        self.vehicle.send_mavlink(msg_neut)
+        print("Magnet in Neutral")
+        print("complete")
 
     def send_commands(self):
         print("Accepting Commands")
         r = rp.Rate(self.rate)
         while not rp.is_shutdown():
-            #print(self.vehicle.attitude.yaw)
+            # print(self.vehicle.attitude.yaw)
             if self.cmds is not None:
 
-                 
-                self.set_attitude(roll_angle = -self.cmds.linear.x, pitch_angle = -self.cmds.linear.y, yaw_angle = None, yaw_rate = -self.cmds.angular.z, use_yaw_rate = True, thrust = self.cmds.linear.z, duration=1.0/self.rate)
+                self.set_attitude(roll_angle=-self.cmds.linear.x, pitch_angle=-self.cmds.linear.y, yaw_angle=None,
+                                  yaw_rate=-self.cmds.angular.z, use_yaw_rate=True, thrust=self.cmds.linear.z, duration=1.0/self.rate)
 
-		msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
-		print(msg)
+                msg = "thrust: " + str(self.cmds.linear.z) + " roll angle: " + str(
+                    self.cmds.linear.x) + " pitch angle: " + str(self.cmds.linear.y)
+                print(msg)
                 if self.land > 0:
-		    print("Landing")
+                    print("Landing")
                     print("setting LAND mode")
                     self.vehicle.mode = VehicleMode("LAND")
                 if self.arm > 0:
                     print("Arming...")
                     self.arm_and_takeoff_nogps()
-		if self.mag > 0:
-		    print("Engaging Magnet")
-		    self.engage_magnet()
-		if self.mag < 0:
-		    print("Disengaging Magnet")
-		    self.disengage_magnet()
-		if self.exit > 0:
-		    print("Switched to manual controls")
+                if self.mag > 0:
+                    print("Engaging Magnet")
+                    self.engage_magnet()
+                if self.mag < 0:
+                    print("Disengaging Magnet")
+                    self.disengage_magnet()
+                if self.exit > 0:
+                    print("Switched to manual controls")
             r.sleep()
+
 
 # Start Node
 magdrone = magdroneControlNode()
