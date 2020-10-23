@@ -358,7 +358,7 @@ class magdroneControlNode():
                     self.state_id += 1
                     rp.loginfo("New target altitude is %f", self.desired_positions_m2[self.state_id])
             else:
-                if (check[0] < 0.05) & (check[1] < 0.05) & (check[2] < 0.075):
+                if (check[0] < 0.035) & (check[1] < 0.035) & (check[2] < 0.05):
                     if (self.state_id < len(self.desired_positions_m2) - 1):
                         self.state_id += 1
                         rp.loginfo("New target altitude is %f", self.desired_positions_m2[self.state_id])
@@ -447,9 +447,12 @@ class magdroneControlNode():
         self.vehicle.send_mavlink(msg_neut)
         rp.loginfo("Magnet in Neutral")
         self.docked = False
+
         deployed_at = rotate_vector(self.x_error, self.y_error, -self.w_drone)
         self.deployed_x = deployed_at[0]
         self.deployed_y = deployed_at[1]
+        self.target_x = self.deployed_x
+        self.target_y = self.deployed_y
         rp.loginfo("Sensor deployed at (%f, %f)", self.deployed_x, self.deployed_y)
 
     def update_error(self, X):
