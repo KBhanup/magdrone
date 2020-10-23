@@ -73,7 +73,7 @@ class magdroneControlNode():
 
         # Connect to the Vehicle
         rp.loginfo('Connecting to Vehicle')
-        self.vehicle = connect('/dev/serial0', wait_ready=True, baud=57600)
+        self.vehicle = connect('/dev/ttyUSB0', wait_ready=True, baud=57600)
 
         # Create Filter Node
         self.filter = FilterNode()
@@ -95,7 +95,7 @@ class magdroneControlNode():
             "aruco_state/rates", TwistStamped, queue_size=1)
 
         # Set up Controllers
-        self.kp_z = 0.45
+        self.kp_z = 0.4
         self.kd_z = 0.3
         self.kp_y = 0.18
         self.kd_y = 0.15
@@ -120,7 +120,7 @@ class magdroneControlNode():
         self.magnet_engaged = True
         self.docked = True
         self.w_drone = 0.0
-        self.target_x = -0.11
+        self.target_x = -0.1
         self.target_y =  0.0
         self.deployed_x = self.target_x
         self.deployed_y = self.target_y
@@ -131,7 +131,7 @@ class magdroneControlNode():
         self.struct_y = 0.0
         self.struct_z = 2.00
         # Mission 1.
-        self.desired_positions_m1 = [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.4, 0.1, 0.5]
+        self.desired_positions_m1 = [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.4, 0.1, 0.6]
         # Mission 2
         self.desired_positions_m2 = [0.4, 0.1, 0.4, 0.7, 1.0, 1.4]
 
@@ -366,6 +366,8 @@ class magdroneControlNode():
             z_des = self.desired_positions_m2[self.state_id]
 
         elif self.mission_id == 3:
+            x_des = 0.0
+            y_des = 0.0
             z_des = 1.0
 
         elif self.mission_id == 4:
@@ -445,6 +447,10 @@ class magdroneControlNode():
         self.vehicle.send_mavlink(msg_neut)
         rp.loginfo("Magnet in Neutral")
         self.docked = False
+        deployed_at = rotate_vector(self.x_error, self.y_error, -self.w_drone)
+        self.deployed_x = deployed_at[0]
+        self.deployed_y = deployed_at[1]
+        rp.loginfo("Sensor deployed at (%f, %f)", self.deployed_x, self.deployed_y)
 
     def update_error(self, X):
         # Get current pose wrt Aruco
@@ -550,7 +556,7 @@ class magdroneControlNode():
                     # 1.3 degrees -> 0.023 rad
                     # 0.5 degrees -> 0.008 rad
                     linear_z_cmd = self.clip_command(uZ + 0.5, 0.6, 0.4)
-                    linear_y_cmd = self.clip_command(uY + 0.0, 0.131, -0.131)
+                    linear_y_cmd = self.clip_command(uY + 0.02, 0.131, -0.131)
                     linear_x_cmd = self.clip_command(uX + 0.0, 0.131, -0.131)
                     angular_z_cmd = self.clip_command(uW, 0.087, -0.087)
                 else:
@@ -583,10 +589,6 @@ class magdroneControlNode():
                     self.magnet_engaged = False
                     t = threading.Thread(target=self.disengage_magnet)
                     t.start()
-                    deployed_at = rotate_vector(self.x_error, self.y_error, -self.w_drone)
-                    self.deployed_x = deployed_at[0]
-                    self.deployed_y = deployed_at[1]
-                    rp.loginfo("Sensor deployed at (%f, %f)", self.deployed_x, self.deployed_y)
 
                 if (self.mission_id == 2) & (self.state_id == 1) & (not self.magnet_engaged):
                     self.magnet_engaged = True
