@@ -1,6 +1,6 @@
 <launch>
     <!-- Start ArUco bundle tracking -->
-    <include file="$(find magdrone)/launch/aruco_bundle_piCam_3.launch"/>
+    <include file="$(find magdrone)/launch/aruco_bundle_logi_3.launch"/>
 
     <!-- Start joy_node -->
     <node pkg="joy" type="joy_node" name="joy_node"/>

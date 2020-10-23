@@ -1,6 +1,6 @@
 <launch>
     <!-- Start piCam -->
-    <include file="$(find usb_camera)/launch/logi_cam_640x480.launch"/>
+    <!--include file="$(find usb_camera)/launch/logi_cam_640x480.launch"/-->
 
     <node pkg="aruco_ros" type="marker_publisher" name="aruco_marker_publisher" required="false" output="screen">
         <remap from="/camera_info" to="/usb_cam/camera_info" />
@@ -9,7 +9,7 @@
         <param name="marker_size"        value=".05"/>
         <param name="reference_frame"    value="cam_frame"/>
         <param name="camera_frame"       value="cam_frame"/>
-        <param name="tag_config_json"    value="$(find magdrone)/aruco_bundlev3.json"/>
+        <param name="tag_config_json"    value="$(find magdrone)/cfg/aruco_bundlev3.json"/>
     </node>
 
 </launch>

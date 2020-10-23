@@ -34,4 +34,7 @@
 *.pyc
 *.swp
 *.swo
+
+# Log files
+py_scripts/Logs/*
 *.bag

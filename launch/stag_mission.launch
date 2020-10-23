@@ -1,0 +1,14 @@
+<launch>
+    <!-- Start ArUco bundle tracking -->
+    <include file="$(find magdrone)/launch/stag_bundle_logi.launch"/>
+
+    <!-- Start joy_node -->
+    <node pkg="joy" type="joy_node" name="joy_node"/>
+
+    <!-- Start flight data log-->
+    <!--include file="$(find magdrone)/launch/log_stag.launch"/-->
+
+    <!-- Start aruco mission script -->
+    <node pkg="magdrone" type="ceiling_deploy.py" name="magdrone_ceiling" output="screen"/>
+
+</launch>

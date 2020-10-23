@@ -12,7 +12,7 @@
 /aruco_state/pose
 /aruco_state/rates
 
-/aruco_marker_publisher/bundles
+/stag_ros/bundles
 
 /opti_state/pose
 /opti_state/rates

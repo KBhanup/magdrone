@@ -1,0 +1,9 @@
+<launch>
+    <!--Start Stag Node-->
+    <node name="stag_node" pkg="stag_ros" type="stag_node" output="screen" required="true">
+        <!-- Place the correct yaml file here-->
+        <rosparam command="load" file="$(find magdrone)/cfg/stag_bundle_2.yaml"/>
+        <!-- Place the correct bundle file here-->
+        <rosparam command="load" file="$(find magdrone)/cfg/stag_bundle_config_2.yaml"/>
+    </node>
+</launch>
