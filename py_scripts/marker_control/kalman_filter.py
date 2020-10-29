@@ -70,6 +70,9 @@ class KalmanFilter:
         self.F[0:3,  3:6] = dt * np.matrix(np.eye(3))
         self.F[6:9,  9:12] = dt * np.matrix(np.eye(3))
 
+    def get_prediction(self):
+        return self.F * self.X
+
     def predict(self):
         self.X = self.F * self.X
         self.P = self.F * self.P * self.F.T + self.Q

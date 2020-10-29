@@ -294,7 +294,8 @@ class magdroneControlNode():
         R = [-q_BwD[1], -q_BwD[2], -q_BwD[3], q_BwD[0]]
 
         self.lastOnline = time.time()
-        self.filter.state_update(T, R, self.lastOnline)
+        filter_update_time = data.header.stamp.secs + 1.0e-9 * data.header.stamp.nsecs
+        self.filter.state_update(T, R, filter_update_time)
 
     def joy_callback(self, data):
         # Button Controls

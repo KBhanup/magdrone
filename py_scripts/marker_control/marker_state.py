@@ -95,16 +95,9 @@ class FilterNode():
         if self.isInit:
             timeNow = time.time()
             dt = timeNow - self.lastTime
-            self.lastTime = timeNow
 
-            # Prediction
+            # Get a prediction
             self.kalmanF.updateF(dt)
-            self.kalmanF.updateQ()
-            self.kalmanF.predict()
-
-            # Update state
-            self.X = self.kalmanF.getState()
-
-            return self.X
+            return self.kalmanF.get_prediction()
         else:
             return None
