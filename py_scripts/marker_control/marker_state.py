@@ -29,14 +29,12 @@ class FilterNode():
 
         # Initial State Transition Matrix
         self.F = np.asmatrix(np.eye(self.n))
-        self.F[3:6,  3:6] = 0.975 * np.matrix(np.eye(3))
-        self.F[9:12, 9:12] = 0.975 * np.matrix(np.eye(3))
 
         # Initial Process Matrix
         self.P = np.asmatrix(1.0e3 * np.eye(self.n))
 
         # Process Noise Level
-        self.N = 1.0e-3
+        self.N = 1.0e-2
 
         # Initialize H and R matrices for optitrack pose
         self.Hopti = np.matrix(np.zeros((6, self.n)))
@@ -44,8 +42,8 @@ class FilterNode():
         self.Hopti[3:6, 6:9] = np.matrix(np.eye(3))
 
         self.Ropti = np.matrix(np.zeros((6, 6)))
-        self.Ropti[0:3, 0:3] = 1.0 * 1.0e-3 * np.matrix(np.eye(3))
-        self.Ropti[3:6, 3:6] = 1.0 * 1.0e-2 * np.matrix(np.eye(3))
+        self.Ropti[0:3, 0:3] = 1.0e-3 * np.matrix(np.eye(3))
+        self.Ropti[3:6, 3:6] = 1.0e-3 * np.matrix(np.eye(3))
 
         # Initialize Kalman Filter
         self.kalmanF = KalmanFilter()

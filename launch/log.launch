@@ -1,7 +1,7 @@
 <launch>
 	<!-- Start recording the flight log data -->
 	<node pkg="rosbag" type="record" name="flight_log_bagfile" output="screen"
-		  args="record -o /home/src2/catkin_ws/src/magdrone/py_scripts/Logs/flight
+		  args="record -o /home/odroid/catkin_ws/src/magdrone/py_scripts/Logs/flight
 
 /rosout
 /rosout_agg

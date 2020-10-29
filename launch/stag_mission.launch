@@ -1,5 +1,5 @@
 <launch>
-    <!-- Start ArUco bundle tracking -->
+    <!-- Start STag bundle tracking -->
     <include file="$(find magdrone)/launch/stag_bundle_logi.launch"/>
 
     <!-- Start joy_node -->

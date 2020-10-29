@@ -79,8 +79,8 @@ class magdroneControlNode():
         self.filter = FilterNode()
 
         # Set up Controllers
-        self.kp_z = 0.3
-        self.kd_z = 0.2
+        self.kp_z = 0.45
+        self.kd_z = 0.3
         self.kp_y = 0.18
         self.kd_y = 0.15
         self.kp_x = 0.18
@@ -129,6 +129,10 @@ class magdroneControlNode():
             "/stag_ros/bundles", PoseStamped, self.stag_callback, queue_size=1)
         self.joy_sub = rp.Subscriber(
             "/joy", Joy, self.joy_callback, queue_size=1)
+        self.pose_sub = rp.Subscriber(
+            "/opti_state/pose", PoseStamped, self.pose_callback, queue_size=1)
+        self.pose_sub = rp.Subscriber(
+            "/opti_state/rates", TwistStamped, self.rate_callback, queue_size=1)
 
         # Set up Publishers
         self.setpoint_pub = rp.Publisher(
@@ -138,8 +142,8 @@ class magdroneControlNode():
         self.state_pub = rp.Publisher(
             "/aruco_state/pose", PoseStamped, queue_size=1)
         self.state_rate_pub = rp.Publisher(
-            "aruco_state/rates", TwistStamped, queue_size=1)
-
+            "/aruco_state/rates", TwistStamped, queue_size=1)
+        
         # Create thread for publisher
         self.rate = 30
         t = threading.Thread(target=self.send_commands)
@@ -255,6 +259,65 @@ class magdroneControlNode():
         Callbacks
     '''
 
+    def pose_callback(self, data):
+
+        """
+        + z error = + thrust
+        - z error = - thrust
+        + y error = - roll
+        - y error = + roll
+        + x error = + pitch
+        - x error = - pitch
+        """
+        # Define the desired position
+        self.z_des = 1.0  # thrust
+        self.y_des = 0.0  # roll
+        self.x_des = 0.0  # pitch
+        self.yaw_des = 90.0 # yaw in degrees
+
+        #Get orientation data 
+        qw = data.pose.orientation.w
+        qx = data.pose.orientation.x
+        qy = data.pose.orientation.y
+        qz = data.pose.orientation.z
+
+        orientation = to_rpy(qw, qx, qy, qz)
+
+        self.yaw_position = -orientation[2] 
+
+        # Position conversions where the reported position is in terms of the camera frame
+        # z-error = x-tag - z_des = y-camera
+        # y-error = y-tag - y_des = x-camera
+        # x-error = z-tag - x_des = z-camera
+        self.z_error = self.z_des - data.pose.position.z
+        self.y_error = self.y_des - data.pose.position.y
+        self.x_error = self.x_des - data.pose.position.x
+        yaw_diff = self.yaw_des -  self.yaw_position
+
+        # Translate error from optitrack frame to drone body frame
+        drone_error = rotate_vector(self.x_error,self.y_error,self.yaw_position)
+
+        # Update x and y error 
+        self.x_error = drone_error[0]
+        self.y_error = drone_error[1]
+
+        if yaw_diff > 180.0:
+            self.yaw_error = yaw_diff - 360.0
+        else:
+            self.yaw_error = yaw_diff
+
+    def rate_callback(self, data):
+        self.z_error_d = -data.twist.linear.z
+        self.y_error_d = -data.twist.linear.y
+        self.x_error_d = -data.twist.linear.x
+
+        # Translate error rate from optitrack frame to drone body frame
+        drone_error_rate = rotate_vector(self.x_error_d,self.y_error_d,self.yaw_position)
+
+        # Update x and y error rate
+        self.x_error_d = drone_error_rate[0]
+        self.y_error_d = drone_error_rate[1]
+
     def stag_callback(self, data):
         q_BwC = [data.pose.orientation.w,
                  data.pose.orientation.x,
@@ -285,7 +348,6 @@ class magdroneControlNode():
         q_BwD = to_quaternion(roll=-tag_angles[0],
                               pitch=-tag_angles[1],
                               yaw=orientation[2])
-
         q_BwD_i = [q_BwD[0], -q_BwD[1], -q_BwD[2], -q_BwD[3]]
 
         t_DwB = quat_multiply(q_BwD_i, quat_multiply(t_BwD, q_BwD))
@@ -543,7 +605,7 @@ class magdroneControlNode():
             if (time.time() - self.lastOnline < 1.0):
                 X = self.filter.get_state()
                 if X is not None:
-                    self.update_error(X)
+                    # self.update_error(X)
                     t = threading.Thread(target=self.publish_state, args=[X])
                     t.start()
 
@@ -559,8 +621,8 @@ class magdroneControlNode():
                     # 5.0 degrees -> 0.087 rad
                     # 1.3 degrees -> 0.023 rad
                     # 0.5 degrees -> 0.008 rad
-                    linear_z_cmd = self.clip_command(uZ + 0.5, 0.6, 0.4)
-                    linear_y_cmd = self.clip_command(uY + 0.011, 0.131, -0.131)
+                    linear_z_cmd = self.clip_command(uZ + 0.5, 0.65, 0.35)
+                    linear_y_cmd = self.clip_command(uY - 0.011, 0.131, -0.131)
                     linear_x_cmd = self.clip_command(uX + 0.017, 0.131, -0.131)
                     angular_z_cmd = self.clip_command(uW, 0.087, -0.087)
                 else:
@@ -572,7 +634,7 @@ class magdroneControlNode():
                         "Marker lost for more than a second!!! Hovering")
 
                 # Apply commands
-                self.set_attitude(roll_angle=linear_y_cmd,
+                self.set_attitude(roll_angle=-linear_y_cmd,
                                   pitch_angle=-linear_x_cmd,
                                   yaw_angle=None,
                                   yaw_rate=angular_z_cmd,
