@@ -1,0 +1,27 @@
+<launch>
+	<!-- Start recording the flight log data -->
+	<node pkg="rosbag" type="record" name="flight_logjoy_bagfile" output="screen"
+		  args="record -o $(find magdrone)/flight_logsjoyflt
+
+/rosout
+/rosout_agg
+
+/vrpn_client_node/Mag/pose
+/mavros/vision_pose/pose
+
+/diagnostics
+/mavros/state
+/mavros/local_position/odom
+/mavros/imu/data
+/mavros/actuator_control
+/mavros/setpoint_raw/local
+
+
+/joy
+
+
+
+"
+	/>
+</launch>
+

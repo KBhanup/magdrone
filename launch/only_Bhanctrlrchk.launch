@@ -1,0 +1,26 @@
+<launch>
+	
+
+	<!-- Start Joy node -->
+    <node pkg="joy" type="joy_node" name="joy_node"/>
+
+    <!-- Start Camera -->
+    <include file="$(find usb_camera)/launch/logi_cam_640x480.launch"/>
+
+
+    <!-- Start STag bundle tracking -->
+    <include file="$(find stag_ros)/launch/stagNodelet.launch"/>
+
+
+    <!-- Start Px4-Mavros -->
+    <!--include file="$(find f550_testbed)/launch/px4_mocap.launch"/-->
+
+    <!-- Start Controller mission script -->
+	<!--node name="magdrone_deploy" pkg="magdrone" type="Bhanu_controller.py" output="screen"/-->
+
+    <!-- Start Controller mission script -->
+	<node name="magdrone_deploy" pkg="magdrone" type="Bhanu_ceiling_deploy.py" output="screen"/>
+
+
+
+</launch>

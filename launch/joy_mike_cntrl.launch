@@ -1,0 +1,25 @@
+<launch>
+    
+
+    <!-- Start joy_node -->
+    <node pkg="joy" type="joy_node" name="joy_node"/>
+
+
+
+    <!-- Start joy_node mission script -->
+    <node pkg="magdrone" type="joy_control.py" name="joy_control" output="screen"/>
+
+    <!-- Start px4 mavros-->
+    <include file="$(find f550_testbed)/launch/px4_mocap.launch"/>
+
+    <!-- Start vrpn node-->
+    <include file="$(find f550_testbed)/launch/vrpn.launch"/>
+
+    <!-- Start flight data log-->
+    <include file="$(find magdrone)/launch/logjoyflt.launch"/>
+
+
+
+
+
+</launch>

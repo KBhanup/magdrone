@@ -1,0 +1,20 @@
+<launch>
+	<!-- Start flight data log-->
+	<!--include file="$(find magdrone)/launch/log.launch"/-->
+
+	<!-- Start Joy node -->
+    <node pkg="joy" type="joy_node" name="joy_node"/>
+
+	<!-- Start Camera -->
+    <include file="$(find usb_camera)/launch/logi_cam_640x480.launch"/>
+
+	<!-- Start Stag_package -->
+    <include file="$(find stag_ros)/launch/stagNodelet.launch"/>
+
+	<!-- Start mavros_PX4 (check if timesync error use f550 mavros) -->
+	<!--include file="$(find magdrone)/launch/px4.launch"/-->
+
+
+	<!-- Start Controller mission script -->
+	<node name="magdrone_deploy" pkg="magdrone" type="Bhanu_controller.py" output="screen"/>
+</launch>

@@ -1,0 +1,22 @@
+<launch>
+	<!-- Start recording the flight log data -->
+	<node pkg="rosbag" type="record" name="flight_log_bagfile" output="screen"
+		  args="record -o $(find px4_with_vision)/flight_logs/Vio
+
+/rosout
+/rosout_agg
+
+/stag_ros/bundles
+/mavros/vision_pose/pose
+/mavros/local_position/pose
+/mavros/imu/data
+/mavros/rc/in
+/mavros/state
+
+/commands
+
+
+
+"
+	/>
+</launch>
